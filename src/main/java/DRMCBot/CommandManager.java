@@ -39,6 +39,7 @@ public class CommandManager {
         addCommand(new MinecraftCommand());
         addCommand(new ServerinfoCommand());
         addCommand(new UserinfoCommand());
+        addCommand(new CouponLeftCommand());
     }
 
     private void addCommand(ICommand cmd){
