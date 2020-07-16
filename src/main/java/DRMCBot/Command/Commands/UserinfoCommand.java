@@ -105,14 +105,14 @@ public class UserinfoCommand implements ICommand {
                 .setTitle("使用者資訊")
                 .setDescription(description)
                 .addField("使用者名稱：", member.getUser().getName() + "#" + member.getUser().getDiscriminator(), false)
-                .addField("在此群的暱稱",member.getNickname(),false)
-                .addField("上線狀態","還沒寫",false)
-                .addField("在伺服器最高身分組",member.getRoles().get(0).getAsMention(),false)
-                .addField("加入伺服器時間", timeJoinedString,false)
-                .addField("帳號創建時間", timeCreatedString,false)
+                .addField("在此群的暱稱", member.getNickname() != null ? member.getNickname() : "無", false)
+                .addField("上線狀態", "還沒寫", false)
+                .addField("在伺服器最高身分組", member.getRoles().get(0).getAsMention(), false)
+                .addField("加入伺服器時間", timeJoinedString, false)
+                .addField("帳號創建時間", timeCreatedString, false)
                 .setThumbnail(member.getUser().getAvatarUrl())
-                .setFooter(member.getUser().getName()+"#"+member.getUser().getDiscriminator()+"\n"+
-                        "ID:"+member.getUser().getId(),member.getUser().getAvatarUrl());
+                .setFooter(member.getUser().getName() + "#" + member.getUser().getDiscriminator() + "\n" +
+                        "ID:" + member.getUser().getId(), member.getUser().getAvatarUrl());
 
         ctx.getChannel().sendMessage(embed.build()).queue();
 
