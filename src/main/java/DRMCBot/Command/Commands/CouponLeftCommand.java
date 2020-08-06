@@ -2,7 +2,6 @@ package DRMCBot.Command.Commands;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.github.natanbc.reliqua.util.StatusCodeValidator;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import me.duncte123.botcommons.web.WebUtils;
