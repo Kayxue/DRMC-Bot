@@ -26,7 +26,10 @@ public class CouponLeftCommand implements ICommand {
                     });
                 },
                 (error) -> {
-                    ctx.getChannel().sendMessage("失敗").queue();
+                    EmbedBuilder embed=EmbedUtils.defaultEmbed()
+                            .setTitle("發生資料摘取錯誤！")
+                            .setDescription(error.getMessage());
+                    ctx.getChannel().sendMessage(embed.build());
                 }
         );
     }
