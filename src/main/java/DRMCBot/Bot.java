@@ -1,6 +1,8 @@
 package DRMCBot;
 
 import DRMCBot.Database.SQLiteDataSource;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import me.duncte123.botcommons.web.WebUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -23,6 +25,7 @@ public class Bot {
                 .setColor(0x01afef)
                 .setFooter("DRMC Bot")
         );
+
 
         new JDABuilder()
                 .setToken(Config.get("TOKEN"))

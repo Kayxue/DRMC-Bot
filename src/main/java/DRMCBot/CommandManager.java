@@ -40,6 +40,7 @@ public class CommandManager {
         addCommand(new ServerinfoCommand());
         addCommand(new UserinfoCommand());
         addCommand(new CouponLeftCommand());
+        addCommand(new GetMongoDbCollectionCommand());
     }
 
     private void addCommand(ICommand cmd){

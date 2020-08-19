@@ -32,6 +32,7 @@ public class CouponLeftCommand implements ICommand {
                     ctx.getChannel().sendMessage(embed.build());
                 }
         );
+        
     }
 
     @Override

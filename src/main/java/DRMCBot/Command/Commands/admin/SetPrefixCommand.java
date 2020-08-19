@@ -13,7 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-public class SetPrefixCommand implements ICommand {
+public class SetPrefixCommand implements ICommand{
     @Override
     public void handle(CommandContext ctx) {
         final TextChannel channel=ctx.getChannel();

@@ -57,7 +57,6 @@ public class Listener extends ListenerAdapter {
 
             return;
         }
-
         if (raw.startsWith(prefix)){
             manager.handle(event,prefix);
         }

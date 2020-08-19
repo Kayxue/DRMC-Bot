@@ -1,7 +1,7 @@
 package DRMCBot.Database;
 
 public interface DatabaseManager {
-    DatabaseManager INSTANCE = new SQLiteDataSource();
+    DatabaseManager INSTANCE = new MongoDbDataSource();
 
     String getPrefix(long guildId);
 
