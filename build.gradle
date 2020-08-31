@@ -4,11 +4,13 @@ plugins {
     id'com.github.johnrengelman.shadow' version '4.0.4'
 }
 
+group("com.KayCompany")
+
 mainClassName = 'DRMCBot.Bot'
 
 version '1.0'
 
-sourceCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = JavaVersion.VERSION_14
 
 repositories {
     jcenter()
@@ -30,3 +32,39 @@ dependencies {
 }
 
 compileJava.options.encoding = 'UTF-8'
+
+apply plugin: 'maven'
+apply plugin: 'java'
+
+sourceCompatibility = 7
+targetCompatibility = 7
+
+dependencies {
+    compile            'com.google.guava:guava:13.0.1'
+    compile            'joda-time:joda-time:2.1'
+
+    testCompile        'junit:junit:4.11'
+    testCompile        'org.mockito:mockito-core:1.9.5'
+}
+
+task generatePom {
+    doLast {
+        pom {
+            project {
+                groupId=project.group.toString()
+                artifactId 'awesome-app'
+                version version
+
+
+                inceptionYear '2018'
+                licenses {
+                    license {
+                        name 'MIT License'
+                        url 'MIT'
+                        distribution 'repo'
+                    }
+                }
+            }
+        }.writeTo("pom.xml")
+    }
+}

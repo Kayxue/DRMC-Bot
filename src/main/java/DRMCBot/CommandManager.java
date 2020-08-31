@@ -4,6 +4,8 @@ import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.Commands.*;
 import DRMCBot.Command.Commands.admin.SetPrefixCommand;
 import DRMCBot.Command.Commands.music.*;
+import DRMCBot.Command.Commands.suggestion.ApproveCommand;
+import DRMCBot.Command.Commands.suggestion.SuggestionCommand;
 import DRMCBot.Command.ICommand;
 import DRMCBot.Command.Commands.music.QueueCommand;
 import net.dv8tion.jda.api.entities.User;
@@ -41,6 +43,8 @@ public class CommandManager {
         addCommand(new UserinfoCommand());
         addCommand(new CouponLeftCommand());
         addCommand(new GetMongoDbCollectionCommand());
+        addCommand(new SuggestionCommand());
+        addCommand(new ApproveCommand());
     }
 
     private void addCommand(ICommand cmd){

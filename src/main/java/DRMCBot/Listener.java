@@ -1,9 +1,8 @@
 package DRMCBot;
 
-import DRMCBot.Command.CommandContext;
 import DRMCBot.Database.DatabaseManager;
-import DRMCBot.Database.SQLiteDataSource;
 import me.duncte123.botcommons.BotCommons;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
@@ -14,9 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Listener extends ListenerAdapter {
 
@@ -26,6 +25,25 @@ public class Listener extends ListenerAdapter {
     @Override
     public void onReady(@Nonnull ReadyEvent event) {
         LOGGER.info(event.getJDA().getSelfUser().getAsTag()+" is ready");
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+
+        Runnable task = () -> {
+            event.getJDA().getPresence().setActivity(Activity.watching("Welcome to New DL/RS/MC Chatroom"));
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            event.getJDA().getPresence().setActivity(Activity.watching(event.getJDA().getGuilds().size() + "個伺服器"));
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            event.getJDA().getPresence().setActivity(Activity.watching(event.getJDA().getUsers().size() + "位使用者"));
+        };
+
+        executor.scheduleWithFixedDelay(task, 0, 5, TimeUnit.SECONDS);
     }
 
     @Override

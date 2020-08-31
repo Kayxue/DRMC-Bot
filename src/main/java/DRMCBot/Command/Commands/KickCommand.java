@@ -42,7 +42,7 @@ public class KickCommand implements ICommand {
                 .reason(reason)
                 .queue(
                         (__) -> channel.sendMessage("踢除完成！").queue(),
-                        (error)->channel.sendMessageFormat("無法踢出%s",error.getMessage()).queue()
+                        (error)->channel.sendMessageFormat("無法踢出\n%s",error.getMessage()).queue()
                 );
     }
 

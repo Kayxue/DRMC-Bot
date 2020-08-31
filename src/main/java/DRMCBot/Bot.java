@@ -31,7 +31,6 @@ public class Bot {
                 .setToken(Config.get("TOKEN"))
                 .enableCache(CacheFlag.VOICE_STATE)
                 .addEventListeners(new Listener())
-                .setActivity(Activity.playing("Welcome to New DL/RS/MC Chatroom"))
                 .build();
 
     }

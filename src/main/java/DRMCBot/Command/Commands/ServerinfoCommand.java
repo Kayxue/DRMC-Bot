@@ -8,10 +8,8 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.Region;
 import net.dv8tion.jda.api.entities.*;
 
-import javax.swing.*;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.List;
 
