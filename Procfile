@@ -1,0 +1,1 @@
+worker: java -jar build/libs/DRMC-Bot-1.0.jar
