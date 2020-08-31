@@ -33,6 +33,7 @@ dependencies {
 
 compileJava.options.encoding = 'UTF-8'
 
+'''
 apply plugin: 'maven'
 apply plugin: 'java'
 
@@ -68,3 +69,4 @@ task generatePom {
         }.writeTo("pom.xml")
     }
 }
+'''
