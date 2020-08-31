@@ -52,11 +52,11 @@ task generatePom {
         pom {
             project {
                 groupId=project.group.toString()
-                artifactId 'awesome-app'
+                artifactId 'DRMCBot'
                 version version
 
 
-                inceptionYear '2018'
+                inceptionYear '2020'
                 licenses {
                     license {
                         name 'MIT License'

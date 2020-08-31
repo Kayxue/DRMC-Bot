@@ -3,9 +3,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.KayCompany</groupId>
-  <artifactId>awesome-app</artifactId>
+  <artifactId>DRMCBot</artifactId>
   <version>1.0</version>
-  <inceptionYear>2018</inceptionYear>
+  <inceptionYear>2020</inceptionYear>
   <licenses>
     <license>
       <name>MIT License</name>
