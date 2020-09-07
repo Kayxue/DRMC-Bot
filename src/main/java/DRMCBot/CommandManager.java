@@ -4,8 +4,7 @@ import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.Commands.*;
 import DRMCBot.Command.Commands.admin.SetPrefixCommand;
 import DRMCBot.Command.Commands.music.*;
-import DRMCBot.Command.Commands.suggestion.ApproveCommand;
-import DRMCBot.Command.Commands.suggestion.SuggestionCommand;
+import DRMCBot.Command.Commands.suggestion.*;
 import DRMCBot.Command.ICommand;
 import DRMCBot.Command.Commands.music.QueueCommand;
 import net.dv8tion.jda.api.entities.User;
@@ -45,6 +44,11 @@ public class CommandManager {
         addCommand(new GetMongoDbCollectionCommand());
         addCommand(new SuggestionCommand());
         addCommand(new ApproveCommand());
+        addCommand(new ConsiderCommand());
+        addCommand(new DenyCommand());
+        addCommand(new ImplementCommand());
+        addCommand(new QRCodeCommand());
+        addCommand(new WeatherCommand());
     }
 
     private void addCommand(ICommand cmd){
@@ -70,7 +74,7 @@ public class CommandManager {
         return null;
     }
 
-    void handle(GuildMessageReceivedEvent event,String prefix){
+    void handle(GuildMessageReceivedEvent event,String prefix) throws Exception {
         String[] split=event.getMessage().getContentRaw()
                 .replaceFirst("(?i)"+ Pattern.quote(prefix),"")
                 .split("\\s+");

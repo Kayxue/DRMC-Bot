@@ -4,13 +4,10 @@ import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import DRMCBot.Command.music.PlayerManager;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.VoiceChannel;
-import net.dv8tion.jda.api.managers.AudioManager;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 public class PlayCommand implements ICommand {
@@ -27,16 +24,11 @@ public class PlayCommand implements ICommand {
         }
 
         if (!selfVoiceState.inVoiceChannel()) {
-            if (memberVoiceState.inVoiceChannel()){
-                final AudioManager audioManager = ctx.getGuild().getAudioManager();
-                final VoiceChannel memberchannel = memberVoiceState.getChannel();
-
-                audioManager.openAudioConnection(memberchannel);
-                channel.sendMessageFormat("連線至 `\uD83D\udd0a %s`",memberchannel.getName()).queue();
-                memberVoiceState = ctx.getMember().getVoiceState();
-                selfVoiceState = ctx.getSelfMember().getVoiceState();
-            }
+            ctx.getChannel().sendMessage("我不在語音頻道內！").queue();
+            return;
         }
+
+
 
         if (!memberVoiceState.inVoiceChannel()){
             channel.sendMessage("你必須加入一個語音頻道！").queue();
@@ -48,28 +40,26 @@ public class PlayCommand implements ICommand {
             return;
         }
 
-        String input=String.join(" ",args);
+        String link=String.join(" ",args);
 
-        if (!isUrl(input)&&!input.startsWith("ytsearch:")){
-            channel.sendMessage("請輸入有效的Youtube、soundcloud或bandcamp連結").queue();
+        if (!isUrl(link)){
+            link = "ytsearch:" + link;
 
             return;
         }
 
+        DRMCBot.Command.music.PlayerManager manager = PlayerManager.getInstance();
 
-
-        PlayerManager manager=PlayerManager.getInstance();
-
-        manager.loadAndPlay(ctx.getChannel(),input);
+        manager.loadAndPlay(ctx.getChannel(),link);
     }
 
     private boolean isUrl(String input){
         try{
-            new URL(input);
+            new URI(input);
 
             return true;
         }
-        catch (MalformedURLException ignored){
+        catch (URISyntaxException ignored){
             return false;
         }
     }

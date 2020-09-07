@@ -76,7 +76,11 @@ public class Listener extends ListenerAdapter {
             return;
         }
         if (raw.startsWith(prefix)){
-            manager.handle(event,prefix);
+            try {
+                manager.handle(event,prefix);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

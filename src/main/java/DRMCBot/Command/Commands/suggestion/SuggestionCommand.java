@@ -21,12 +21,17 @@ public class SuggestionCommand implements ICommand {
         final User user = ctx.getAuthor();
         final List<String> args = ctx.getArgs();
         final long guildId = ctx.getGuild().getIdLong();
+        if (ctx.getArgs().isEmpty()) {
+            ctx.getChannel().sendMessage("請輸入建議！").queue();
+            return;
+        }
         String suggestion = String.join(" ", args);
         JSONObject channelandsuggestioncount = mongoDbDataSource.getServerSuggestionCount(guildId);
         final TextChannel suggestionsendchannel = ctx.getGuild().getTextChannelById(channelandsuggestioncount.getLong("suggestionchannel"));
         EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed()
                 .setTitle("建議#" + channelandsuggestioncount.getInt("suggestioncount"))
                 .setDescription("建議內容："+suggestion);
+
         suggestionsendchannel.sendMessage(embedBuilder.build()).queue(
                 (message) -> {
                     final long messageId = message.getIdLong();
@@ -50,6 +55,6 @@ public class SuggestionCommand implements ICommand {
 
     @Override
     public String getName() {
-        return "suggestion";
+        return "suggest";
     }
 }

@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'net.dv8tion', name: 'JDA', version: '4.2.0_178'
+    implementation group: 'net.dv8tion', name: 'JDA', version: '4.2.0_200'
     implementation group: 'com.jagrosh', name: 'jda-utilities', version: '3.0.4'
     implementation group: 'me.duncte123', name: 'botCommons', version: '1.0.88'
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
@@ -26,8 +26,13 @@ dependencies {
     implementation group: 'club.minnced', name: 'discord-webhooks', version: '0.3.1'
     implementation group: 'com.zaxxer',name: 'HikariCP',version: '3.4.5'
     implementation group: 'org.xerial',name: 'sqlite-jdbc',version: '3.31.1'
+    '''implementation group: 'net.aksingh',name: 'owm-japis',version: '2.5.3.0'''
     implementation 'com.sedmelluq:lavaplayer:1.3.50'
     implementation 'org.mongodb:mongodb-driver-legacy:4.1.0'
+    implementation 'com.google.zxing:core:3.4.0'
+    implementation 'com.google.zxing:javase:3.4.0'
+    implementation "com.google.guava:guava:29.0-jre"
+
 
 }
 

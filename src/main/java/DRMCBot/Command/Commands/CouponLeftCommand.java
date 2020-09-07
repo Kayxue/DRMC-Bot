@@ -6,33 +6,46 @@ import com.github.natanbc.reliqua.util.StatusCodeValidator;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import me.duncte123.botcommons.web.WebUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
+import org.json.JSONObject;
+
+import java.util.function.Consumer;
 
 public class CouponLeftCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
+
+        if (ctx.getArgs().isEmpty()) {
+            ctx.getChannel().sendMessage("請輸入查詢之郵局！").queue();
+        }
         String input = ctx.getArgs().get(0);
+
+        getdata(input,output -> {
+            output = output.replaceAll("<br>", " ");
+            JSONObject jsonObject = new JSONObject(output);
+            try {
+                ctx.getChannel().sendMessage((CharSequence) jsonObject.get("error")).queue();
+            } catch (Exception e) {
+                EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed();
+            }
+        });
+
+    }
+
+    public void getdata(String input, Consumer<String> output) {
         WebUtils.ins.getJSONArray("https://3000.gov.tw/hpgapi-openmap/api/getPostData",
                 (builder) -> builder.setStatusCodeValidator(StatusCodeValidator.ACCEPT_200)
         ).async(
-                (json) -> {
-                    json.forEach((item)->{
-                        if (item.get("storeNm").asText().equals(input)) {
-                            EmbedBuilder embedBuilder= EmbedUtils.defaultEmbed()
-                                    .setTitle("三倍劵查詢測試")
-                                    .addField("hsnCd",item.get("hsnCd").asText(),false);
-                            ctx.getChannel().sendMessage(embedBuilder.build()).queue();
-                            return;
-                        }
-                    });
-                },
+                (json) -> json.forEach((item)->{
+                    if (item.get("storeNm").asText().equals(input)) {
+                        output.accept(item.toString());
+                    }
+                }),
                 (error) -> {
-                    EmbedBuilder embed=EmbedUtils.defaultEmbed()
-                            .setTitle("發生資料摘取錯誤！")
-                            .setDescription(error.getMessage());
-                    ctx.getChannel().sendMessage(embed.build());
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.append("error", error.getMessage());
+                    output.accept(jsonObject.toString());
                 }
         );
-        
     }
 
     @Override
