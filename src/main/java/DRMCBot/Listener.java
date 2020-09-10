@@ -25,6 +25,7 @@ public class Listener extends ListenerAdapter {
     @Override
     public void onReady(@Nonnull ReadyEvent event) {
         LOGGER.info(event.getJDA().getSelfUser().getAsTag()+" is ready");
+        
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 
         Runnable task = () -> {
@@ -44,6 +45,8 @@ public class Listener extends ListenerAdapter {
         };
 
         executor.scheduleWithFixedDelay(task, 0, 5, TimeUnit.SECONDS);
+
+
     }
 
     @Override
