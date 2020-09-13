@@ -16,12 +16,13 @@ public class WeatherCommand implements ICommand {
 
     final ArrayList<String> searchType = new ArrayList<>(Arrays.asList("current","forecast"));
 
+
     @Override
     public void handle(CommandContext ctx) throws Exception {
-
         List<String> args = ctx.getArgs();
         if (args.isEmpty()||args.size() < 2) {
             ctx.getChannel().sendMessage("請輸入足夠參數！").queue();
+            return;
             //drmc!accuweather current (detailed) taipei city
         }
         if (!searchType.contains(args.get(0))) {
@@ -91,12 +92,7 @@ public class WeatherCommand implements ICommand {
                         .setFooter("資料提供者：AccuWeather (https://www.accuweather.com/)\n資料更新時間："+weatherDataResult.getString("LocalObservationDateTime").split("T")[0]+" "+weatherDataResult.getString("LocalObservationDateTime").split("T")[1].substring(0,8),"https://lh3.ggpht.com/7BB1gD1EJ9g2mcqHfAtMuP0Z5Zg1a1syl4l8GTGIXFUUUpTSbg_txXw99YAVUZ9B8A=h300");
                 ctx.getChannel().sendMessage(embed.build()).queue();
             }
-
         }
-
-
-
-
     }
 
     public static boolean isChinese(char c) {

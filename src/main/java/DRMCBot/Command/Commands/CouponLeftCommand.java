@@ -11,10 +11,10 @@ import net.dv8tion.jda.api.EmbedBuilder;
 public class CouponLeftCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
-
         if (ctx.getArgs().isEmpty()) {
             ctx.getChannel().sendMessage("請輸入查詢之郵局！").queue();
         }
+
         String input = ctx.getArgs().get(0);
 
         WebUtils.ins.getJSONArray("https://3000.gov.tw/hpgapi-openmap/api/getPostData",
@@ -55,9 +55,6 @@ public class CouponLeftCommand implements ICommand {
                     ctx.getChannel().sendMessage(error.getMessage()).queue();
                 }
         );
-
-
-
     }
 
 

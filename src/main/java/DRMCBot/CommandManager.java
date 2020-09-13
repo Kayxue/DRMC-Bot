@@ -7,7 +7,6 @@ import DRMCBot.Command.Commands.music.*;
 import DRMCBot.Command.Commands.suggestion.*;
 import DRMCBot.Command.ICommand;
 import DRMCBot.Command.Commands.music.QueueCommand;
-import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import javax.annotation.Nullable;
@@ -49,6 +48,7 @@ public class CommandManager {
         addCommand(new ImplementCommand());
         addCommand(new QRCodeCommand());
         addCommand(new WeatherCommand());
+        addCommand(new HowToBullShitCommand());
     }
 
     private void addCommand(ICommand cmd){

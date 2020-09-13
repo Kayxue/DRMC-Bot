@@ -4,8 +4,6 @@ import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.OnlineStatus;
-import net.dv8tion.jda.api.Region;
 import net.dv8tion.jda.api.entities.*;
 
 import java.time.OffsetDateTime;
@@ -26,8 +24,8 @@ public class ServerinfoCommand implements ICommand {
         int membercount = guild.getMemberCount();
         String verification_level = "";
         String region = "";
-        String two_factor = "";
-        String timeCreatedString = "";
+        String two_factor;
+        String timeCreatedString;
         boolean if_two_factor;
         final List<TextChannel> textChannels = guild.getTextChannels();
         final List<VoiceChannel> voiceChannels = guild.getVoiceChannels();
@@ -43,34 +41,22 @@ public class ServerinfoCommand implements ICommand {
             } else {
                 botcount += 1;
             }
-            if (member.getOnlineStatus() == OnlineStatus.ONLINE) {
-                online += 1;
-            } else if (member.getOnlineStatus() == OnlineStatus.IDLE) {
-                idle += 1;
-            } else if (member.getOnlineStatus() == OnlineStatus.DO_NOT_DISTURB) {
-                dnd += 1;
-            } else {
-                offline += 1;
+            switch (member.getOnlineStatus()) {
+                case ONLINE -> online += 1;
+                case IDLE -> idle += 1;
+                case DO_NOT_DISTURB -> dnd += 1;
+                default -> offline += 1;
             }
         }
 
-        if (guild.getRequiredMFALevel() == Guild.MFALevel.TWO_FACTOR_AUTH) {
-            if_two_factor = true;
-        } else {
+        if_two_factor = guild.getRequiredMFALevel() == Guild.MFALevel.TWO_FACTOR_AUTH;
 
-            if_two_factor = false;
-        }
-
-        if (verificationLevel == Guild.VerificationLevel.NONE) {
-            verification_level = "無";
-        } else if (verificationLevel == Guild.VerificationLevel.LOW) {
-            verification_level = "低";
-        } else if (verificationLevel == Guild.VerificationLevel.MEDIUM) {
-            verification_level = "中";
-        } else if (verificationLevel == Guild.VerificationLevel.HIGH) {
-            verification_level = "高";
-        } else if (verificationLevel == Guild.VerificationLevel.VERY_HIGH) {
-            verification_level = "最高";
+        switch (verificationLevel) {
+            case NONE -> verification_level = "無";
+            case LOW -> verification_level = "低";
+            case MEDIUM -> verification_level = "中";
+            case HIGH -> verification_level = "高";
+            case VERY_HIGH -> verification_level = "最高";
         }
 
         if (if_two_factor) {
@@ -89,44 +75,26 @@ public class ServerinfoCommand implements ICommand {
 
         botcount = membercount - usercount;
 
-        if (guild.getRegion() == Region.AMSTERDAM || guild.getRegion() == Region.VIP_AMSTERDAM) {
-            region = "阿姆斯特丹";
-        } else if (guild.getRegion() == Region.BRAZIL || guild.getRegion() == Region.VIP_BRAZIL) {
-            region = "巴西";
-        } else if (guild.getRegion() == Region.EU_CENTRAL || guild.getRegion() == Region.VIP_EU_CENTRAL) {
-            region = "歐洲中部";
-        } else if (guild.getRegion() == Region.EU_WEST || guild.getRegion() == Region.VIP_EU_WEST) {
-            region = "歐洲西部";
-        } else if (guild.getRegion() == Region.EUROPE) {
-            region = "歐洲";
-        } else if (guild.getRegion() == Region.FRANKFURT || guild.getRegion() == Region.VIP_FRANKFURT) {
-            region = "法蘭克福";
-        } else if (guild.getRegion() == Region.HONG_KONG) {
-            region = "香港";
-        } else if (guild.getRegion() == Region.INDIA) {
-            region = "印度";
-        } else if (guild.getRegion() == Region.JAPAN || guild.getRegion() == Region.VIP_JAPAN) {
-            region = "日本";
-        } else if (guild.getRegion() == Region.LONDON || guild.getRegion() == Region.VIP_LONDON) {
-            region = "倫敦";
-        } else if (guild.getRegion() == Region.RUSSIA) {
-            region = "俄羅斯";
-        } else if (guild.getRegion() == Region.SINGAPORE || guild.getRegion() == Region.VIP_SINGAPORE) {
-            region = "新加坡";
-        } else if (guild.getRegion() == Region.SOUTH_AFRICA || guild.getRegion() == Region.VIP_SOUTH_AFRICA) {
-            region = "非洲南部";
-        } else if (guild.getRegion() == Region.SOUTH_KOREA || guild.getRegion() == Region.VIP_SOUTH_KOREA) {
-            region = "南韓";
-        } else if (guild.getRegion() == Region.SYDNEY || guild.getRegion() == Region.VIP_SYDNEY) {
-            region = "雪梨";
-        } else if (guild.getRegion() == Region.US_CENTRAL || guild.getRegion() == Region.VIP_US_CENTRAL) {
-            region = "美國中部";
-        } else if (guild.getRegion() == Region.US_EAST || guild.getRegion() == Region.VIP_US_EAST) {
-            region = "美國東部";
-        } else if (guild.getRegion() == Region.US_SOUTH || guild.getRegion() == Region.VIP_US_SOUTH) {
-            region = "美國南部";
-        } else if (guild.getRegion() == Region.US_WEST || guild.getRegion() == Region.VIP_US_WEST) {
-            region = "美國西部";
+        switch (guild.getRegion()) {
+            case AMSTERDAM,VIP_AMSTERDAM -> region = "阿姆斯特丹";
+            case BRAZIL,VIP_BRAZIL -> region = "巴西";
+            case EU_CENTRAL,VIP_EU_CENTRAL -> region = "歐洲中部";
+            case EU_WEST,VIP_EU_WEST -> region = "歐洲西部";
+            case EUROPE -> region = "歐洲";
+            case FRANKFURT,VIP_FRANKFURT -> region = "法蘭克福";
+            case HONG_KONG -> region = "香港";
+            case INDIA -> region = "印度";
+            case JAPAN,VIP_JAPAN -> region = "日本";
+            case LONDON,VIP_LONDON -> region = "倫敦";
+            case RUSSIA -> region = "俄羅斯";
+            case SINGAPORE,VIP_SINGAPORE -> region = "新加坡";
+            case SOUTH_AFRICA,VIP_SOUTH_AFRICA -> region = "非洲南部";
+            case SOUTH_KOREA,VIP_SOUTH_KOREA -> region = "南韓";
+            case SYDNEY,VIP_SYDNEY -> region = "雪梨";
+            case US_CENTRAL,VIP_US_CENTRAL -> region = "美國中部";
+            case US_EAST,VIP_US_EAST -> region = "美國東部";
+            case US_SOUTH,VIP_US_SOUTH -> region = "美國南部";
+            case US_WEST,VIP_US_WEST -> region = "美國西部";
         }
 
         timeCreatedString = formattime(timeCreatedWithZone.getYear()) + "/"
@@ -168,7 +136,7 @@ public class ServerinfoCommand implements ICommand {
     }
 
     public String formattime(int i) {
-        String a = "";
+        String a;
         if (String.valueOf(i).length() == 1) {
             a = "0" + i;
         } else {
