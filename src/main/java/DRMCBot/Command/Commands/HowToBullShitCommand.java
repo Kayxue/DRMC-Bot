@@ -18,7 +18,11 @@ public class HowToBullShitCommand implements ICommand {
             return;
         }
         try {
-            Integer.parseInt(args.get(0));
+            int length = Integer.parseInt(args.get(0));
+            if (length > 1000) {
+                ctx.getChannel().sendMessage("字數不能大於1000！").queue();
+                return;
+            }
         } catch (Exception e) {
             ctx.getChannel().sendMessage("請輸入文章長度！").queue();
             return;
