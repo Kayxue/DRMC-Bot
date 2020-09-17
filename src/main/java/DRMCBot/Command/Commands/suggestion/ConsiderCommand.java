@@ -60,15 +60,17 @@ public class ConsiderCommand implements ICommand {
                         Emote emote = ctx.getSelfUser().getJDA().getEmotesByName("secretthonk", true).get(0);
                         message.editMessage(emote.getAsMention() +" 建議正在考慮中......").embed(embedBuilder.build()).queue(
                                 editmessage -> {
-                                    editmessage.removeReaction("\u2705").queue();
-                                    editmessage.removeReaction("\u274C").queue();
+                                    Emote check=ctx.getJDA().getEmotesByName("checkani",true).get(0);
+                                    Emote cross = ctx.getJDA().getEmotesByName("crossani", true).get(0);
+                                    editmessage.removeReaction(check).queue();
+                                    editmessage.removeReaction(cross).queue();
                                     editmessage.removeReaction(emote).queue();
                                 }
                         );
                         suggestionAuthor.openPrivateChannel().queue(
                                 channel -> {
                                     channel.sendMessage("您提的建議正在考慮中！原因為：" + reasonstring).embed(embedBuilder.build()).queue();
-                                    ctx.getChannel().sendMessage("指令已成功批准！").queue();
+                                    ctx.getChannel().sendMessage("建議已成功批准！").queue();
                                 },
                                 error -> {
                                     error.printStackTrace();

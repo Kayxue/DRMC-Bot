@@ -3,6 +3,7 @@ package DRMCBot;
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.Commands.*;
 import DRMCBot.Command.Commands.admin.SetPrefixCommand;
+import DRMCBot.Command.Commands.anime.ChinoCommand;
 import DRMCBot.Command.Commands.music.*;
 import DRMCBot.Command.Commands.suggestion.*;
 import DRMCBot.Command.ICommand;
@@ -49,6 +50,9 @@ public class CommandManager {
         addCommand(new QRCodeCommand());
         addCommand(new WeatherCommand());
         addCommand(new HowToBullShitCommand());
+        addCommand(new BanCommand());
+        addCommand(new ChinoCommand());
+        addCommand(new ReurlCommand());
     }
 
     private void addCommand(ICommand cmd){

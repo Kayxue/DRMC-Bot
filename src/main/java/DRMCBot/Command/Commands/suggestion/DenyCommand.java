@@ -57,11 +57,12 @@ public class DenyCommand implements ICommand {
                                 .addField("建議內容：", data.getString("suggestion"), false)
                                 .addField("原因：", reasonstring, false)
                                 .setFooter(ctx.getAuthor().getName() + "#" + ctx.getAuthor().getDiscriminator(), ctx.getAuthor().getAvatarUrl());
-
-                        message.editMessage("\u274e 建議已被駁回！").embed(embedBuilder.build()).queue(
+                        Emote cross = ctx.getJDA().getEmotesByName("crossani", true).get(0);
+                        message.editMessage(cross.getAsMention()+" 建議已被駁回！").embed(embedBuilder.build()).queue(
                                 editmessage -> {
-                                    editmessage.removeReaction("\u2705").queue();
-                                    editmessage.removeReaction("\u274C").queue();
+                                    Emote check=ctx.getJDA().getEmotesByName("checkani",true).get(0);
+                                    editmessage.removeReaction(check).queue();
+                                    editmessage.removeReaction(cross).queue();
                                     Emote emote = ctx.getSelfUser().getJDA().getEmotesByName("secretthonk", true).get(0);
                                     editmessage.removeReaction(emote).queue();
                                 }
@@ -69,7 +70,7 @@ public class DenyCommand implements ICommand {
                         suggestionAuthor.openPrivateChannel().queue(
                                 channel -> {
                                     channel.sendMessage("您提的建議已被駁回！原因為：" + reasonstring).embed(embedBuilder.build()).queue();
-                                    ctx.getChannel().sendMessage("指令已成功批准！").queue();
+                                    ctx.getChannel().sendMessage("建議已成功批准！").queue();
                                 },
                                 error -> {
                                     error.printStackTrace();

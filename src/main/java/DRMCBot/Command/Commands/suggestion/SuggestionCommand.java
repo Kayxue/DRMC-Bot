@@ -37,8 +37,10 @@ public class SuggestionCommand implements ICommand {
                     final long messageId = message.getIdLong();
                     Document insertinfo = mongoDbDataSource.insertsuggestion(guildId, user.getIdLong(), messageId, suggestion);
                     if (insertinfo.getBoolean("success")) {
-                        message.addReaction("\u2705").queue();
-                        message.addReaction("\u274C").queue();
+                        Emote check=ctx.getJDA().getEmotesByName("checkani",true).get(0);
+                        Emote cross = ctx.getJDA().getEmotesByName("crossani", true).get(0);
+                        message.addReaction(check).queue();
+                        message.addReaction(cross).queue();
                         Emote emote = ctx.getSelfUser().getJDA().getEmotesByName("secretthonk", true).get(0);
                         message.addReaction(emote).queue();
                         ctx.getChannel().sendMessage("建議發送成功！").queue();

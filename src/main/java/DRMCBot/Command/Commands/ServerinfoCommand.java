@@ -42,21 +42,39 @@ public class ServerinfoCommand implements ICommand {
                 botcount += 1;
             }
             switch (member.getOnlineStatus()) {
-                case ONLINE -> online += 1;
-                case IDLE -> idle += 1;
-                case DO_NOT_DISTURB -> dnd += 1;
-                default -> offline += 1;
+                case ONLINE :
+                    online += 1;
+                    break;
+                case IDLE :
+                    idle += 1;
+                    break;
+                case DO_NOT_DISTURB :
+                    dnd += 1;
+                    break;
+                default :
+                    offline += 1;
+                    break;
             }
         }
 
         if_two_factor = guild.getRequiredMFALevel() == Guild.MFALevel.TWO_FACTOR_AUTH;
 
         switch (verificationLevel) {
-            case NONE -> verification_level = "無";
-            case LOW -> verification_level = "低";
-            case MEDIUM -> verification_level = "中";
-            case HIGH -> verification_level = "高";
-            case VERY_HIGH -> verification_level = "最高";
+            case NONE :
+                verification_level = "無";
+                break;
+            case LOW :
+                verification_level = "低";
+                break;
+            case MEDIUM:
+                verification_level = "中";
+                break;
+            case HIGH :
+                verification_level = "高";
+                break;
+            case VERY_HIGH :
+                verification_level = "最高";
+                break;
         }
 
         if (if_two_factor) {
@@ -76,25 +94,78 @@ public class ServerinfoCommand implements ICommand {
         botcount = membercount - usercount;
 
         switch (guild.getRegion()) {
-            case AMSTERDAM,VIP_AMSTERDAM -> region = "阿姆斯特丹";
-            case BRAZIL,VIP_BRAZIL -> region = "巴西";
-            case EU_CENTRAL,VIP_EU_CENTRAL -> region = "歐洲中部";
-            case EU_WEST,VIP_EU_WEST -> region = "歐洲西部";
-            case EUROPE -> region = "歐洲";
-            case FRANKFURT,VIP_FRANKFURT -> region = "法蘭克福";
-            case HONG_KONG -> region = "香港";
-            case INDIA -> region = "印度";
-            case JAPAN,VIP_JAPAN -> region = "日本";
-            case LONDON,VIP_LONDON -> region = "倫敦";
-            case RUSSIA -> region = "俄羅斯";
-            case SINGAPORE,VIP_SINGAPORE -> region = "新加坡";
-            case SOUTH_AFRICA,VIP_SOUTH_AFRICA -> region = "非洲南部";
-            case SOUTH_KOREA,VIP_SOUTH_KOREA -> region = "南韓";
-            case SYDNEY,VIP_SYDNEY -> region = "雪梨";
-            case US_CENTRAL,VIP_US_CENTRAL -> region = "美國中部";
-            case US_EAST,VIP_US_EAST -> region = "美國東部";
-            case US_SOUTH,VIP_US_SOUTH -> region = "美國南部";
-            case US_WEST,VIP_US_WEST -> region = "美國西部";
+            case AMSTERDAM:
+            case VIP_AMSTERDAM :
+                region = "阿姆斯特丹";
+                break;
+            case BRAZIL:
+            case VIP_BRAZIL:
+                region = "巴西";
+                break;
+            case EU_CENTRAL:
+            case VIP_EU_CENTRAL:
+                region = "歐洲中部";
+                break;
+            case EU_WEST:
+            case VIP_EU_WEST:
+                region = "歐洲西部";
+                break;
+            case EUROPE:
+                region = "歐洲";
+                break;
+            case FRANKFURT:
+            case VIP_FRANKFURT:
+                region = "法蘭克福";
+                break;
+            case HONG_KONG:
+                region = "香港";
+                break;
+            case INDIA:
+                region = "印度";
+                break;
+            case JAPAN:
+            case VIP_JAPAN:
+                region = "日本";
+                break;
+            case LONDON:
+            case VIP_LONDON:
+                region = "倫敦";
+                break;
+            case RUSSIA:
+                region = "俄羅斯";
+                break;
+            case SINGAPORE:
+            case VIP_SINGAPORE:
+                region = "新加坡";
+                break;
+            case SOUTH_AFRICA:
+            case VIP_SOUTH_AFRICA:
+                region = "非洲南部";
+                break;
+            case SOUTH_KOREA:
+            case VIP_SOUTH_KOREA:
+                region = "南韓";
+                break;
+            case SYDNEY:
+            case VIP_SYDNEY:
+                region = "雪梨";
+                break;
+            case US_CENTRAL:
+            case VIP_US_CENTRAL:
+                region = "美國中部";
+                break;
+            case US_EAST:
+            case VIP_US_EAST:
+                region = "美國東部";
+                break;
+            case US_SOUTH:
+            case VIP_US_SOUTH:
+                region = "美國南部";
+                break;
+            case US_WEST:
+            case VIP_US_WEST:
+                region = "美國西部";
+                break;
         }
 
         timeCreatedString = formattime(timeCreatedWithZone.getYear()) + "/"
