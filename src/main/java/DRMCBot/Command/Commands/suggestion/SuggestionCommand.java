@@ -25,6 +25,10 @@ public class SuggestionCommand implements ICommand {
             ctx.getChannel().sendMessage("請輸入建議！").queue();
             return;
         }
+        if (!ctx.getGuild().getId().equals("647643447712415754")) {
+            ctx.getChannel().sendMessage("抱歉！此指令目前僅限DRMC伺服器使用！").queue();
+            return;
+        }
         String suggestion = String.join(" ", args);
         JSONObject channelandsuggestioncount = mongoDbDataSource.getServerSuggestionCount(guildId);
         final TextChannel suggestionsendchannel = ctx.getGuild().getTextChannelById(channelandsuggestioncount.getLong("suggestionchannel"));

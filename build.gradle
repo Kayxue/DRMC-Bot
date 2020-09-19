@@ -10,7 +10,7 @@ mainClassName = 'DRMCBot.Bot'
 
 version '1.0'
 
-sourceCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = JavaVersion.VERSION_14
 
 repositories {
     jcenter()

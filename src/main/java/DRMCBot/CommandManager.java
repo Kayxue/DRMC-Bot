@@ -58,6 +58,7 @@ public class CommandManager {
         addCommand(new TinyurlCommand());
         addCommand(new PinMessageCommand());
         addCommand(new UnPinMessageCommand());
+        addCommand(new HelpCommand());
     }
 
     private void addCommand(ICommand cmd){

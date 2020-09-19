@@ -25,6 +25,10 @@ public class ImplementCommand implements ICommand {
             ctx.getChannel().sendMessage("您沒有權限批改建議！").queue();
             return;
         }
+        if (!ctx.getGuild().getId().equals("647643447712415754")) {
+            ctx.getChannel().sendMessage("抱歉！此指令目前僅限DRMC伺服器使用！").queue();
+            return;
+        }
         try {
             if (ctx.getArgs().isEmpty()) {
                 ctx.getChannel().sendMessage("請輸入建議編號！").queue();

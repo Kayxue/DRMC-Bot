@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.entities.User;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 public class UserinfoCommand implements ICommand {
@@ -127,6 +128,12 @@ public class UserinfoCommand implements ICommand {
             a = String.valueOf(i);
         }
         return a;
+    }
+
+    @Override
+    public List<String> getAliases() {
+        String[] strings = {"uinfo", "ui"};
+        return Arrays.asList(strings);
     }
 
     @Override

@@ -10,6 +10,8 @@ import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class NowPlayingCommand implements ICommand {
@@ -35,6 +37,11 @@ public class NowPlayingCommand implements ICommand {
                 formatTime(player.getPlayingTrack().getPosition()),
                 formatTime(player.getPlayingTrack().getDuration())
         )).build()).queue();
+    }
+
+    @Override
+    public List<String> getAliases() {
+        return Collections.singletonList("np");
     }
 
     @Override
