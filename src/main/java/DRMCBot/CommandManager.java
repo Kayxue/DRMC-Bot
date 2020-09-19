@@ -2,9 +2,11 @@ package DRMCBot;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.Commands.*;
-import DRMCBot.Command.Commands.admin.SetPrefixCommand;
+import DRMCBot.Command.Commands.admin.*;
 import DRMCBot.Command.Commands.anime.ChinoCommand;
 import DRMCBot.Command.Commands.music.*;
+import DRMCBot.Command.Commands.reurl.ReurlCommand;
+import DRMCBot.Command.Commands.reurl.TinyurlCommand;
 import DRMCBot.Command.Commands.suggestion.*;
 import DRMCBot.Command.ICommand;
 import DRMCBot.Command.Commands.music.QueueCommand;
@@ -53,6 +55,9 @@ public class CommandManager {
         addCommand(new BanCommand());
         addCommand(new ChinoCommand());
         addCommand(new ReurlCommand());
+        addCommand(new TinyurlCommand());
+        addCommand(new PinMessageCommand());
+        addCommand(new UnPinMessageCommand());
     }
 
     private void addCommand(ICommand cmd){

@@ -1,4 +1,4 @@
-package DRMCBot.Command.Commands;
+package DRMCBot.Command.Commands.admin;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;

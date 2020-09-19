@@ -1,4 +1,4 @@
-package DRMCBot.Command.Commands;
+package DRMCBot.Command.Commands.reurl;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
@@ -37,8 +37,13 @@ public class ReurlCommand implements ICommand {
             Response response = client.newCall(request).execute();
             JSONObject jsonrequest = new JSONObject(response.body().string());
             try {
-                String errorcode = jsonrequest.getString("code");
-                ctx.getChannel().sendMessage("指令遇到錯誤！\n網頁回應編號為：" + errorcode).queue();
+                String errorcode = jsonrequest.getString("msg");
+                if (errorcode.equals("request url failed")) {
+                    ctx.getChannel().sendMessage("網址連線失敗，請確認是否為有效網址或稍後再試！").queue();
+                }
+                else {
+                    ctx.getChannel().sendMessage("指令遇到錯誤！\n網頁回應訊息為：" + errorcode + "若問題持續發生請先改用其他url生成服務！").queue();
+                }
             } catch (Exception e) {
                 EmbedBuilder embed = EmbedUtils.defaultEmbed()
                         .setTitle("轉短連結完成！")
