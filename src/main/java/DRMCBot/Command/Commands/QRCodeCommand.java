@@ -21,6 +21,10 @@ import java.util.Map;
 public class QRCodeCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
+        if (ctx.getArgs().isEmpty()) {
+            ctx.getChannel().sendMessage("請輸入連結！").queue();
+            return;
+        }
         BufferedImage qrCode = createQRCode(ctx.getArgs().get(0), 512, 512, 0);
         String path = generateQRCodeToPath(qrCode);
         File file = new File(path);

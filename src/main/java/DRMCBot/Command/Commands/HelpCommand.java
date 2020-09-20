@@ -32,7 +32,6 @@ public class HelpCommand implements ICommand {
                 case "discordinfo" -> {
                     embed.addField("Discord與機器人資訊類",
                             "``botinfo``（未完工）－此機器人的相關訊息\n"
-                                    + "``couponleft``－查詢指定郵局振興三倍券剩餘數量\n"
                                     + "``help``－顯示此幫助\n"
                                     + "``ping``－取得此機器人回應速度\n"
                                     + "``serverinfo``－取得關於此伺服器之資訊\n"
@@ -42,6 +41,7 @@ public class HelpCommand implements ICommand {
                 case "otherinfo" -> {
                     embed.addField("其他資訊類",
                             "``accuweather``－取得指定位置天氣資訊\n"
+                                    + "``couponleft``－查詢指定郵局振興三倍券剩餘數量\n"
                                     + "``instagram``－查詢指定Instagram使用者粉絲數等資訊\n"
                                     + "``minecraft``－查詢Minecraft使用者相關資訊\n",
                             true);

@@ -59,6 +59,7 @@ public class CommandManager {
         addCommand(new PinMessageCommand());
         addCommand(new UnPinMessageCommand());
         addCommand(new HelpCommand());
+        addCommand(new ChannelAllPinCommand());
     }
 
     private void addCommand(ICommand cmd){
