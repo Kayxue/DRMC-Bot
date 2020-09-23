@@ -13,7 +13,7 @@ public class HelpCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
         User botowner = ctx.getJDA().getUserById("470516498050580480");
-        String[] x = {"discordinfo", "otherinfo", "generation", "entertainment", "music", "suggestion", "management"};
+        String[] x = {"discordinfo", "otherinfo", "generation", "entertainment", "music", "suggestion", "ticket", "management"};
         List<String> category = Arrays.asList(x);
         EmbedBuilder embed = EmbedUtils.defaultEmbed()
                 .setAuthor(ctx.getJDA().getSelfUser().getName() + "#" + ctx.getJDA().getSelfUser().getDiscriminator(), null, ctx.getJDA().getSelfUser().getAvatarUrl())
@@ -26,7 +26,8 @@ public class HelpCommand implements ICommand {
                             + "**entertainment**－娛樂類\n"
                             + "**music**－音樂播放類\n"
                             + "**suggestion**－建議類（目前僅限DRMC使用）\n"
-                            + "**management**－Discord與機器人資訊類", false);
+                            + "**ticket**－管理員私訊窗口類（目前僅限DRMC使用）\n"
+                            + "**management**－管理伺服器與機器人設定", false);
         } else if (category.contains(ctx.getArgs().get(0))) {
             switch (ctx.getArgs().get(0)) {
                 case "discordinfo" -> {
@@ -82,6 +83,12 @@ public class HelpCommand implements ICommand {
                                     + "``approve``－將建議批改為「已批准」\n"
                                     + "``consider``－將建議批改為「思考中」\n"
                                     + "``deny``－將建議批改為「已拒絕」\n",
+                            true);
+                }
+                case "ticket" -> {
+                    embed.addField("管理員私訊窗口類（目前僅限DRMC使用）",
+                            "``openticket``－開啟管理員私訊窗口\n"
+                                    + "``closeticket``－關閉管理員私訊窗口\n",
                             true);
                 }
                 case "management" -> {

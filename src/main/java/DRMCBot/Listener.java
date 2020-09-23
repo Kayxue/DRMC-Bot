@@ -1,6 +1,7 @@
 package DRMCBot;
 
 import DRMCBot.Database.DatabaseManager;
+import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import me.duncte123.botcommons.BotCommons;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.User;
@@ -20,7 +21,11 @@ import java.util.concurrent.TimeUnit;
 public class Listener extends ListenerAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Listener.class);
-    private final CommandManager manager=new CommandManager();
+    private final CommandManager manager;
+
+    public Listener(EventWaiter waiter) {
+        manager = new CommandManager(waiter);
+    }
 
     @Override
     public void onReady(@Nonnull ReadyEvent event) {
@@ -35,13 +40,13 @@ public class Listener extends ListenerAdapter {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            event.getJDA().getPresence().setActivity(Activity.watching(event.getJDA().getGuilds().size() + "個伺服器"));
+            event.getJDA().getPresence().setActivity(Activity.watching(event.getJDA().getGuilds().size() + "個伺服器")); //How many guilds the bot joined
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            event.getJDA().getPresence().setActivity(Activity.watching(event.getJDA().getUsers().size() + "位使用者"));
+            event.getJDA().getPresence().setActivity(Activity.watching(event.getJDA().getUsers().size() + "位使用者"));//How many user the bot can see
         };
 
         executor.scheduleWithFixedDelay(task, 0, 5, TimeUnit.SECONDS);

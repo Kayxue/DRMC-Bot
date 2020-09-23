@@ -11,6 +11,8 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.print.Doc;
+
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.ne;
 
@@ -34,12 +36,11 @@ public class MongoDbDataSource implements DatabaseManager{
     @Override
     public String getPrefix(long guildId) {
         try {
-            MongoCollection<Document> collection = client.getDatabase("KayBotJava").getCollection("prefix");
-            Document documents = collection.find(eq("_id", String.valueOf(guildId))).first();
+            Document documents = prefixdata.find(eq("_id", String.valueOf(guildId))).first();
             if (documents == null) {
                 Document document = new Document("_id", String.valueOf(guildId))
                         .append("prefix", Config.get("prefix"));
-                collection.insertOne(document);
+                prefixdata.insertOne(document);
             } else {
                 return documents.get("prefix").toString();
             }
@@ -52,18 +53,19 @@ public class MongoDbDataSource implements DatabaseManager{
     @Override
     public void setPrefix(long guildId, String newPrefix) {
         try {
-            MongoCollection<Document> collection = client.getDatabase("KayBotJava").getCollection("prefix");
-            collection.updateOne(eq("_id", String.valueOf(guildId)), new Document("$set", new Document("prefix", newPrefix)));
+            prefixdata.updateOne(eq("_id", String.valueOf(guildId)), new Document("$set", new Document("prefix", newPrefix)));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    @Override
     public JSONObject getsomething(Long serverid) {
         JSONObject serverallsuggestion = new JSONObject(serversettingdata.find(eq("_id", String.valueOf(serverid))).first().toJson());
         return serverallsuggestion;
     }
 
+    @Override
     public JSONObject getServerSuggestionCount(long serverid) {
         try {
             JSONObject jsonObject = new JSONObject(serversettingdata.find(eq("_id", String.valueOf(serverid))).first().toJson());
@@ -74,6 +76,7 @@ public class MongoDbDataSource implements DatabaseManager{
         }
     }
 
+    @Override
     public Document insertsuggestion(long serverid,long authorid,long messageid,String suggestion) {
         try {
             JSONObject jsonObject = new JSONObject(serversettingdata.find(eq("_id", String.valueOf(serverid))).first().toJson());
@@ -100,6 +103,7 @@ public class MongoDbDataSource implements DatabaseManager{
         }
     }
 
+    @Override
     public Document editsuggestion(String action,long serverid,long suggestionid) {
         try {
             JSONObject serverallsuggestion = new JSONObject(suggestiondata.find(eq("_id", String.valueOf(serverid))).first().toJson());
@@ -110,6 +114,19 @@ public class MongoDbDataSource implements DatabaseManager{
         } catch (Exception e) {
             e.printStackTrace();
             return new Document("success", false);
+        }
+    }
+
+    public JSONObject getguildticketcategory(long serverid) {
+        try {
+            JSONObject serversettingsdata = new JSONObject(serversettingdata.find(eq("_id", String.valueOf(serverid))).first().toJson());
+            JSONObject toreturn = new JSONObject()
+                    .put("categoryid", serversettingsdata.getLong("ticketcategory"))
+                    .put("success", true);
+            return toreturn;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new JSONObject().put("success", false);
         }
     }
 }

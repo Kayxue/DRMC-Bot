@@ -27,6 +27,6 @@ public class UnPinMessageCommand implements ICommand {
 
     @Override
     public String getName() {
-        return "unpin";
+        return "unpinmessage";
     }
 }

@@ -4,6 +4,8 @@ package DRMCBot.Database;
 import DRMCBot.Config;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.bson.Document;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -98,5 +100,25 @@ public class SQLiteDataSource implements DatabaseManager{
         catch (SQLException e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public JSONObject getsomething(Long serverid) {
+        return null;
+    }
+
+    @Override
+    public JSONObject getServerSuggestionCount(long serverid) {
+        return null;
+    }
+
+    @Override
+    public Document insertsuggestion(long serverid, long authorid, long messageid, String suggestion) {
+        return null;
+    }
+
+    @Override
+    public Document editsuggestion(String action, long serverid, long suggestionid) {
+        return null;
     }
 }

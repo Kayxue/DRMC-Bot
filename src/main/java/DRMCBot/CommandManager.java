@@ -2,6 +2,8 @@ package DRMCBot;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.Commands.*;
+import DRMCBot.Command.Commands.Ticket.CloseTicketCommand;
+import DRMCBot.Command.Commands.Ticket.OpenTicketCommand;
 import DRMCBot.Command.Commands.admin.*;
 import DRMCBot.Command.Commands.anime.ChinoCommand;
 import DRMCBot.Command.Commands.music.*;
@@ -10,6 +12,7 @@ import DRMCBot.Command.Commands.reurl.TinyurlCommand;
 import DRMCBot.Command.Commands.suggestion.*;
 import DRMCBot.Command.ICommand;
 import DRMCBot.Command.Commands.music.QueueCommand;
+import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import javax.annotation.Nullable;
@@ -21,7 +24,7 @@ import java.util.regex.Pattern;
 public class CommandManager {
     private final List<ICommand> commands = new ArrayList<>();
 
-    public CommandManager(){
+    public CommandManager(EventWaiter eventWaiter){
         addCommand(new PingCommand());
         addCommand(new PasteCommand());
         addCommand(new KickCommand());
@@ -60,6 +63,8 @@ public class CommandManager {
         addCommand(new UnPinMessageCommand());
         addCommand(new HelpCommand());
         addCommand(new ChannelAllPinCommand());
+        addCommand(new OpenTicketCommand());
+        addCommand(new CloseTicketCommand());
     }
 
     private void addCommand(ICommand cmd){

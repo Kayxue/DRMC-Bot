@@ -1,6 +1,7 @@
 package DRMCBot;
 
 import DRMCBot.Database.SQLiteDataSource;
+import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import me.duncte123.botcommons.messaging.EmbedUtils;
@@ -19,6 +20,8 @@ import java.util.EnumSet;
 public class Bot {
 
     private Bot() throws LoginException {
+        EventWaiter eventWaiter = new EventWaiter();
+
         WebUtils.setUserAgent("Mozilla/5.0 DRMC Bot#7872");
         EmbedUtils.setEmbedBuilder(
                 ()-> new EmbedBuilder()
@@ -30,7 +33,7 @@ public class Bot {
         new JDABuilder()
                 .setToken(Config.get("TOKEN"))
                 .enableCache(CacheFlag.VOICE_STATE)
-                .addEventListeners(new Listener())
+                .addEventListeners(eventWaiter, new Listener(eventWaiter))
                 .build();
 
     }
