@@ -7,7 +7,6 @@ import net.dv8tion.jda.api.entities.MessageReaction;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
-import net.dv8tion.jda.api.sharding.ShardManager;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,12 +27,12 @@ public class EventWaiterTestCommand implements ICommand {
         channel.sendMessage("Please react with "+EMOTE).queue(
                 message -> {
                     message.addReaction(EMOTE).queue();
-                    initWaiter(message.getIdLong(), channelid, ctx.getJDA().getShardManager());
+                    initWaiter(message.getIdLong(), channelid, ctx);
                 }
         );
     }
 
-    private void initWaiter(long messageid, long channelid, ShardManager shardManager) {
+    private void initWaiter(long messageid, long channelid, CommandContext ctx) {
         waiter.waitForEvent(
                 GuildMessageReactionAddEvent.class,
                 event -> {
@@ -43,14 +42,14 @@ public class EventWaiterTestCommand implements ICommand {
                     return !user.isBot() && event.getMessageIdLong() == messageid && !emote.isEmote() && EMOTE.equals(emote.getName());
                 },
                 event -> {
-                    TextChannel channel = shardManager.getTextChannelById(channelid);
+                    TextChannel channel = ctx.getGuild().getTextChannelById(channelid);
                     User user = event.getUser();
 
                     channel.sendMessage(user.getAsMention() + "表情已附加").queue();
                 },
                 10, TimeUnit.SECONDS,
                 () -> {
-                    TextChannel channel= shardManager.getTextChannelById(channelid);
+                    TextChannel channel= ctx.getGuild().getTextChannelById(channelid);
                     channel.sendMessage("10秒超過！").queue();
                 }
         );
