@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 
 public class CommandManager {
     private final List<ICommand> commands = new ArrayList<>();
-
+    
     public CommandManager(EventWaiter eventWaiter){
         addCommand(new PingCommand());
         addCommand(new PasteCommand());
@@ -65,6 +65,7 @@ public class CommandManager {
         addCommand(new ChannelAllPinCommand());
         addCommand(new OpenTicketCommand());
         addCommand(new CloseTicketCommand());
+        addCommand(new EventWaiterTestCommand(eventWaiter));
     }
 
     private void addCommand(ICommand cmd){
