@@ -25,7 +25,7 @@ public class MongoDbDataSource implements DatabaseManager{
 
     public MongoDbDataSource() {
         MongoClientURI uri = new MongoClientURI(
-                "mongodb+srv://Kay:Kay20030910@kaybotjava.ojh3g.gcp.mongodb.net/test?retryWrites=true&w=majority");
+                "mongodb+srv://Kay:Kay20030910@kaybotjava.ojh3g.gcp.mongodb.net/test?retryWrites=true&w=majority\"");
         client = new MongoClient(uri);
         serversettingdata = client.getDatabase("KayBotJava").getCollection("serversetting");
         suggestiondata = client.getDatabase("KayBotJava").getCollection("serversuggestion");

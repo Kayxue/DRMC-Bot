@@ -74,24 +74,33 @@ public class WeatherCommand implements ICommand {
             if (!ifDetailed) {
                 EmbedBuilder embed = EmbedUtils.defaultEmbed()
                         .setTitle(cityName + "現在天氣")
-                        .addField("目前天氣：", weatherDataResult.getString("WeatherText"), false)
-                        .addField("目前溫度：", weatherDataResult.getJSONObject("Temperature").getJSONObject("Metric").getInt("Value") + "\u2103", false)
-                        .addField("目前濕度：",weatherDataResult.getInt("RelativeHumidity")+"%",false)
-                        .addField("目前UV指數：",String.valueOf(weatherDataResult.getInt("UVIndex")),false)
-                        .addField("目前是否有降雨：",!weatherDataResult.getBoolean("HasPrecipitation")?"無":weatherDataResult.getString("PrecipitationType"),false)
-                        .setFooter("資料提供者：AccuWeather (https://www.accuweather.com/)\n資料更新時間："+weatherDataResult.getString("LocalObservationDateTime").split("T")[0]+" "+weatherDataResult.getString("LocalObservationDateTime").split("T")[1].substring(0,8),"https://lh3.ggpht.com/7BB1gD1EJ9g2mcqHfAtMuP0Z5Zg1a1syl4l8GTGIXFUUUpTSbg_txXw99YAVUZ9B8A=h300");
+                        .addField("目前天氣：", weatherDataResult.getString("WeatherText"), true)
+                        .addField("目前溫度：", weatherDataResult.getJSONObject("Temperature").getJSONObject("Metric").getInt("Value") + "\u2103", true)
+                        .addField("目前濕度：", weatherDataResult.getInt("RelativeHumidity") + "%", true)
+                        .addField("目前UV指數：", String.valueOf(weatherDataResult.getInt("UVIndex")), true)
+                        .addField("目前降水類型：", !weatherDataResult.getBoolean("HasPrecipitation") ? "無降水" : weatherDataResult.getString("PrecipitationType"), true)
+                        .setFooter("資料提供者：AccuWeather (https://www.accuweather.com/)\n資料更新時間：" + weatherDataResult.getString("LocalObservationDateTime").split("T")[0] + " " + weatherDataResult.getString("LocalObservationDateTime").split("T")[1].substring(0, 8), "https://lh3.ggpht.com/7BB1gD1EJ9g2mcqHfAtMuP0Z5Zg1a1syl4l8GTGIXFUUUpTSbg_txXw99YAVUZ9B8A=h300");
                 ctx.getChannel().sendMessage(embed.build()).queue();
             } else {
                 EmbedBuilder embed = EmbedUtils.defaultEmbed()
                         .setTitle(cityName + "現在天氣")
-                        .addField("目前天氣：", weatherDataResult.getString("WeatherText"), false)
-                        .addField("目前溫度：", weatherDataResult.getJSONObject("Temperature").getJSONObject("Metric").getInt("Value") + "\u2103", false)
-                        .addField("目前濕度：",weatherDataResult.getInt("RelativeHumidity")+"%",false)
-                        .addField("目前UV指數：",String.valueOf(weatherDataResult.getInt("UVIndex")),false)
-                        .addField("目前是否有降雨：",!weatherDataResult.getBoolean("HasPrecipitation")?"無":weatherDataResult.getString("PrecipitationType"),false)
-                        .setFooter("資料提供者：AccuWeather (https://www.accuweather.com/)\n資料更新時間："+weatherDataResult.getString("LocalObservationDateTime").split("T")[0]+" "+weatherDataResult.getString("LocalObservationDateTime").split("T")[1].substring(0,8),"https://lh3.ggpht.com/7BB1gD1EJ9g2mcqHfAtMuP0Z5Zg1a1syl4l8GTGIXFUUUpTSbg_txXw99YAVUZ9B8A=h300");
+                        .addField("目前天氣：", weatherDataResult.getString("WeatherText"), true)
+                        .addField("目前溫度：", "**測量溫度：**" + weatherDataResult.getJSONObject("Temperature").getJSONObject("Metric").getInt("Value") + "\u2103\n"
+                                        + "**體感溫度：**" + weatherDataResult.getJSONObject("RealFeelTemperature").getJSONObject("Metric").getInt("Value") + "\u2103"
+                                , true)
+                        .addField("**風向資訊**", "**風向：**" + weatherDataResult.getJSONObject("Wind").getJSONObject("Direction").getString("Localized") + "方" + weatherDataResult.getJSONObject("Wind").getJSONObject("Direction").getInt("Degrees") + "度"
+                                + "\n**風速：**" + weatherDataResult.getJSONObject("Wind").getJSONObject("Speed").getJSONObject("Metric").getInt("Value") + " km/h", true)
+                        .addField("目前濕度：", weatherDataResult.getInt("RelativeHumidity") + "%", true)
+                        .addField("目前UV指數：", String.valueOf(weatherDataResult.getInt("UVIndex")), true)
+                        .addField("目前能見度：", weatherDataResult.getJSONObject("Visibility").getJSONObject("Metric").getInt("Value") + "km", true)
+                        .addField("目前降水類型：", !weatherDataResult.getBoolean("HasPrecipitation") ? "無降水" : weatherDataResult.getString("PrecipitationType"), true)
+                        .addField("氣壓：", "**目前氣壓大小：**" + weatherDataResult.getJSONObject("Pressure").getJSONObject("Metric").getInt("Value") + "毫巴"
+                                + "\n氣壓趨勢：" + weatherDataResult.getJSONObject("PressureTendency").getString("LocalizedText"), true)
+                        .setFooter("資料提供者：AccuWeather (https://www.accuweather.com/)\n資料更新時間：" + weatherDataResult.getString("LocalObservationDateTime").split("T")[0] + " " + weatherDataResult.getString("LocalObservationDateTime").split("T")[1].substring(0, 8), "https://lh3.ggpht.com/7BB1gD1EJ9g2mcqHfAtMuP0Z5Zg1a1syl4l8GTGIXFUUUpTSbg_txXw99YAVUZ9B8A=h300");
                 ctx.getChannel().sendMessage(embed.build()).queue();
             }
+        } else {
+
         }
     }
 

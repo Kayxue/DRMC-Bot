@@ -30,8 +30,21 @@ public class Bot {
         );
 
 
-        new JDABuilder()
-                .setToken(Config.get("TOKEN"))
+        JDABuilder.createDefault(
+                Config.get("TOKEN"),
+                GatewayIntent.GUILD_MEMBERS,
+                GatewayIntent.GUILD_PRESENCES,
+                GatewayIntent.GUILD_MESSAGE_TYPING,
+                GatewayIntent.GUILD_BANS,
+                GatewayIntent.GUILD_EMOJIS,
+                GatewayIntent.GUILD_INVITES,
+                GatewayIntent.GUILD_MESSAGE_REACTIONS,
+                GatewayIntent.GUILD_VOICE_STATES,
+                GatewayIntent.GUILD_MESSAGES,
+                GatewayIntent.DIRECT_MESSAGE_REACTIONS,
+                GatewayIntent.DIRECT_MESSAGE_TYPING,
+                GatewayIntent.DIRECT_MESSAGES
+        )
                 .enableCache(CacheFlag.VOICE_STATE)
                 .addEventListeners(eventWaiter, new Listener(eventWaiter))
                 .build();
