@@ -29,22 +29,21 @@ public class WeatherCommand implements ICommand {
             ctx.getChannel().sendMessage("請指定顯示資訊的類型！").queue();
             return;
         }
-        boolean ifDetailed;
+        boolean ifDetailed = true;
         String contentRaw = ctx.getMessage().getContentRaw();
-        String secondArgument;
         int index;
-        if (ctx.getArgs().get(1).equals("detailed")) {
-            ifDetailed = true;
-            secondArgument = ctx.getArgs().get(1);
+        ifDetailed = "detailed".equals(ctx.getArgs().get(1));
+        System.out.println(ifDetailed);
+        if (ifDetailed) {
+            index = contentRaw.indexOf(ctx.getArgs().get(1)) + 8;
         } else {
-            ifDetailed = false;
-            secondArgument = ctx.getArgs().get(0);
+            index = contentRaw.indexOf(ctx.getArgs().get(1));
         }
-        index = contentRaw.indexOf(secondArgument) + secondArgument.length();
+        System.out.println(index);
         String toSearch = contentRaw.substring(index).trim();
         boolean chineseInTheString=isChinese(toSearch);
         toSearch = toSearch.replaceAll(" ", "%20");
-
+        System.out.println(toSearch);
 
         final String APIKEY = "kyC6nwcgGXn1einkJt7pyvIOnY8wkllc";
         OkHttpClient client = new OkHttpClient();
@@ -96,11 +95,72 @@ public class WeatherCommand implements ICommand {
                         .addField("目前降水類型：", !weatherDataResult.getBoolean("HasPrecipitation") ? "無降水" : weatherDataResult.getString("PrecipitationType"), true)
                         .addField("氣壓：", "**目前氣壓大小：**" + weatherDataResult.getJSONObject("Pressure").getJSONObject("Metric").getInt("Value") + "毫巴"
                                 + "\n氣壓趨勢：" + weatherDataResult.getJSONObject("PressureTendency").getString("LocalizedText"), true)
-                        .setFooter("資料提供者：AccuWeather (https://www.accuweather.com/)\n資料更新時間：" + weatherDataResult.getString("LocalObservationDateTime").split("T")[0] + " " + weatherDataResult.getString("LocalObservationDateTime").split("T")[1].substring(0, 8), "https://lh3.ggpht.com/7BB1gD1EJ9g2mcqHfAtMuP0Z5Zg1a1syl4l8GTGIXFUUUpTSbg_txXw99YAVUZ9B8A=h300");
+                        .setFooter("資料提供者：AccuWeather (https://www.accuweather.com/)\n資料更新時間：" + weatherDataResult.getString("LocalObservationDateTime").split("T")[0] + " " + weatherDataResult.getString("LocalObservationDateTime").split("T")[1].substring(0, 8)+"（GMT+"+weatherDataResult.getString("LocalObservationDateTime").split("\\+")[1]+"）", "https://lh3.ggpht.com/7BB1gD1EJ9g2mcqHfAtMuP0Z5Zg1a1syl4l8GTGIXFUUUpTSbg_txXw99YAVUZ9B8A=h300");
                 ctx.getChannel().sendMessage(embed.build()).queue();
             }
         } else {
+            Request weatherDataRequest = new Request.Builder()
+                    .url("http://dataservice.accuweather.com/forecasts/v1/daily/1day/" + cityId + "?apikey=" + APIKEY + "&language=zh-tw&details=true&metric=true")
+                    .build();
 
+            Response weatherDataResponse=client.newCall(weatherDataRequest).execute();
+            JSONObject wholedata=new JSONObject(weatherDataResponse.body().string());
+            JSONObject HeadLine = wholedata.getJSONObject("Headline");
+            JSONObject DailyForecast = (JSONObject) wholedata.getJSONArray("DailyForecasts").get(0);
+            JSONObject DayData = DailyForecast.getJSONObject("Day");
+            JSONObject NightData = DailyForecast.getJSONObject("Night");
+            JSONObject Temperature = DailyForecast.getJSONObject("Temperature");
+            JSONObject RealFeelTemperature = DailyForecast.getJSONObject("Temperature");
+            if (ifDetailed) {
+                JSONObject Sun=DailyForecast.getJSONObject("Sun");
+                JSONObject Moon=DailyForecast.getJSONObject("Moon");
+                String sunrise = Sun.getString("Rise");
+                String sunset = Sun.getString("Set");
+                String moonrise= Moon.getString("Rise");
+                String moonSet = Moon.getString("Set");
+                EmbedBuilder embed = EmbedUtils.defaultEmbed()
+                        .setTitle(cityName + HeadLine.getString("Text"))
+                        .setDescription("以下之時間之時區皆為（GMT+" + sunrise.split("\\+")[1] + "）")
+                        .addField("溫度",
+                                "**最高溫度：**" + Temperature.getJSONObject("Maximum").getInt("Value") + "\u2103\n"
+                                        + "**最低溫度：**" + Temperature.getJSONObject("Minimum").getInt("Value") + "\u2103", true)
+                        .addField("體感溫度",
+                                "**最高溫度：**" + RealFeelTemperature.getJSONObject("Maximum").getInt("Value") + "\u2103\n"
+                                        + "**最低溫度：**" + RealFeelTemperature.getJSONObject("Minimum").getInt("Value") + "\u2103", true)
+                        .addBlankField(true)
+                        .addField("早上：",
+                                "**天氣：**" + DayData.getString("IconPhrase")
+                                        + "\n**降雨機率：**" + DayData.getInt("PrecipitationProbability") + "%", true)
+                        .addField("晚上：",
+                                "**天氣：**" + NightData.getString("IconPhrase")
+                                        + "\n**降雨機率：**" + NightData.getInt("PrecipitationProbability") + "%", true)
+                        .addBlankField(true)
+                        .addField("太陽：",
+                                "**升起時間：**" + sunrise.split("T")[1].substring(0, 8) + "\n"
+                                        + "**隱沒時間：**" + sunset.split("T")[1].substring(0, 8) + "\n"
+                                        + "**日照時長：**" + DailyForecast.getDouble("HoursOfSun"), true)
+                        .addField("月亮：",
+                                "**升起時間：**" + moonrise.split("T")[1].substring(0, 8) + "\n"
+                                        + "**隱沒時間：**" + moonSet.split("T")[1].substring(0, 8) + "\n"
+                                        + "**月亮形狀：**" + Moon.getString("Phase"), true)
+                        .addBlankField(true)
+                        .setFooter("資料提供者：AccuWeather (https://www.accuweather.com/)", "https://lh3.ggpht.com/7BB1gD1EJ9g2mcqHfAtMuP0Z5Zg1a1syl4l8GTGIXFUUUpTSbg_txXw99YAVUZ9B8A=h300");
+                ctx.getChannel().sendMessage(embed.build()).queue();
+            } else {
+                EmbedBuilder embed = EmbedUtils.defaultEmbed()
+                        .setTitle(cityName + HeadLine.getString("Text"))
+                        .addField("溫度",
+                                "**最高溫度：**" + Temperature.getJSONObject("Maximum").getInt("Value") + "\u2103\n"
+                                        + "**最低溫度：**" + Temperature.getJSONObject("Minimum").getInt("Value") + "\u2103", true)
+                        .addField("體感溫度",
+                                "**最高溫度：**" + RealFeelTemperature.getJSONObject("Maximum").getInt("Value") + "\u2103\n"
+                                        + "**最低溫度：**" + RealFeelTemperature.getJSONObject("Minimum").getInt("Value") + "\u2103", true)
+                        .addBlankField(true)
+                        .addField("早上：", "**天氣：**" + DayData.getString("IconPhrase") + "\n降雨機率：" + DayData.getInt("PrecipitationProbability") + "%", true)
+                        .addField("晚上：", "**天氣：**" + NightData.getString("IconPhrase") + "\n降雨機率：" + NightData.getInt("PrecipitationProbability") + "%", true)
+                        .setFooter("資料提供者：AccuWeather (https://www.accuweather.com/)", "https://lh3.ggpht.com/7BB1gD1EJ9g2mcqHfAtMuP0Z5Zg1a1syl4l8GTGIXFUUUpTSbg_txXw99YAVUZ9B8A=h300");
+                ctx.getChannel().sendMessage(embed.build()).queue();
+            }
         }
     }
 

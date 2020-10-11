@@ -25,7 +25,7 @@ public class EventWaiterTestCommand implements ICommand {
         TextChannel channel= ctx.getChannel();
         long channelid = channel.getIdLong();
 
-        channel.sendMessage("Please react with "+EMOTE).queue(
+        channel.sendMessage("Please react with " + EMOTE).queue(
                 message -> {
                     message.addReaction(EMOTE).queue();
                     initWaiter(message.getIdLong(), ctx.getChannel());

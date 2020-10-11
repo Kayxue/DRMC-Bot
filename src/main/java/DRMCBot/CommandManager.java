@@ -2,6 +2,9 @@ package DRMCBot;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.Commands.*;
+import DRMCBot.Command.Commands.Giveaway.StartGiveawayCommand;
+import DRMCBot.Command.Commands.GiveawayTest.GiveawayWaitTestCommand;
+import DRMCBot.Command.Commands.GiveawayTest.RegularExpressionTestCommand;
 import DRMCBot.Command.Commands.Ticket.CloseTicketCommand;
 import DRMCBot.Command.Commands.Ticket.OpenTicketCommand;
 import DRMCBot.Command.Commands.admin.*;
@@ -66,6 +69,11 @@ public class CommandManager {
         addCommand(new OpenTicketCommand());
         addCommand(new CloseTicketCommand());
         addCommand(new EventWaiterTestCommand(eventWaiter));
+        addCommand(new RegularExpressionTestCommand());
+        addCommand(new CooldownTestCommand());
+        addCommand(new GiveawayWaitTestCommand());
+        addCommand(new StartGiveawayCommand(eventWaiter));
+        addCommand(new GetEmojiNameCommand());
     }
 
     private void addCommand(ICommand cmd){
