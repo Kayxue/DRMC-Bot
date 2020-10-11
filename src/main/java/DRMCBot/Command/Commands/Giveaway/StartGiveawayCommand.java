@@ -12,10 +12,7 @@ import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEve
 
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
-import java.util.Calendar;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -87,9 +84,11 @@ public class StartGiveawayCommand implements ICommand {
                                     Matcher matcher = timeFormat.matcher(giveawayLength);
                                     long sec = 0;
                                     String winnercount;
-                                    winnercount = ctx.getArgs().get(1);
-                                    int index = ctx.getMessage().getContentRaw().indexOf(winnercount) + winnercount.length();
-                                    String price = ctx.getMessage().getContentRaw().substring(index).trim();
+                                    String timeString = ctx.getArgs().get(0);
+                                    int lastTwoArgunentIndex = ctx.getMessage().getContentRaw().indexOf(timeString) + timeString.length();
+                                    String lastTwoArguments = ctx.getMessage().getContentRaw().substring(lastTwoArgunentIndex).trim();
+                                    List<String> lastArguments = Arrays.asList(lastTwoArguments.split(" "));
+                                    winnercount = lastArguments.get(0);
                                     while (matcher.find()) {
                                         switch (matcher.group(2)) {
                                             case "d" -> sec += (Integer.parseInt(matcher.group(1)) * 86400);
