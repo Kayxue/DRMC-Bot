@@ -7,9 +7,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -71,10 +69,89 @@ public class UserinfoCommand implements ICommand {
             }
         }
 
+        String lengthCreated = "";
+        String lengthJoined = "";
         final OffsetDateTime timeCreated = member.getUser().getTimeCreated();
         final OffsetDateTime timeJoined = member.getTimeJoined();
         final ZonedDateTime timeCreatedWithZone = timeCreated.atZoneSameInstant(ZoneId.of("Asia/Taipei"));
-        final ZonedDateTime timeJoinedWithZone = timeCreated.atZoneSameInstant(ZoneId.of("Asia/Taipei"));
+        final ZonedDateTime timeJoinedWithZone = timeJoined.atZoneSameInstant(ZoneId.of("Asia/Taipei"));
+        final ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Taipei"));
+
+        long lengthcreatedsecond = Duration.between(timeCreatedWithZone, now).getSeconds();
+        long lengthjoinedsecond = Duration.between(timeJoinedWithZone, now).getSeconds();
+
+        if (lengthcreatedsecond / 3600 < 24) {
+            long hour = lengthcreatedsecond / 3600;
+            long minute = (lengthcreatedsecond % 3600) / 60;
+            long second = (lengthcreatedsecond % 3600) % 60;
+            if (hour != 0 || minute != 0) {
+                if (hour != 0) {
+                    lengthCreated += hour + "小時";
+                }
+                if (minute != 0) {
+                    lengthCreated += minute + "分鐘";
+                }
+            } else {
+                lengthCreated += second + "秒";
+            }
+        } else {
+            LocalDate nowlocal = now.toLocalDate();
+            LocalDate timeCreatelocal = timeCreatedWithZone.toLocalDate();
+            Period period = Period.between(timeCreatelocal, nowlocal);
+            if (period.getYears() != 0) {
+                lengthCreated += period.getYears() + "年";
+            }
+            if (period.getMonths() != 0) {
+                if (lengthCreated.length() != 0) {
+                    lengthCreated += "又";
+                }
+                lengthCreated += period.getMonths() + "個月";
+            }
+            if (period.getDays() != 0) {
+                if (lengthCreated.length() != 0) {
+                    lengthCreated += "又";
+                }
+                lengthCreated += period.getDays() + "天";
+            }
+        }
+
+        if (lengthjoinedsecond / 3600 < 24) {
+            long hour = lengthjoinedsecond / 3600;
+            long minute = (lengthjoinedsecond % 3600) / 60;
+            long second = (lengthjoinedsecond % 3600) % 60;
+            if (hour != 0 || minute != 0) {
+                if (hour != 0) {
+                    lengthJoined += hour + "小時";
+                }
+                if (minute != 0) {
+                    lengthJoined += minute + "分鐘";
+                }
+            } else {
+                lengthJoined += second + "秒";
+            }
+        } else {
+            LocalDate nowlocal = now.toLocalDate();
+            LocalDate timeJoinlocal = timeJoinedWithZone.toLocalDate();
+            Period period = Period.between(timeJoinlocal, nowlocal);
+            if (period.getYears() != 0) {
+                lengthJoined += period.getYears() + "年";
+            }
+            if (period.getMonths() != 0) {
+                if (lengthJoined.length() != 0) {
+                    lengthJoined += "又";
+                }
+                lengthJoined += period.getMonths() + "個月";
+            }
+            if (period.getDays() != 0) {
+                if (lengthJoined.length() != 0) {
+                    lengthJoined += "又";
+                }
+                lengthJoined += period.getDays() + "天";
+            }
+        }
+
+        lengthCreated += "之前";
+        lengthJoined += "之前";
 
         timeCreatedString = formattime(timeCreatedWithZone.getYear()) + "/"
                 + formattime(timeCreatedWithZone.getMonthValue()) + "/"
@@ -82,9 +159,8 @@ public class UserinfoCommand implements ICommand {
                 + formattime(timeCreatedWithZone.getHour()) + ":"
                 + formattime(timeCreatedWithZone.getMinute()) + ":"
                 + formattime(timeCreatedWithZone.getSecond()) + "\n"
-                + "(UTC"
-                + timeCreatedWithZone.getOffset()
-                + ")";
+                + "(UTC" + timeCreatedWithZone.getOffset() + ")" + "\n"
+                + "``("+lengthCreated+")``";
 
         timeJoinedString = formattime(timeJoinedWithZone.getYear()) + "/"
                 + formattime(timeJoinedWithZone.getMonthValue()) + "/"
@@ -92,9 +168,8 @@ public class UserinfoCommand implements ICommand {
                 + formattime(timeJoinedWithZone.getHour()) + ":"
                 + formattime(timeJoinedWithZone.getMinute()) + ":"
                 + formattime(timeJoinedWithZone.getSecond()) + "\n"
-                + "(UTC"
-                + timeJoinedWithZone.getOffset()
-                + ")";
+                + "(UTC" + timeJoinedWithZone.getOffset() + ")" + "\n"
+                + "``("+lengthJoined+")``";
 
         if (user == ctx.getAuthor()) {
             description = "關於此使用者的資訊";

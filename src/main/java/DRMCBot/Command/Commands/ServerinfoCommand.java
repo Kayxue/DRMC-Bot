@@ -6,10 +6,7 @@ import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
 
-import java.lang.reflect.Array;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -53,6 +50,8 @@ public class ServerinfoCommand implements ICommand {
                 default -> offline += 1;
             }
         }
+
+
 
         if_two_factor = guild.getRequiredMFALevel() == Guild.MFALevel.TWO_FACTOR_AUTH;
 
@@ -124,15 +123,54 @@ public class ServerinfoCommand implements ICommand {
             case US_WEST, VIP_US_WEST -> region = "美國西部";
         }
 
+        String TimeLength = "";
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Taipei"));
+        long lengthHour = Duration.between(timeCreatedWithZone, now).getSeconds();
+        if (lengthHour / 3600 < 24) {
+            long hour = lengthHour / 3600;
+            long minute = (lengthHour % 3600) / 60;
+            long second = (lengthHour % 3600) % 60;
+            if (hour != 0 || minute != 0) {
+                if (hour != 0) {
+                    TimeLength += hour + "小時";
+                }
+                if (minute != 0) {
+                    TimeLength += minute + "分鐘";
+                }
+            } else {
+                TimeLength += second + "秒";
+            }
+        } else {
+            LocalDate nowlocal = now.toLocalDate();
+            LocalDate timeCreatelocal = timeCreatedWithZone.toLocalDate();
+            Period period = Period.between(timeCreatelocal, nowlocal);
+            if (period.getYears() != 0) {
+                TimeLength += period.getYears() + "年";
+            }
+            if (period.getMonths() != 0) {
+                if (TimeLength.length() != 0) {
+                    TimeLength += "又";
+                }
+                TimeLength += period.getMonths() + "個月";
+            }
+            if (period.getDays() != 0) {
+                if (TimeLength.length() != 0) {
+                    TimeLength += "又";
+                }
+                TimeLength += period.getDays() + "天";
+            }
+        }
+
+        TimeLength += "之前";
+
         timeCreatedString = formattime(timeCreatedWithZone.getYear()) + "/"
                 + formattime(timeCreatedWithZone.getMonthValue()) + "/"
                 + formattime(timeCreatedWithZone.getDayOfMonth()) + "\n"
                 + formattime(timeCreatedWithZone.getHour()) + ":"
                 + formattime(timeCreatedWithZone.getMinute()) + ":"
                 + formattime(timeCreatedWithZone.getSecond()) + "\n"
-                + "(UTC"
-                + timeCreatedWithZone.getOffset()
-                + ")";
+                + "(UTC" + timeCreatedWithZone.getOffset() + ")" + "\n"
+                + "``(" + TimeLength + ")``";
 
         final EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed()
                 .setTitle("關於伺服器「" + guild.getName() + "」")

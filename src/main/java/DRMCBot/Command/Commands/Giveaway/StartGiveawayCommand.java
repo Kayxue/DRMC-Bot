@@ -45,17 +45,16 @@ public class StartGiveawayCommand implements ICommand {
 
         String giveawayLength = ctx.getArgs().get(0);
 
+        boolean ifMatches = Pattern.matches(String.valueOf(timeFormat), giveawayLength);
+        if (!ifMatches) {
+            ctx.getChannel().sendMessage("時間格式輸入不正確！").queue();
+            return;
+        }
 
         try {
             Integer.parseInt(ctx.getArgs().get(1));
         } catch (Exception e) {
             ctx.getChannel().sendMessage("請輸入抽出人數！").queue();
-            return;
-        }
-
-        boolean ifMatches = Pattern.matches(String.valueOf(timeFormat), giveawayLength);
-        if (!ifMatches) {
-            ctx.getChannel().sendMessage("時間格式輸入不正確！").queue();
             return;
         }
 
@@ -161,7 +160,7 @@ public class StartGiveawayCommand implements ICommand {
                     long s = ((Second % 86400) % 3600) % 60;
                     EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed()
                             .setTitle(":tada: 抽獎已開始！")
-                            .setDescription("**抽獎獎項：**" + price + "\n剩餘時間：" + d + "天" + h + "小時" + m + "分" + s + "秒")
+                            .setDescription("**抽獎獎項：**" + price + "\n"+"**抽出人數：**"+winnerCount+"\n**剩餘時間：**" + d + "天" + h + "小時" + m + "分" + s + "秒")
                             .setFooter("由" + GiveawayCreator.getUser().getAsTag() + "舉辦\n" + "將結束於：" + EndDay + " (GMT+08:00)", GiveawayCreator.getUser().getAvatarUrl());
                     GiveawayMessage.editMessage(embedBuilder.build()).queue();
                 }
@@ -180,18 +179,35 @@ public class StartGiveawayCommand implements ICommand {
 
         public void Roll() {
             if (toRoll) {
-                long d = Second / 86400;
-                long h = (Second % 86400) / 3600;
-                long m = ((Second % 86400) % 3600) / 60;
-                long s = ((Second % 86400) % 3600) % 60;
-                EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed()
-                        .setTitle(":tada: 抽獎已圓滿結束！")
-                        .setDescription("**抽獎獎項：**" + price + "\n剩餘時間：" + d + "天" + h + "小時" + m + "分" + s + "秒")
-                        .setFooter("由" + GiveawayCreator.getUser().getAsTag() + "舉辦\n" + "已結束於：" + EndDay + " (GMT+08:00)", GiveawayCreator.getUser().getAvatarUrl())
-                        .setColor(0x0DFC3D);
-                GiveawayMessage.editMessage(embedBuilder.build()).queue();
+                List<User> tochooseusers = GiveawayMessage.getReactions().get(0).retrieveUsers().complete();
+                List<String> choosed = new LinkedList<>();
 
-                GiveawayMessageChannel.sendMessage("抽獎完成").queue();
+                tochooseusers.remove(GiveawayMessage.getAuthor());
+                tochooseusers.remove(GiveawayCreator);
+                if (!tochooseusers.isEmpty()) {
+                    Random r = new Random();
+                    for (int i = 0; i < winnerCount; i++) {
+                        int chooseindex = r.nextInt(tochooseusers.size());
+                        choosed.add(tochooseusers.get(tochooseusers.indexOf(chooseindex)).getAsMention());
+                        tochooseusers.remove(tochooseusers.indexOf(chooseindex));
+                        if (tochooseusers.isEmpty()) {
+                            break;
+                        }
+                    }
+                    String winner = String.join("、", choosed);
+                    EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed()
+                            .setTitle(":tada: 抽獎已圓滿結束！")
+                            .setDescription("**抽獎獎項：**" + price + "\n" + "得獎者：" + winner)
+                            .setFooter("由" + GiveawayCreator.getUser().getAsTag() + "舉辦\n" + "已結束於：" + EndDay + " (GMT+08:00)", GiveawayCreator.getUser().getAvatarUrl())
+                            .setColor(0x0DFC3D);
+                    GiveawayMessage.editMessage(embedBuilder.build()).queue();
+                    GiveawayMessage = GiveawayMessageChannel.retrieveMessageById(GiveawayMessage.getId()).complete();
+                    GiveawayMessageChannel.sendMessage(":tada: 恭喜" + winner + "！" + (winnerCount == 1 ? "你們" : "你") + "成功獲得了" + price + "！").queue();
+
+                } else {
+                    GiveawayMessageChannel.sendMessage("沒有人參加此次抽獎喔！").queue();
+                }
+                CacheList.RunningGiveaway.remove(GiveawayMessage.getChannel().getId() + GiveawayMessage.getId());
             }
         }
     }
