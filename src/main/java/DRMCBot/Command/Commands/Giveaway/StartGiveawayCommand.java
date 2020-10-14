@@ -141,7 +141,7 @@ public class StartGiveawayCommand implements ICommand {
             EndDay = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calendar.getTime()));
             EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed()
                     .setTitle(":tada: 抽獎已開始！")
-                    .setDescription("**抽獎獎項：**" + price + "\n剩餘時間：" + d + "天" + h + "小時" + m + "分" + s + "秒")
+                    .setDescription("**抽獎獎項：**" + price + "\n" + "**抽出人數：**" + winnerCount + "\n**剩餘時間：**" + d + "天" + h + "小時" + m + "分" + s + "秒")
                     .setFooter("由" + GiveawayCreator.getUser().getAsTag() + "舉辦\n" + "將結束於：" + EndDay + " (GMT+08:00)", GiveawayCreator.getUser().getAvatarUrl());
             GiveawayMessage = GiveawayMessageChannel.sendMessage(embedBuilder.build()).complete();
             GiveawayMessage.addReaction(toReactGiveawayEmoji).complete();
@@ -160,7 +160,7 @@ public class StartGiveawayCommand implements ICommand {
                     long s = ((Second % 86400) % 3600) % 60;
                     EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed()
                             .setTitle(":tada: 抽獎已開始！")
-                            .setDescription("**抽獎獎項：**" + price + "\n"+"**抽出人數：**"+winnerCount+"\n**剩餘時間：**" + d + "天" + h + "小時" + m + "分" + s + "秒")
+                            .setDescription("**抽獎獎項：**" + price + "\n剩餘時間：" + d + "天" + h + "小時" + m + "分" + s + "秒")
                             .setFooter("由" + GiveawayCreator.getUser().getAsTag() + "舉辦\n" + "將結束於：" + EndDay + " (GMT+08:00)", GiveawayCreator.getUser().getAvatarUrl());
                     GiveawayMessage.editMessage(embedBuilder.build()).queue();
                 }
@@ -179,6 +179,12 @@ public class StartGiveawayCommand implements ICommand {
 
         public void Roll() {
             if (toRoll) {
+                long d = Second / 86400;
+                long h = (Second % 86400) / 3600;
+                long m = ((Second % 86400) % 3600) / 60;
+                long s = ((Second % 86400) % 3600) % 60;
+                GiveawayMessage = GiveawayMessageChannel.retrieveMessageById(GiveawayMessage.getId()).complete();
+
                 List<User> tochooseusers = GiveawayMessage.getReactions().get(0).retrieveUsers().complete();
                 List<String> choosed = new LinkedList<>();
 
@@ -197,14 +203,19 @@ public class StartGiveawayCommand implements ICommand {
                     String winner = String.join("、", choosed);
                     EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed()
                             .setTitle(":tada: 抽獎已圓滿結束！")
-                            .setDescription("**抽獎獎項：**" + price + "\n" + "得獎者：" + winner)
+                            .setDescription("**抽獎獎項：**" + price + "\n**得獎者：**" + winner)
                             .setFooter("由" + GiveawayCreator.getUser().getAsTag() + "舉辦\n" + "已結束於：" + EndDay + " (GMT+08:00)", GiveawayCreator.getUser().getAvatarUrl())
                             .setColor(0x0DFC3D);
                     GiveawayMessage.editMessage(embedBuilder.build()).queue();
-                    GiveawayMessage = GiveawayMessageChannel.retrieveMessageById(GiveawayMessage.getId()).complete();
                     GiveawayMessageChannel.sendMessage(":tada: 恭喜" + winner + "！" + (winnerCount == 1 ? "你們" : "你") + "成功獲得了" + price + "！").queue();
 
                 } else {
+                    EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed()
+                            .setTitle(":tada: 抽獎已圓滿結束！")
+                            .setDescription("**抽獎獎項：**" + price + "\n**得獎者：**" + "沒有人")
+                            .setFooter("由" + GiveawayCreator.getUser().getAsTag() + "舉辦\n" + "已結束於：" + EndDay + " (GMT+08:00)", GiveawayCreator.getUser().getAvatarUrl())
+                            .setColor(0x0DFC3D);
+                    GiveawayMessage.editMessage(embedBuilder.build()).queue();
                     GiveawayMessageChannel.sendMessage("沒有人參加此次抽獎喔！").queue();
                 }
                 CacheList.RunningGiveaway.remove(GiveawayMessage.getChannel().getId() + GiveawayMessage.getId());
