@@ -56,13 +56,13 @@ public class MinecraftCommand implements ICommand {
 
     private void fetchUUID(String username, Consumer<String> callback) {
         WebUtils.ins.getJSONObject(
-                "https://api.mojang.com/users/profiles/minecraft/"+username,
-                (builder)->builder.setStatusCodeValidator(StatusCodeValidator.ACCEPT_200)
+                "https://api.mojang.com/users/profiles/minecraft/" + username,
+                (builder) -> builder.setStatusCodeValidator(StatusCodeValidator.ACCEPT_200)
         ).async(
-                (json)->{
+                (json) -> {
                     callback.accept(json.get("id").asText());
                 },
-                (error)->{
+                (error) -> {
                     callback.accept(null);
                 }
         );

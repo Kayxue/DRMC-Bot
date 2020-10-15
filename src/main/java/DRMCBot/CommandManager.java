@@ -75,6 +75,9 @@ public class CommandManager {
         addCommand(new StartGiveawayCommand(eventWaiter));
         addCommand(new GetEmojiNameCommand());
         addCommand(new GetMessageReactionCommand());
+        addCommand(new CatCommand());
+        addCommand(new DogCommand());
+        addCommand(new UptimeCommand());
     }
 
     private void addCommand(ICommand cmd){

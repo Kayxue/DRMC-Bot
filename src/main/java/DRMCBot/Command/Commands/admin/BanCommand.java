@@ -5,6 +5,7 @@ import DRMCBot.Command.ICommand;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.exceptions.HierarchyException;
 
 import java.util.List;
 
@@ -52,13 +53,17 @@ public class BanCommand implements ICommand {
             return;
         }
 
-        ctx.getGuild()
-                .ban(usertoban, 7, reason)
-                .reason(reason)
-                .queue(
-                        __ -> ctx.getChannel().sendMessage("封鎖完成！").queue(),
-                        error -> ctx.getChannel().sendMessage(error.getMessage()).queue()
-                );
+        try {
+            ctx.getGuild()
+                    .ban(usertoban, 7, reason)
+                    .reason(reason)
+                    .queue(
+                            __ -> ctx.getChannel().sendMessage("封鎖完成！").queue(),
+                            error -> ctx.getChannel().sendMessage(error.getMessage()).queue()
+                    );
+        } catch (Exception e) {
+            ctx.getChannel().sendMessage(e.getLocalizedMessage()).queue();
+        }
     }
 
     @Override
