@@ -11,13 +11,17 @@ public class DogCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
         WebUtils.ins.getJSONObject(
-                "https://random.dog/woof.json",
+                "https://dog.ceo/api/breeds/image/random",
                 builder -> builder.setStatusCodeValidator(StatusCodeValidator.ACCEPT_200)
         ).async(
                 json -> {
-                    String url = json.get("url").asText();
-                    EmbedBuilder embedBuilder = EmbedUtils.embedImage(url);
-                    ctx.getChannel().sendMessage(embedBuilder.build()).queue();
+                    if ("success".equals(json.get("status").asText())) {
+                        String url = json.get("message").asText();
+                        EmbedBuilder embedBuilder = EmbedUtils.embedImage(url);
+                        ctx.getChannel().sendMessage(embedBuilder.build()).queue();
+                    } else {
+                        ctx.getChannel().sendMessage("API出錯了！").queue();
+                    }
                 },
                 error -> {
                     ctx.getChannel().sendMessage(error.getLocalizedMessage()).queue();

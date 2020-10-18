@@ -9,10 +9,12 @@ import DRMCBot.Command.Commands.Ticket.CloseTicketCommand;
 import DRMCBot.Command.Commands.Ticket.OpenTicketCommand;
 import DRMCBot.Command.Commands.admin.*;
 import DRMCBot.Command.Commands.anime.ChinoCommand;
+import DRMCBot.Command.Commands.anime.NekoCommand;
 import DRMCBot.Command.Commands.music.*;
 import DRMCBot.Command.Commands.reurl.ReurlCommand;
 import DRMCBot.Command.Commands.reurl.TinyurlCommand;
 import DRMCBot.Command.Commands.suggestion.*;
+import DRMCBot.Command.Commands.EightBallCommand;
 import DRMCBot.Command.ICommand;
 import DRMCBot.Command.Commands.music.QueueCommand;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
@@ -78,6 +80,11 @@ public class CommandManager {
         addCommand(new CatCommand());
         addCommand(new DogCommand());
         addCommand(new UptimeCommand());
+        addCommand(new ClearCommand());
+        //addCommand(new AnimeMemeCommand());
+        addCommand(new EightBallCommand());
+        addCommand(new NekoCommand());
+        addCommand(new CommandRunLengthCommand(this));
     }
 
     private void addCommand(ICommand cmd){
@@ -91,7 +98,7 @@ public class CommandManager {
     }
 
     @Nullable
-    private ICommand getCommand(String search){
+    public ICommand getCommand(String search){
         String searchLower = search.toLowerCase();
 
         for (ICommand cmd:this.commands){

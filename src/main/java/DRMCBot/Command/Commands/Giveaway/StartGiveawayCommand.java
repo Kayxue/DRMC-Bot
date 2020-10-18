@@ -179,10 +179,6 @@ public class StartGiveawayCommand implements ICommand {
 
         public void Roll() {
             if (toRoll) {
-                long d = Second / 86400;
-                long h = (Second % 86400) / 3600;
-                long m = ((Second % 86400) % 3600) / 60;
-                long s = ((Second % 86400) % 3600) % 60;
                 GiveawayMessage = GiveawayMessageChannel.retrieveMessageById(GiveawayMessage.getId()).complete();
 
                 List<User> tochooseusers = GiveawayMessage.getReactions().get(0).retrieveUsers().complete();

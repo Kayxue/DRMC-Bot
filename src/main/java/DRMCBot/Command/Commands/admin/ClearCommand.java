@@ -11,6 +11,7 @@ import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class ClearCommand implements ICommand {
@@ -49,7 +50,7 @@ public class ClearCommand implements ICommand {
             return;
         }
         channel.getIterableHistory()
-                .takeAsync(count)
+                .takeAsync(count + 1)
                 .thenAcceptAsync(
                         messages -> {
                             List<Message> messagestodelete = messages.stream()
@@ -57,11 +58,15 @@ public class ClearCommand implements ICommand {
                                             OffsetDateTime.now().minus(2, ChronoUnit.WEEKS)
                                     ))
                                     .collect(Collectors.toList());
+
+                            channel.purgeMessages(messagestodelete);
                         }
                 )
-        .whenCompleteAsync((amount,thr)->{
-            
-        });
+                .whenCompleteAsync((amount, thr) -> {
+                    channel.sendMessage("成功刪除" + count + "則訊息！").queue(
+                            message -> message.delete().queueAfter(10, TimeUnit.SECONDS)
+                    );
+                });
     }
 
     @Override

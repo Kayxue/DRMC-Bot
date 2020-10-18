@@ -13,7 +13,7 @@ public class HelpCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
         User botowner = ctx.getJDA().getUserById("470516498050580480");
-        String[] x = {"discordinfo", "otherinfo", "generation", "entertainment", "music", "suggestion", "ticket", "management"};
+        String[] x = {"discordinfo", "otherinfo", "generation", "entertainment", "music", "suggestion", "ticket", "management","giveaway"};
         List<String> category = Arrays.asList(x);
         EmbedBuilder embed = EmbedUtils.defaultEmbed()
                 .setAuthor(ctx.getJDA().getSelfUser().getName() + "#" + ctx.getJDA().getSelfUser().getDiscriminator(), null, ctx.getJDA().getSelfUser().getAvatarUrl())
@@ -27,7 +27,8 @@ public class HelpCommand implements ICommand {
                             + "**music**－音樂播放類\n"
                             + "**suggestion**－建議類（目前僅限DRMC使用）\n"
                             + "**ticket**－管理員私訊窗口類（目前僅限DRMC使用）\n"
-                            + "**management**－管理伺服器與機器人設定", false);
+                            + "**management**－Discord與機器人資訊類\n"
+                            + "**giveaway**－抽獎類（目前暫停使用）", false);
         } else if (category.contains(ctx.getArgs().get(0))) {
             switch (ctx.getArgs().get(0)) {
                 case "discordinfo" -> {
@@ -36,6 +37,7 @@ public class HelpCommand implements ICommand {
                                     + "``help``－顯示此幫助\n"
                                     + "``ping``－取得此機器人回應速度\n"
                                     + "``serverinfo``－取得關於此伺服器之資訊\n"
+                                    + "``uptime``－取得此機器人此次上線時間\n"
                                     + "``userinfo``－取得指定使用者之資料\n",
                             true);
                 }
@@ -59,7 +61,10 @@ public class HelpCommand implements ICommand {
                     embed.addField("娛樂類",
                             "``joke``－顯示一則玩笑\n"
                                     + "``meme``－顯示一張迷因圖片\n"
-                                    + "``chino``（未完工）－顯示一張智乃圖\n",
+                                    + "``animememe``－顯示一張動漫迷因圖片（暫停使用）\n"
+                                    + "``chino``（未完工）－顯示一張智乃圖\n"
+                                    + "``dog``－顯示一張狗的圖片\n"
+                                    + "``cat``－顯示一張貓的圖片\n",
                             true);
                 }
                 case "music" -> {
@@ -95,9 +100,17 @@ public class HelpCommand implements ICommand {
                     embed.addField("伺服器管理類",
                             "``ban``－封鎖指定成員\n"
                                     + "``kick``－踢出指定成員\n"
+                                    + "``clear``－清理指令數量訊息"
                                     + "``pinmessage``－釘選一則訊息\n"
                                     + "``unpinmessage``－解除釘選一則訊息\n"
                                     + "``setprefix``－設定機器人在此伺服器的前綴\n",
+                            true);
+                }
+                case "giveaway" -> {
+                    embed.addField("抽獎類",
+                            "``startgiveaway``－舉辦一場抽獎\n"
+                                    + "``rerollwinner``－重新抽出獲獎者\n"
+                                    + "``endgiveaway``－取消抽獎",
                             true);
                 }
             }
@@ -109,7 +122,9 @@ public class HelpCommand implements ICommand {
                             + "**entertainment**－娛樂類\n"
                             + "**music**－音樂播放類\n"
                             + "**suggestion**－建議類（目前僅限DRMC使用）\n"
-                            + "**management**－Discord與機器人資訊類", false);
+                            + "**ticket**－管理員私訊窗口類（目前僅限DRMC使用）\n"
+                            + "**management**－Discord與機器人資訊類\n"
+                            + "**giveaway**－抽獎類（目前暫停使用）", false);
         }
         embed.setFooter("機器人由「" + botowner.getName() + "#" + botowner.getDiscriminator() + "」製作", botowner.getAvatarUrl());
         ctx.getChannel().sendMessage(embed.build()).queue();
