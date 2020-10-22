@@ -5,10 +5,12 @@ import DRMCBot.Command.Commands.*;
 import DRMCBot.Command.Commands.Giveaway.StartGiveawayCommand;
 import DRMCBot.Command.Commands.GiveawayTest.GiveawayWaitTestCommand;
 import DRMCBot.Command.Commands.GiveawayTest.RegularExpressionTestCommand;
+import DRMCBot.Command.Commands.Hypixel.GetHypixelServerBoosterCommand;
 import DRMCBot.Command.Commands.Ticket.CloseTicketCommand;
 import DRMCBot.Command.Commands.Ticket.OpenTicketCommand;
 import DRMCBot.Command.Commands.admin.*;
 import DRMCBot.Command.Commands.anime.ChinoCommand;
+import DRMCBot.Command.Commands.anime.KitsuneCommand;
 import DRMCBot.Command.Commands.anime.NekoCommand;
 import DRMCBot.Command.Commands.music.*;
 import DRMCBot.Command.Commands.reurl.ReurlCommand;
@@ -85,6 +87,9 @@ public class CommandManager {
         addCommand(new EightBallCommand());
         addCommand(new NekoCommand());
         addCommand(new CommandRunLengthCommand(this));
+        addCommand(new KitsuneCommand());
+        addCommand(new GetHypixelServerBoosterCommand());
+        addCommand(new JLyricCommand());
     }
 
     private void addCommand(ICommand cmd){

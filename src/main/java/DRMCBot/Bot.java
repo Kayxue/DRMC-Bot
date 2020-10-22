@@ -12,6 +12,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
+import net.dv8tion.jda.api.utils.Compression;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import okhttp3.Cache;
@@ -48,10 +49,15 @@ public class Bot {
                 GatewayIntent.DIRECT_MESSAGE_TYPING,
                 GatewayIntent.DIRECT_MESSAGES
         )
-                .enableCache(CacheFlag.VOICE_STATE,CacheFlag.CLIENT_STATUS,CacheFlag.ACTIVITY,CacheFlag.MEMBER_OVERRIDES,CacheFlag.EMOTE)
+                .enableCache(CacheFlag.VOICE_STATE, CacheFlag.CLIENT_STATUS, CacheFlag.ACTIVITY, CacheFlag.MEMBER_OVERRIDES, CacheFlag.EMOTE)
                 .setChunkingFilter(ChunkingFilter.ALL)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
+                .setBulkDeleteSplittingEnabled(true)
+                .setContextEnabled(true)
+                .setRawEventsEnabled(true)
+                .setCompression(Compression.ZLIB)
                 .addEventListeners(eventWaiter, new Listener(eventWaiter))
+                .addEventListeners(new LogListener())
                 .build();
 
     }

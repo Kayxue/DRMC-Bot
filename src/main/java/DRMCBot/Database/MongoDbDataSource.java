@@ -2,6 +2,7 @@ package DRMCBot.Database;
 
 import DRMCBot.Config;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.google.gson.JsonObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
@@ -122,6 +123,19 @@ public class MongoDbDataSource implements DatabaseManager{
             JSONObject serversettingsdata = new JSONObject(serversettingdata.find(eq("_id", String.valueOf(serverid))).first().toJson());
             JSONObject toreturn = new JSONObject()
                     .put("categoryid", serversettingsdata.getLong("ticketcategory"))
+                    .put("success", true);
+            return toreturn;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new JSONObject().put("success", false);
+        }
+    }
+
+    public JSONObject getlogchannel(long serverid) {
+        try {
+            JSONObject serversettingsdata = new JSONObject(serversettingdata.find(eq("_id", String.valueOf(serverid))).first().toJson());
+            JSONObject toreturn = new JSONObject()
+                    .put("logchannelid", serversettingsdata.getLong("logchannel"))
                     .put("success", true);
             return toreturn;
         } catch (Exception e) {

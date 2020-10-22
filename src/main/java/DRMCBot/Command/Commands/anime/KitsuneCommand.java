@@ -9,12 +9,12 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONObject;
 
-public class NekoCommand implements ICommand {
+public class KitsuneCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) throws Exception{
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("https://neko-love.xyz/api/v1/neko")
+                .url("https://neko-love.xyz/api/v1/kitsune")
                 .build();
         Response response = client.newCall(request).execute();
         if (response.code() == 200) {
@@ -28,6 +28,6 @@ public class NekoCommand implements ICommand {
 
     @Override
     public String getName() {
-        return "neko";
+        return "kitsune";
     }
 }
