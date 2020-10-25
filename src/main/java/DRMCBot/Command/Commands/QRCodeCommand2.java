@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class QRCodeCommand implements ICommand {
+public class QRCodeCommand2 implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
         if (ctx.getArgs().isEmpty()) {
@@ -66,6 +66,6 @@ public class QRCodeCommand implements ICommand {
 
     @Override
     public String getName() {
-        return "qrcode";
+        return "qrcode2";
     }
 }

@@ -59,7 +59,7 @@ public class CommandManager {
         addCommand(new ConsiderCommand());
         addCommand(new DenyCommand());
         addCommand(new ImplementCommand());
-        addCommand(new QRCodeCommand());
+        addCommand(new QRCodeCommand2());
         addCommand(new WeatherCommand());
         addCommand(new HowToBullShitCommand());
         addCommand(new BanCommand());
@@ -90,6 +90,8 @@ public class CommandManager {
         addCommand(new KitsuneCommand());
         addCommand(new GetHypixelServerBoosterCommand());
         addCommand(new JLyricCommand());
+        addCommand(new Duncte123DiscordMonsterAPICommand());
+        addCommand(new NewMainQRCodeCommand());
     }
 
     private void addCommand(ICommand cmd){
