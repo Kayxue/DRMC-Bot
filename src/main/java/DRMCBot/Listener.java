@@ -88,7 +88,6 @@ public class Listener extends ListenerAdapter {
                 manager.handle(event,prefix);
             } catch (Exception e) {
                 e.printStackTrace();
-                event.getChannel().sendMessage(e.getMessage()).queue();
             }
         }
     }
