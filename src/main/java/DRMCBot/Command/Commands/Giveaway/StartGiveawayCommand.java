@@ -160,7 +160,7 @@ public class StartGiveawayCommand implements ICommand {
                     long s = ((Second % 86400) % 3600) % 60;
                     EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed()
                             .setTitle(":tada: 抽獎已開始！")
-                            .setDescription("**抽獎獎項：**" + price + "\n剩餘時間：" + d + "天" + h + "小時" + m + "分" + s + "秒")
+                            .setDescription("**抽獎獎項：**" + price + "\n" + "**抽出人數：**" + winnerCount + "\n**剩餘時間：**" + d + "天" + h + "小時" + m + "分" + s + "秒")
                             .setFooter("由" + GiveawayCreator.getUser().getAsTag() + "舉辦\n" + "將結束於：" + EndDay + " (GMT+08:00)", GiveawayCreator.getUser().getAvatarUrl());
                     GiveawayMessage.editMessage(embedBuilder.build()).queue();
                 }
@@ -190,8 +190,8 @@ public class StartGiveawayCommand implements ICommand {
                     Random r = new Random();
                     for (int i = 0; i < winnerCount; i++) {
                         int chooseindex = r.nextInt(tochooseusers.size());
-                        choosed.add(tochooseusers.get(tochooseusers.indexOf(chooseindex)).getAsMention());
-                        tochooseusers.remove(tochooseusers.indexOf(chooseindex));
+                        choosed.add(tochooseusers.get(chooseindex).getAsMention());
+                        tochooseusers.remove(chooseindex);
                         if (tochooseusers.isEmpty()) {
                             break;
                         }
