@@ -44,6 +44,7 @@ dependencies {
     implementation "net.hypixel:HypixelAPI:3.0.0"
     implementation group: 'com.jagrosh', name: 'JLyrics', version: '0.4'
     implementation "com.github.oopsjpeg:osu4j:2.0.1"
+    implementation 'com.github.ygimenez:Pagination-Utils:1.2.5b'
 }
 
 compileJava.options.encoding = 'UTF-8'

@@ -6,6 +6,9 @@ import DRMCBot.Command.Commands.Giveaway.StartGiveawayCommand;
 import DRMCBot.Command.Commands.GiveawayTest.GiveawayWaitTestCommand;
 import DRMCBot.Command.Commands.GiveawayTest.RegularExpressionTestCommand;
 import DRMCBot.Command.Commands.Hypixel.GetHypixelServerBoosterCommand;
+import DRMCBot.Command.Commands.PaginatorUtilTest.ButtonizeTestCommand;
+import DRMCBot.Command.Commands.PaginatorUtilTest.CategoryTestCommand;
+import DRMCBot.Command.Commands.PaginatorUtilTest.PaginatorTestCommand;
 import DRMCBot.Command.Commands.Ticket.CloseTicketCommand;
 import DRMCBot.Command.Commands.Ticket.OpenTicketCommand;
 import DRMCBot.Command.Commands.admin.*;
@@ -93,6 +96,9 @@ public class CommandManager {
         addCommand(new Duncte123DiscordMonsterAPICommand());
         addCommand(new NewMainQRCodeCommand());
         addCommand(new ExchangeCommand());
+        addCommand(new PaginatorTestCommand());
+        addCommand(new CategoryTestCommand());
+        addCommand(new ButtonizeTestCommand());
     }
 
     private void addCommand(ICommand cmd){
