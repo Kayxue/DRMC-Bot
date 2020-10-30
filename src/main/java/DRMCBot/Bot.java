@@ -1,6 +1,7 @@
 package DRMCBot;
 
 import DRMCBot.Database.SQLiteDataSource;
+import com.github.ygimenez.method.Pages;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
@@ -8,6 +9,7 @@ import com.neovisionaries.ws.client.WebSocketFactory;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import me.duncte123.botcommons.web.WebUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
@@ -34,7 +36,7 @@ public class Bot {
         );
 
 
-        JDABuilder.createDefault(
+        JDA jda = JDABuilder.createDefault(
                 Config.get("TOKEN"),
                 GatewayIntent.GUILD_MEMBERS,
                 GatewayIntent.GUILD_PRESENCES,
@@ -60,6 +62,7 @@ public class Bot {
                 .addEventListeners(new LogListener())
                 .build();
 
+        Pages.activate(jda);
     }
     public static void main(String[] args) throws LoginException {
         new Bot();
