@@ -29,7 +29,7 @@ public class QRCodeCommand2 implements ICommand {
         String path = generateQRCodeToPath(qrCode);
         File file = new File(path);
         ctx.getChannel().sendMessage("生成結果：").addFile(file).queue();
-        file.delete();
+        file.deleteOnExit();
 
     }
 
