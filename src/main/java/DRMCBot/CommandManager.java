@@ -92,6 +92,7 @@ public class CommandManager {
         addCommand(new JLyricCommand());
         addCommand(new Duncte123DiscordMonsterAPICommand());
         addCommand(new NewMainQRCodeCommand());
+        addCommand(new ExchangeCommand());
     }
 
     private void addCommand(ICommand cmd){

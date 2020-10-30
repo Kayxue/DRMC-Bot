@@ -45,7 +45,11 @@ public class ChinoCommand implements ICommand {
 
                 String pictureurl = maindata.getJSONObject("urls").getString("original");
 
+
+
                 EmbedBuilder embedBuilder = EmbedUtils.embedImage(pictureurl);
+
+                System.out.println(pictureurl);
 
                 ctx.getChannel().sendMessage(embedBuilder.build()).queue();
 

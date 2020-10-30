@@ -27,7 +27,7 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'net.dv8tion', name: 'JDA', version: '4.2.0_204'
+    implementation group: 'net.dv8tion', name: 'JDA', version: '4.2.0_212'
     implementation group: 'com.jagrosh', name: 'jda-utilities', version: '3.0.4'
     implementation group: 'me.duncte123', name: 'botCommons', version: '1.0.88'
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
