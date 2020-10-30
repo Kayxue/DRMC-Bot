@@ -185,7 +185,7 @@ public class StartGiveawayCommand implements ICommand {
                 List<String> choosed = new LinkedList<>();
 
                 tochooseusers.remove(GiveawayMessage.getAuthor());
-                tochooseusers.remove(GiveawayCreator);
+                tochooseusers.remove(GiveawayCreator.getUser());
                 if (!tochooseusers.isEmpty()) {
                     Random r = new Random();
                     for (int i = 0; i < winnerCount; i++) {
