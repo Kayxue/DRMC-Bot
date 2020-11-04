@@ -4,16 +4,14 @@ import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.google.gson.JsonObject;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONObject;
 
-import java.util.Collections;
-import java.util.Iterator;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 public class SourceBinCommand implements ICommand {
     @Override
@@ -21,9 +19,9 @@ public class SourceBinCommand implements ICommand {
         /*
         Return :
         -2:can't get linguist file or parse error
-        -1:not defined language
-         */
-        System.out.println(checkIsDefinedLanguage("js"));
+        372:text
+        */
+        System.out.println(checkIsDefinedLanguage("rs"));
     }
 
     public long checkIsDefinedLanguage(String language) {
@@ -39,27 +37,44 @@ public class SourceBinCommand implements ICommand {
         }
         System.out.println(linguistJson.keySet());
         System.out.println(linguistJson.toString(4));
-        Iterator<String> stringIterator = linguistJson.keys();
-        stringIterator.forEachRemaining(e -> System.out.println(e));
-
         for (String languagename : linguistJson.keySet()) {
-            if (!linguistJson.getJSONObject(languagename).keySet().contains("extensions")) {
-                linguistJson.remove(languagename);
-            }
 
-            /*
-            List<String> extensions = Collections.singletonList(linguistJson.getJSONObject(languagename).get("extensions").toString());
-            List<String> aliases = Collections.singletonList(linguistJson.getJSONObject(languagename).get("aliases").toString());
-            extensions.forEach(x -> x = x.substring(1));
-            if (language.equals(languagename) || extensions.contains(language) || aliases.contains(language)) {
+            List<String> extensions=new LinkedList<>();
+            List<String> aliases=new LinkedList<>();
+
+            try {
+                String[] extensionarray = linguistJson.getJSONObject(languagename).get("extensions").toString()
+                        .replaceAll("\\[", "")
+                        .replaceAll("\\]", "")
+                        .replaceAll("\"", "")
+                        .split(",");
+                extensions = Arrays.asList(extensionarray);
+            } catch (Exception e) {
+                extensions.add("");
+            }
+            System.out.println(extensions.contains("js"));
+            System.out.println("-------------");
+            System.out.println(languagename);
+            extensions.forEach(e -> System.out.println(e));
+            System.out.println(extensions.size());
+            try {
+                String[] aliasarray = linguistJson.getJSONObject(languagename).get("aliases").toString()
+                        .replaceAll("\\[", "")
+                        .replaceAll("\\]", "")
+                        .replaceAll("\"", "")
+                        .split(",");
+                aliases = Arrays.asList(aliasarray);
+            } catch (Exception e) {
+                aliases.add("");
+            }
+            aliases.forEach(e -> System.out.println(e));
+            System.out.println(aliases.size());
+            System.out.println("-------------");
+            if (language.equalsIgnoreCase(languagename) || extensions.contains("." + language) || aliases.contains(language)) {
                 return linguistJson.getJSONObject(languagename).getLong("language_id");
             }
-            */
-
         }
-
-
-        return -1;
+        return 372;
     }
 
     public JSONObject getLinguist() throws Exception{
