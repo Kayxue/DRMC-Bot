@@ -10,7 +10,7 @@ mainClassName = 'DRMCBot.Bot'
 
 version '1.0'
 
-sourceCompatibility = JavaVersion.VERSION_15
+sourceCompatibility = JavaVersion.VERSION_14
 
 repositories {
     jcenter()
@@ -45,6 +45,7 @@ dependencies {
     implementation group: 'com.jagrosh', name: 'JLyrics', version: '0.4'
     implementation "com.github.oopsjpeg:osu4j:2.0.1"
     implementation 'com.github.ygimenez:Pagination-Utils:1.2.5b'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.11.3'
 }
 
 compileJava.options.encoding = 'UTF-8'

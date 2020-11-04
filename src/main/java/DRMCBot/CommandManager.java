@@ -63,7 +63,7 @@ public class CommandManager {
         addCommand(new DenyCommand());
         addCommand(new ImplementCommand());
         addCommand(new QRCodeCommand2());
-        addCommand(new WeatherCommand());
+        addCommand(new AccuWeatherCommand());
         addCommand(new HowToBullShitCommand());
         addCommand(new BanCommand());
         addCommand(new ChinoCommand());
@@ -99,6 +99,10 @@ public class CommandManager {
         addCommand(new PaginatorTestCommand());
         addCommand(new CategoryTestCommand());
         addCommand(new ButtonizeTestCommand());
+        addCommand(new RemoveBackgroundCommand());
+        addCommand(new SaltyCommand());
+        addCommand(new LinguistParseJsonTestCommand());
+        addCommand(new SourceBinCommand());
     }
 
     private void addCommand(ICommand cmd){

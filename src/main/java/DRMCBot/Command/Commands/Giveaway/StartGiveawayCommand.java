@@ -94,7 +94,9 @@ public class StartGiveawayCommand implements ICommand {
                                         }
                                     }
                                     message.delete().queue();
+                                    ctx.getMessage().delete().queue();
                                     new GiveawayRunner(sec, ctx.getChannel(), Integer.parseInt(winnercount), price, ctx.getMember());
+
                                 } else {
                                     message.delete().queue();
                                     ctx.getChannel().sendMessage("抽獎已為您取消！").queue();
@@ -103,6 +105,7 @@ public class StartGiveawayCommand implements ICommand {
                             },
                             30, TimeUnit.SECONDS,
                             () -> {
+                                message.delete().queue();
                                 ctx.getChannel().sendMessage("30秒超過！").queue();
                             }
                     );

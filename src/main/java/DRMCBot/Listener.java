@@ -4,16 +4,22 @@ import DRMCBot.Database.DatabaseManager;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import me.duncte123.botcommons.BotCommons;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.managers.Manager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nonnull;
+import java.time.Duration;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Calendar;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -31,7 +37,7 @@ public class Listener extends ListenerAdapter {
     public void onReady(@Nonnull ReadyEvent event) {
         LOGGER.info(event.getJDA().getSelfUser().getAsTag()+" is ready");
         
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
 
         Runnable task = () -> {
             event.getJDA().getPresence().setActivity(Activity.watching("Welcome to New DL/RS/MC Chatroom"));
@@ -48,9 +54,35 @@ public class Listener extends ListenerAdapter {
             }
             event.getJDA().getPresence().setActivity(Activity.watching(event.getJDA().getUsers().size() + "位使用者"));//How many user the bot can see
         };
+        TextChannel channel = event.getJDA().getTextChannelById("772839257819447306");
+
+        ZonedDateTime anniversary = ZonedDateTime.of(2020, 12, 30, 0, 0, 0, 0, ZoneId.of("Asia/Taipei"));
+
+        new Thread(() -> {
+            while (true) {
+                ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Taipei"));
+                double hour = Math.ceil(Duration.between(now, anniversary).getSeconds() / 3600.0);
+                if (hour >= 0) {
+                    long day = (long) Math.ceil(Duration.between(now, anniversary).getSeconds() / 86400.0);
+                    channel.getManager().setName("距離兩週年：" + day + "天").queue();
+                    if (hour / 24 == 0) {
+                        channel.sendMessage("距離兩週年剩" + day + "天囉！\nServer 2nd anniversary :" + day + (day == 1 ? "day" : "days") + "remaining").queue();
+                    }
+                } else {
+                    channel.getManager().setName("\uD83C\uDF89伺服器兩週年快樂！").queue();
+                    channel.sendMessage(":tada:伺服器兩週年快樂！").queue();
+                    break;
+                }
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
         executor.scheduleWithFixedDelay(task, 0, 5, TimeUnit.SECONDS);
-
+        //executor.scheduleWithFixedDelay(countdown, 0, 5, TimeUnit.SECONDS);
 
     }
 

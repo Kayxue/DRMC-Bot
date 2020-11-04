@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class WeatherCommand implements ICommand {
+public class AccuWeatherCommand implements ICommand {
 
     final ArrayList<String> searchType = new ArrayList<>(Arrays.asList("current","forecast"));
 

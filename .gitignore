@@ -2,4 +2,5 @@
 build
 .env
 /src/main/java/DRMCBot/EnvironmentVariable.java
+/out
 
