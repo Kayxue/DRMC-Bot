@@ -4,11 +4,11 @@ import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +21,40 @@ public class SourceBinCommand implements ICommand {
         -2:can't get linguist file or parse error
         372:text
         */
-        System.out.println(checkIsDefinedLanguage("rs"));
+        List<String> args = ctx.getArgs();
+        if (args.isEmpty()) {
+            ctx.getChannel().sendMessage("請輸入參數！").queue();
+            return;
+        }
+        long languageid = checkIsDefinedLanguage(args.get(0));
+        String messagecontent = ctx.getMessage().getContentRaw();
+        if (languageid != -2) {
+            ArrayList<JSONObject> parsedBins = new ArrayList<>();
+            String binname = ctx.getAuthor().getName();
+            JSONObject parsedBin = new JSONObject()
+                    .put("content", messagecontent.substring(messagecontent.indexOf(ctx.getArgs().get(1))))
+                    .put("languageId", languageid);
+            parsedBins.add(parsedBin);
+
+            final JSONObject binObject = new JSONObject()
+                    .put("files", parsedBins.toArray())
+                    .put("title", binname)
+                    .put("description", "A bin posted by " + binname);
+
+            OkHttpClient client = new OkHttpClient();
+            Request postrequest = new Request.Builder()
+                    .url("https://sourceb.in/api/bins/")
+                    .post(RequestBody.create(MediaType.parse("application/json"), binObject.toString()))
+                    .build();
+
+            Response postresponse = client.newCall(postrequest).execute();
+            if (postresponse.isSuccessful()) {
+                System.out.println("Posted finished!");
+                System.out.println(postresponse.body().string());
+            } else {
+                System.out.println(postresponse.message());
+            }
+        }
     }
 
     public long checkIsDefinedLanguage(String language) {
