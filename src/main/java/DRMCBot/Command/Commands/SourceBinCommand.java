@@ -4,6 +4,8 @@ import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import me.duncte123.botcommons.messaging.EmbedUtils;
+import net.dv8tion.jda.api.EmbedBuilder;
 import okhttp3.*;
 import org.json.JSONObject;
 
@@ -12,22 +14,32 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SourceBinCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) throws Exception {
+
+        List<String> args = ctx.getArgs();
+        if (args.isEmpty() || args.size() < 2) {
+            ctx.getChannel().sendMessage("請輸入足夠參數！").queue();//send not enough arguments message
+            return;
+        }
+
         /*
         Return :
         -2:can't get linguist file or parse error
         372:text
         */
-        List<String> args = ctx.getArgs();
-        if (args.isEmpty()) {
-            ctx.getChannel().sendMessage("請輸入參數！").queue();
-            return;
-        }
         long languageid = checkIsDefinedLanguage(args.get(0));
+
+        if (languageid == -2) {
+            ctx.getChannel().sendMessage("無法取得linguist.yaml或轉換成Json失誤！");//send get linguist.yaml or parse linguist.yaml to json error message
+        }
+
         String messagecontent = ctx.getMessage().getContentRaw();
+
         if (languageid != -2) {
             ArrayList<JSONObject> parsedBins = new ArrayList<>();
             String binname = ctx.getAuthor().getName();
@@ -42,15 +54,22 @@ public class SourceBinCommand implements ICommand {
                     .put("description", "A bin posted by " + binname);
 
             OkHttpClient client = new OkHttpClient();
+
             Request postrequest = new Request.Builder()
                     .url("https://sourceb.in/api/bins/")
                     .post(RequestBody.create(MediaType.parse("application/json"), binObject.toString()))
                     .build();
 
             Response postresponse = client.newCall(postrequest).execute();
+
             if (postresponse.isSuccessful()) {
-                System.out.println("Posted finished!");
-                System.out.println(postresponse.body().string());
+                //System.out.println("Posted finished!");
+                //System.out.println(postresponse.body().string());
+                JSONObject postrequestjson = new JSONObject(postresponse.body().string());
+                EmbedBuilder builder = EmbedUtils.defaultEmbed()
+                        .setTitle(postrequestjson.getString("key"), "https://sourceb.in/" + postrequestjson.getString("key"))
+                        .setDescription("```" + (languageid != 372 ? ctx.getArgs().get(0) : "") + "\n" + messagecontent.substring(messagecontent.indexOf(ctx.getArgs().get(1))) + "```");
+                ctx.getChannel().sendMessage(builder.build()).queue();
             } else {
                 System.out.println(postresponse.message());
             }
@@ -68,8 +87,10 @@ public class SourceBinCommand implements ICommand {
         if (linguistJson == null) {
             return -2;
         }
+        /*
         System.out.println(linguistJson.keySet());
         System.out.println(linguistJson.toString(4));
+         */
         for (String languagename : linguistJson.keySet()) {
 
             List<String> extensions=new LinkedList<>();
@@ -85,11 +106,14 @@ public class SourceBinCommand implements ICommand {
             } catch (Exception e) {
                 extensions.add("");
             }
+            /*
             System.out.println(extensions.contains("js"));
             System.out.println("-------------");
             System.out.println(languagename);
             extensions.forEach(e -> System.out.println(e));
             System.out.println(extensions.size());
+
+             */
             try {
                 String[] aliasarray = linguistJson.getJSONObject(languagename).get("aliases").toString()
                         .replaceAll("\\[", "")
@@ -100,9 +124,11 @@ public class SourceBinCommand implements ICommand {
             } catch (Exception e) {
                 aliases.add("");
             }
+            /*
             aliases.forEach(e -> System.out.println(e));
             System.out.println(aliases.size());
             System.out.println("-------------");
+             */
             if (language.equalsIgnoreCase(languagename) || extensions.contains("." + language) || aliases.contains(language)) {
                 return linguistJson.getJSONObject(languagename).getLong("language_id");
             }
