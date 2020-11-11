@@ -2,10 +2,10 @@ package DRMCBot.Command.Commands.admin;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.exceptions.HierarchyException;
 
 import java.util.List;
 
@@ -69,5 +69,20 @@ public class BanCommand implements ICommand {
     @Override
     public String getName() {
         return "ban";
+    }
+
+    @Override
+    public String getCategory() {
+        return "management";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

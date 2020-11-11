@@ -8,8 +8,6 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.hypixel.api.HypixelAPI;
 import net.hypixel.api.reply.BoostersReply;
 
-import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 public class GetHypixelServerBoosterCommand implements ICommand {
@@ -66,5 +64,20 @@ public class GetHypixelServerBoosterCommand implements ICommand {
     @Override
     public String getName() {
         return "gethypixelbooster";
+    }
+
+    @Override
+    public String getCategory() {
+        return "otherinfo";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

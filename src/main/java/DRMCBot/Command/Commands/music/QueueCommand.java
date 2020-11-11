@@ -51,4 +51,19 @@ public class QueueCommand implements ICommand {
     public String getName() {
         return "queue";
     }
+
+    @Override
+    public String getCategory() {
+        return "music";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
+    }
 }

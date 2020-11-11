@@ -5,12 +5,8 @@ import DRMCBot.Command.ICommand;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import me.duncte123.botcommons.web.WebUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.json.JSONObject;
 
-public class Duncte123DiscordMonsterAPICommand implements ICommand {
+public class DuncanDiscordMonsterAPICommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) throws Exception {
         /*First way:Use WebUtils*/
@@ -42,5 +38,20 @@ public class Duncte123DiscordMonsterAPICommand implements ICommand {
     @Override
     public String getName() {
         return "dcmonster";
+    }
+
+    @Override
+    public String getCategory() {
+        return "entertainment";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

@@ -67,4 +67,19 @@ public class CommandRunLengthCommand implements ICommand {
     public String getName() {
         return "commandrunlength";
     }
+
+    @Override
+    public String getCategory() {
+        return "discordinfo";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
+    }
 }

@@ -71,4 +71,19 @@ public class ReurlCommand implements ICommand {
     public String getName() {
         return "reurl";
     }
+
+    @Override
+    public String getCategory() {
+        return "generation";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
+    }
 }

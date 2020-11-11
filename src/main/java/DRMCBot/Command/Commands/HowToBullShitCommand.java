@@ -50,4 +50,19 @@ public class HowToBullShitCommand implements ICommand {
     public String getName() {
         return "hulan";
     }
+
+    @Override
+    public String getCategory() {
+        return "generation";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
+    }
 }

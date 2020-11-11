@@ -2,6 +2,7 @@ package DRMCBot.Command.Commands;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
+import net.dv8tion.jda.api.EmbedBuilder;
 
 public class GetMessageReactionCommand implements ICommand {
     @Override
@@ -17,5 +18,20 @@ public class GetMessageReactionCommand implements ICommand {
     @Override
     public String getName() {
         return "getmessagereaction";
+    }
+
+    @Override
+    public String getCategory() {
+        return "nocategory";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

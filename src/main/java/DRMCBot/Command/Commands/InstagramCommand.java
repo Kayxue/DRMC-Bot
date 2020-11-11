@@ -62,6 +62,21 @@ public class InstagramCommand implements ICommand {
     }
 
     @Override
+    public String getCategory() {
+        return "otherinfo";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
+    }
+
+    @Override
     public List<String> getAliases() {
         return Collections.singletonList("insta");
     }

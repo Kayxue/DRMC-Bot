@@ -3,14 +3,12 @@ package DRMCBot.Command.Commands.admin;
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import DRMCBot.Database.DatabaseManager;
-import DRMCBot.Database.SQLiteDataSource;
 import DRMCBot.VeryBadDesign;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 
 public class SetPrefixCommand implements ICommand{
@@ -39,6 +37,21 @@ public class SetPrefixCommand implements ICommand{
     @Override
     public String getName() {
         return "setprefix";
+    }
+
+    @Override
+    public String getCategory() {
+        return "management";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 
     private void updatePrefix(long guildId,String newPrefix){

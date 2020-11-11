@@ -64,4 +64,19 @@ public class CouponLeftCommand implements ICommand {
     public String getName() {
         return "couponleft";
     }
+
+    @Override
+    public String getCategory() {
+        return "otherinfo";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
+    }
 }

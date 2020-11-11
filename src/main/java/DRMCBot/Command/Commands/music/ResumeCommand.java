@@ -4,6 +4,7 @@ import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import DRMCBot.Command.music.GuildMusicManager;
 import DRMCBot.Command.music.PlayerManager;
+import net.dv8tion.jda.api.EmbedBuilder;
 
 public class ResumeCommand implements ICommand {
     @Override
@@ -18,5 +19,20 @@ public class ResumeCommand implements ICommand {
     @Override
     public String getName() {
         return "resume";
+    }
+
+    @Override
+    public String getCategory() {
+        return "music";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

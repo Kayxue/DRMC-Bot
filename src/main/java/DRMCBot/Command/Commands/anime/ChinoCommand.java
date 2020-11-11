@@ -2,7 +2,6 @@ package DRMCBot.Command.Commands.anime;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import com.google.gson.JsonArray;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import okhttp3.OkHttpClient;
@@ -62,5 +61,20 @@ public class ChinoCommand implements ICommand {
     @Override
     public String getName() {
         return "chino";
+    }
+
+    @Override
+    public String getCategory() {
+        return "entertainment";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

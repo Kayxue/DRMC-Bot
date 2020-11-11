@@ -73,4 +73,19 @@ public class ExchangeCommand implements ICommand {
     public String getName() {
         return "exchange";
     }
+
+    @Override
+    public String getCategory() {
+        return "otherinfo";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
+    }
 }

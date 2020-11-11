@@ -2,14 +2,12 @@ package DRMCBot.Command.Commands;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import com.google.gson.JsonObject;
-import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.EmbedBuilder;
 import okhttp3.*;
 import okio.Okio;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.InputStream;
 
 public class RemoveBackgroundCommand implements ICommand {
     @Override
@@ -48,5 +46,20 @@ public class RemoveBackgroundCommand implements ICommand {
     @Override
     public String getName() {
         return "removebackground";
+    }
+
+    @Override
+    public String getCategory() {
+        return "nocategory";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

@@ -35,4 +35,19 @@ public class JokeCommand implements ICommand {
     public String getName() {
         return "joke";
     }
+
+    @Override
+    public String getCategory() {
+        return "entertainment";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
+    }
 }

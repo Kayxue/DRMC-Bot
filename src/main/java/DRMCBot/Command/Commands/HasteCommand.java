@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import me.duncte123.botcommons.web.ContentType;
 import me.duncte123.botcommons.web.WebParserUtils;
 import me.duncte123.botcommons.web.WebUtils;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -62,5 +63,20 @@ public class HasteCommand implements ICommand {
     @Override
     public String getName() {
         return "haste";
+    }
+
+    @Override
+    public String getCategory() {
+        return "code";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

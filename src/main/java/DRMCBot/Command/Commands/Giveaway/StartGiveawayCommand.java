@@ -226,4 +226,19 @@ public class StartGiveawayCommand implements ICommand {
     public String getName() {
         return "startgiveaway";
     }
+
+    @Override
+    public String getCategory() {
+        return "giveaway";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
+    }
 }

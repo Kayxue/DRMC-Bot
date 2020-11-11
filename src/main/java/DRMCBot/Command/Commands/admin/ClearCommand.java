@@ -2,13 +2,13 @@ package DRMCBot.Command.Commands.admin;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.time.OffsetDateTime;
-import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -72,5 +72,20 @@ public class ClearCommand implements ICommand {
     @Override
     public String getName() {
         return "clear";
+    }
+
+    @Override
+    public String getCategory() {
+        return "management";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

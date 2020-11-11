@@ -220,4 +220,19 @@ public class ServerinfoCommand implements ICommand {
     public String getName() {
         return "serverinfo";
     }
+
+    @Override
+    public String getCategory() {
+        return "discordinfo";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
+    }
 }

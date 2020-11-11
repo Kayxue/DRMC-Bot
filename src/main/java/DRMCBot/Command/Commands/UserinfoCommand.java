@@ -215,4 +215,19 @@ public class UserinfoCommand implements ICommand {
     public String getName() {
         return "userinfo";
     }
+
+    @Override
+    public String getCategory() {
+        return "discordinfo";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
+    }
 }

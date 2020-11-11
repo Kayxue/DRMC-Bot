@@ -20,4 +20,19 @@ public class NewMainQRCodeCommand implements ICommand {
     public String getName() {
         return "qrcode";
     }
+
+    @Override
+    public String getCategory() {
+        return "generation";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
+    }
 }

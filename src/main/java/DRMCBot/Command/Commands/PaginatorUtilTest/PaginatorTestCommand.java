@@ -5,6 +5,7 @@ import DRMCBot.Command.ICommand;
 import com.github.ygimenez.method.Pages;
 import com.github.ygimenez.model.Page;
 import com.github.ygimenez.type.PageType;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
 
@@ -32,5 +33,20 @@ public class PaginatorTestCommand implements ICommand {
     @Override
     public String getName() {
         return "testpage";
+    }
+
+    @Override
+    public String getCategory() {
+        return "nocategory";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

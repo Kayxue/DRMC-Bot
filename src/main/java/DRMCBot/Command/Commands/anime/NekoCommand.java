@@ -30,4 +30,19 @@ public class NekoCommand implements ICommand {
     public String getName() {
         return "neko";
     }
+
+    @Override
+    public String getCategory() {
+        return "entertainment";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
+    }
 }

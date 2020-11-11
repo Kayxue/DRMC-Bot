@@ -4,6 +4,7 @@ import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import net.dv8tion.jda.api.EmbedBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -45,5 +46,20 @@ public class LinguistParseJsonTestCommand implements ICommand {
     @Override
     public String getName() {
         return "linguistparsejson";
+    }
+
+    @Override
+    public String getCategory() {
+        return "nocategory";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

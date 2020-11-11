@@ -180,4 +180,19 @@ public class AccuWeatherCommand implements ICommand {
     public String getName() {
         return "accuweather";
     }
+
+    @Override
+    public String getCategory() {
+        return "otherinfo";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
+    }
 }

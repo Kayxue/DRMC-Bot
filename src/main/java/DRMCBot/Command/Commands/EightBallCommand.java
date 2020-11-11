@@ -3,6 +3,7 @@ package DRMCBot.Command.Commands;
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import me.duncte123.botcommons.messaging.EmbedUtils;
+import net.dv8tion.jda.api.EmbedBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -44,5 +45,20 @@ public class EightBallCommand implements ICommand {
     @Override
     public String getName() {
         return "8ball";
+    }
+
+    @Override
+    public String getCategory() {
+        return "entertainment";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

@@ -5,6 +5,7 @@ import DRMCBot.Command.ICommand;
 import com.github.ygimenez.method.Pages;
 import com.github.ygimenez.model.Page;
 import com.github.ygimenez.type.PageType;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
 
 import java.util.HashMap;
@@ -34,5 +35,20 @@ public class CategoryTestCommand implements ICommand {
     @Override
     public String getName() {
         return "categorytest";
+    }
+
+    @Override
+    public String getCategory() {
+        return "nocategory";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

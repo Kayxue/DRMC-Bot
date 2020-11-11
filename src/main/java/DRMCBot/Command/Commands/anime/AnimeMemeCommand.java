@@ -27,4 +27,19 @@ public class AnimeMemeCommand implements ICommand {
     public String getName() {
         return "animememe";
     }
+
+    @Override
+    public String getCategory() {
+        return null;
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
+    }
 }

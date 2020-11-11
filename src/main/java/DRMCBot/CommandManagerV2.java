@@ -19,22 +19,34 @@ import DRMCBot.Command.Commands.music.*;
 import DRMCBot.Command.Commands.reurl.ReurlCommand;
 import DRMCBot.Command.Commands.reurl.TinyurlCommand;
 import DRMCBot.Command.Commands.suggestion.*;
-import DRMCBot.Command.Commands.EightBallCommand;
 import DRMCBot.Command.ICommand;
-import DRMCBot.Command.Commands.music.QueueCommand;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
-public class CommandManager {
-    private final List<ICommand> commands = new ArrayList<>();
-    
-    public CommandManager(EventWaiter eventWaiter){
+public class CommandManagerV2 {
+    private final TreeMap<String, ArrayList<ICommand>> category = new TreeMap<>();
+    private final TreeMap<String, String> categoryDescription = new TreeMap<>();
+
+    public CommandManagerV2(EventWaiter eventWaiter) {
+        /*------Add category------*/
+        addCategory("discordinfo","Discord與機器人資訊類");
+        addCategory("otherinfo","其他資訊類");
+        addCategory("generation","生成工具類");
+        addCategory("entertainment","娛樂類");
+        addCategory("music","音樂播放類");
+        addCategory("suggestion","建議類（目前僅限DRMC使用）");
+        addCategory("ticket","管理員私訊窗口類（目前僅限DRMC使用）");
+        addCategory("management","Discord與機器人資訊類");
+        addCategory("giveaway","抽獎類（目前暫停使用）");
+        addCategory("code","程式碼桶子工具類");
+        addCategory("nocategory","未分類");
+        /*------------------------*/
+
+        /*------Add command------*/
         addCommand(new PingCommand());
         addCommand(new PasteCommand());
         addCommand(new KickCommand());
@@ -71,7 +83,7 @@ public class CommandManager {
         addCommand(new TinyurlCommand());
         addCommand(new PinMessageCommand());
         addCommand(new UnPinMessageCommand());
-        addCommand(new HelpCommand());
+        addCommand(new HelpCommandV2(this));
         addCommand(new ChannelAllPinCommand());
         addCommand(new OpenTicketCommand());
         addCommand(new CloseTicketCommand());
@@ -89,7 +101,7 @@ public class CommandManager {
         //addCommand(new AnimeMemeCommand());
         addCommand(new EightBallCommand());
         addCommand(new NekoCommand());
-        addCommand(new CommandRunLengthCommand(this));
+        addCommand(new CommandRunLengthCommand(null));
         addCommand(new KitsuneCommand());
         addCommand(new GetHypixelServerBoosterCommand());
         addCommand(new JLyricCommand());
@@ -104,43 +116,84 @@ public class CommandManager {
         addCommand(new LinguistParseJsonTestCommand());
         addCommand(new SourceBinCommand());
         addCommand(new SayCommand());
+        /*-----------------------*/
     }
 
-    private void addCommand(ICommand cmd){
-        boolean nameFound = this.commands.stream().anyMatch((it)-> it.getName().equalsIgnoreCase(cmd.getName()));
+    private void addCategory(String Engname, String description) {
+        boolean nameFound = categoryDescription.containsKey(Engname);
 
-        if(nameFound){
+        if (nameFound) {
+            throw new IllegalArgumentException("A category with this name is already present");
+        }
+
+        category.put(Engname, new ArrayList<>());
+        categoryDescription.put(Engname, description);
+    }
+
+    private void addCommand(ICommand cmd) {
+        boolean nameFound = false;
+        for (String key : category.keySet()) {
+            nameFound = category.get(key).stream().anyMatch(it -> it.getName().equalsIgnoreCase(cmd.getName()));
+            if (nameFound) {
+                break;
+            }
+        }
+
+        if (nameFound) {
             throw new IllegalArgumentException("A command with this name is already present");
         }
 
-        commands.add(cmd);
+        try {
+            if (cmd.getCategory() == null) {
+                throw new IllegalArgumentException();
+            }
+            category.get(cmd.getCategory()).add(cmd);
+        } catch (NullPointerException e) {
+            throw new NullPointerException("Unknown Category: " + cmd.getCategory());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(cmd.getName() + " doesn't have any category");
+        }
+    }
+
+    public List<ICommand> getCommands(String categorytofind) {
+        if (category.keySet().contains(categorytofind)) {
+            return category.get(categorytofind);
+        } else {
+            return null;
+        }
+    }
+
+    public TreeMap<String, String> getCategoryDescription() {
+        return categoryDescription;
     }
 
     @Nullable
-    public ICommand getCommand(String search){
+    public ICommand getCommand(String search) {
         String searchLower = search.toLowerCase();
 
-        for (ICommand cmd:this.commands){
-            if (cmd.getName().equals(searchLower) || cmd.getAliases().contains(searchLower)){
-                return cmd;
+        for (String key : category.keySet()) {
+            for (ICommand cmd : category.get(key)) {
+                if (cmd.getName().equals(searchLower) || cmd.getAliases().contains(searchLower)) {
+                    return cmd;
+                }
             }
         }
 
         return null;
     }
 
-    void handle(GuildMessageReceivedEvent event,String prefix) throws Exception {
-        String[] split=event.getMessage().getContentRaw()
-                .replaceFirst("(?i)"+ Pattern.quote(prefix),"")
+    void handle(GuildMessageReceivedEvent event, String prefix) throws Exception {
+        String[] split = event.getMessage().getContentRaw()
+                .replaceFirst("(?i)" + Pattern.quote(prefix), "")
                 .split("\\s+");
         String invoke = split[0].toLowerCase();
-        ICommand cmd=this.getCommand(invoke);
+        ICommand cmd = this.getCommand(invoke);
 
-        if (cmd != null){
+        if (cmd != null) {
             event.getChannel().sendTyping().queue();
-            List<String> args= Arrays.asList(split).subList(1,split.length);
+            List<String> args = Arrays.asList(split).subList(1, split.length);
 
-            CommandContext ctx=new CommandContext(event,args);
+            CommandContext ctx = new CommandContext(event, args);
 
             cmd.handle(ctx);
         }

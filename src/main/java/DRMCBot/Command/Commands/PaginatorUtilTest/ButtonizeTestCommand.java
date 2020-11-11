@@ -3,6 +3,7 @@ package DRMCBot.Command.Commands.PaginatorUtilTest;
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import com.github.ygimenez.method.Pages;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 
@@ -29,5 +30,20 @@ public class ButtonizeTestCommand implements ICommand {
     @Override
     public String getName() {
         return "buttontest";
+    }
+
+    @Override
+    public String getCategory() {
+        return "nocategory";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

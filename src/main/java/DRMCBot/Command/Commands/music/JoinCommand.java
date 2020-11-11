@@ -2,6 +2,7 @@ package DRMCBot.Command.Commands.music;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -38,5 +39,20 @@ public class JoinCommand implements ICommand {
     @Override
     public String getName() {
         return "join";
+    }
+
+    @Override
+    public String getCategory() {
+        return "music";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

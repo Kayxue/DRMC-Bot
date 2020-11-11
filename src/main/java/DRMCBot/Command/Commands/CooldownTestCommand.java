@@ -3,6 +3,7 @@ package DRMCBot.Command.Commands;
 import DRMCBot.CacheList;
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
+import net.dv8tion.jda.api.EmbedBuilder;
 
 public class CooldownTestCommand implements ICommand {
     @Override
@@ -27,5 +28,20 @@ public class CooldownTestCommand implements ICommand {
     @Override
     public String getName() {
         return "cooldowntest";
+    }
+
+    @Override
+    public String getCategory() {
+        return "nocategory";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

@@ -58,4 +58,19 @@ public class TinyurlCommand implements ICommand {
     public String getName() {
         return "tinyurl";
     }
+
+    @Override
+    public String getCategory() {
+        return "generation";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
+    }
 }

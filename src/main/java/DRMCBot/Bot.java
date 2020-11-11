@@ -55,7 +55,6 @@ public class Bot {
                 .setChunkingFilter(ChunkingFilter.ALL)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .setBulkDeleteSplittingEnabled(true)
-                .setContextEnabled(true)
                 .setRawEventsEnabled(true)
                 .setCompression(Compression.ZLIB)
                 .addEventListeners(eventWaiter, new Listener(eventWaiter))

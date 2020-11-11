@@ -33,4 +33,19 @@ public class MemeCommand implements ICommand {
     public String getName() {
         return "meme";
     }
+
+    @Override
+    public String getCategory() {
+        return "entertainment";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
+    }
 }

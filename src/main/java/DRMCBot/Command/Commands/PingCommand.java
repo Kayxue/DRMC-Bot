@@ -5,10 +5,6 @@ import DRMCBot.Command.ICommand;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.JDAInfo;
-
-import javax.lang.model.element.Name;
-import java.util.Properties;
 
 public class PingCommand implements ICommand {
     @Override
@@ -27,5 +23,20 @@ public class PingCommand implements ICommand {
     @Override
     public String getName() {
         return "ping";
+    }
+
+    @Override
+    public String getCategory() {
+        return "discordinfo";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

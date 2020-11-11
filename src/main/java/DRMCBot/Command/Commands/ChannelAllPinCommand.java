@@ -34,4 +34,19 @@ public class ChannelAllPinCommand implements ICommand {
     public String getName() {
         return "channelpin";
     }
+
+    @Override
+    public String getCategory() {
+        return "management";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
+    }
 }

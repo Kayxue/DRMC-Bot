@@ -9,13 +9,10 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import okhttp3.*;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class SourceBinCommand implements ICommand {
     @Override
@@ -160,5 +157,20 @@ public class SourceBinCommand implements ICommand {
     @Override
     public String getName() {
         return "sourcebin";
+    }
+
+    @Override
+    public String getCategory() {
+        return "code";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

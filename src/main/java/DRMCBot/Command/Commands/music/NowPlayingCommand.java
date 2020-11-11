@@ -7,7 +7,7 @@ import DRMCBot.Command.music.PlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import me.duncte123.botcommons.messaging.EmbedUtils;
-import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.Collections;
@@ -47,6 +47,21 @@ public class NowPlayingCommand implements ICommand {
     @Override
     public String getName() {
         return "nowplaying";
+    }
+
+    @Override
+    public String getCategory() {
+        return "music";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 
     private String formatTime(long timeInMillis){

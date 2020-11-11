@@ -50,4 +50,19 @@ public class PasteCommand implements ICommand {
     public String getName() {
         return "paste";
     }
+
+    @Override
+    public String getCategory() {
+        return "code";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
+    }
 }

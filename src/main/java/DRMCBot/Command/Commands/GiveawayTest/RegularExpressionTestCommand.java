@@ -2,6 +2,7 @@ package DRMCBot.Command.Commands.GiveawayTest;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
+import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,5 +33,20 @@ public class RegularExpressionTestCommand implements ICommand {
     @Override
     public String getName() {
         return "testiftime";
+    }
+
+    @Override
+    public String getCategory() {
+        return "nocategory";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

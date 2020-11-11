@@ -3,11 +3,11 @@ package DRMCBot.Command.Commands;
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageReaction;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
-import org.w3c.dom.Text;
 
 import java.util.concurrent.TimeUnit;
 
@@ -57,5 +57,20 @@ public class EventWaiterTestCommand implements ICommand {
     @Override
     public String getName() {
         return "eventwaitertest";
+    }
+
+    @Override
+    public String getCategory() {
+        return "nocategory";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

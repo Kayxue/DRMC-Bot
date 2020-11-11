@@ -2,6 +2,7 @@ package DRMCBot.Command.Commands.admin;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 
 import java.util.List;
@@ -28,5 +29,20 @@ public class PinMessageCommand implements ICommand {
     @Override
     public String getName() {
         return "pinmessage";
+    }
+
+    @Override
+    public String getCategory() {
+        return "management";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

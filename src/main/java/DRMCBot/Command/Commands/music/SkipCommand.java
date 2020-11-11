@@ -6,7 +6,7 @@ import DRMCBot.Command.music.GuildMusicManager;
 import DRMCBot.Command.music.PlayerManager;
 import DRMCBot.Command.music.TrackScheduler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 public class SkipCommand implements ICommand {
@@ -32,5 +32,20 @@ public class SkipCommand implements ICommand {
     @Override
     public String getName() {
         return "skip";
+    }
+
+    @Override
+    public String getCategory() {
+        return "music";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 }

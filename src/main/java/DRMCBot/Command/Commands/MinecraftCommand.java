@@ -4,6 +4,7 @@ import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import com.github.natanbc.reliqua.util.StatusCodeValidator;
 import me.duncte123.botcommons.web.WebUtils;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.ArrayList;
@@ -52,6 +53,21 @@ public class MinecraftCommand implements ICommand {
     @Override
     public String getName() {
         return "minecraft";
+    }
+
+    @Override
+    public String getCategory() {
+        return "otherinfo";
+    }
+
+    @Override
+    public String getdescription() {
+        return null;
+    }
+
+    @Override
+    public EmbedBuilder gethelpembed() {
+        return null;
     }
 
     private void fetchUUID(String username, Consumer<String> callback) {
