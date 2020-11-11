@@ -1,10 +1,12 @@
 package DRMCBot.CategorySystem;
 
 import DRMCBot.Command.Commands.PingCommand;
+import DRMCBot.Command.Commands.ServerinfoCommand;
 
 public class DiscordInfoCategory implements ICategory{
     public DiscordInfoCategory() {
         addCommand(new PingCommand());
+        addCommand(new ServerinfoCommand());
     }
 
     @Override
