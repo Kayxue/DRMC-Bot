@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface ICategory {
 
-    void addCommand(ICommand cmd);
-
     List<ICommand> getCommand();
 
     String getName();
