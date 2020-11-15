@@ -2,17 +2,18 @@ package DRMCBot.Command.Commands.music;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import DRMCBot.Command.music.GuildMusicManager;
-import DRMCBot.Command.music.PlayerManager;
+
+import DRMCBot.lavaplayer.GuildMusicManager;
+import DRMCBot.lavaplayer.PlayerManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 public class PauseCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
-        PlayerManager playerManager=PlayerManager.getInstance();
-        GuildMusicManager musicManager=playerManager.getGuildMusicManager(ctx.getGuild());
+        final PlayerManager playerManager=PlayerManager.getInstance();
+        final GuildMusicManager musicManager=playerManager.getMusicManager(ctx.getGuild());
 
-        musicManager.player.setPaused(true);
+        musicManager.audioPlayer.setPaused(true);
         ctx.getChannel().sendMessage("歌曲已暫停").queue();
     }
 

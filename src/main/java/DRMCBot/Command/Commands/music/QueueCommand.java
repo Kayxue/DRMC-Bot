@@ -2,8 +2,8 @@ package DRMCBot.Command.Commands.music;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import DRMCBot.Command.music.GuildMusicManager;
-import DRMCBot.Command.music.PlayerManager;
+import DRMCBot.lavaplayer.GuildMusicManager;
+import DRMCBot.lavaplayer.PlayerManager;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import me.duncte123.botcommons.messaging.EmbedUtils;
@@ -17,14 +17,13 @@ import java.util.concurrent.BlockingQueue;
 public class QueueCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
-        TextChannel channel=ctx.getChannel();
-        PlayerManager playerManager=PlayerManager.getInstance();
-        GuildMusicManager musicManager=playerManager.getGuildMusicManager(ctx.getGuild());
-        BlockingQueue<AudioTrack> queue=musicManager.scheduler.getQueue();
+        final TextChannel channel=ctx.getChannel();
+        final PlayerManager playerManager=PlayerManager.getInstance();
+        final GuildMusicManager musicManager=playerManager.getMusicManager(ctx.getGuild());
+        BlockingQueue<AudioTrack> queue=musicManager.scheduler.queue;
 
         if (queue.isEmpty()){
             channel.sendMessage("The queue is empty").queue();
-
             return;
         }
 
@@ -35,8 +34,7 @@ public class QueueCommand implements ICommand {
 
         for (int i=0;i<trackCount;i++){
             AudioTrack track=tracks.get(i);
-            AudioTrackInfo info=track.getInfo();
-
+            AudioTrackInfo info = track.getInfo();
             builder.appendDescription(String.format(
                     "%s - %s \n",
                     info.title,

@@ -13,6 +13,8 @@ import javax.annotation.Nonnull;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+import static me.duncte123.botcommons.messaging.EmbedUtils.*;
+
 public class LogListener extends ListenerAdapter {
     MongoDbDataSource mongoDbDataSource = new MongoDbDataSource();
 
@@ -21,7 +23,7 @@ public class LogListener extends ListenerAdapter {
         JSONObject logchanneldata = mongoDbDataSource.getlogchannel(event.getGuild().getIdLong());
         if (logchanneldata.getBoolean("success")) {
             TextChannel logchannel = event.getGuild().getTextChannelById(logchanneldata.getLong("logchannelid"));
-            EmbedBuilder embed = EmbedUtils.defaultEmbed()
+            EmbedBuilder embed = defaultEmbed()
                     .setTitle("有人加入語音頻道")
                     .addField("加入之使用者", event.getMember().getUser().getAsTag(), true)
                     .addField("加入之語音頻道", event.getChannelJoined().getName(), true)
@@ -37,7 +39,7 @@ public class LogListener extends ListenerAdapter {
         JSONObject logchanneldata = mongoDbDataSource.getlogchannel(event.getGuild().getIdLong());
         if (logchanneldata.getBoolean("success")) {
             TextChannel logchannel = event.getGuild().getTextChannelById(logchanneldata.getLong("logchannelid"));
-            EmbedBuilder embed = EmbedUtils.defaultEmbed()
+            EmbedBuilder embed = defaultEmbed()
                     .setTitle("有人離開了語音頻道")
                     .addField("離開之使用者", event.getMember().getAsMention() + "\n" + event.getMember().getUser().getAsTag(), true)
                     .addField("離開之語音頻道", event.getChannelLeft().getName(), true)

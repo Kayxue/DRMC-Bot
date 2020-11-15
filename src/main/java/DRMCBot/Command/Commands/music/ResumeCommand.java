@@ -2,17 +2,17 @@ package DRMCBot.Command.Commands.music;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import DRMCBot.Command.music.GuildMusicManager;
-import DRMCBot.Command.music.PlayerManager;
+import DRMCBot.lavaplayer.GuildMusicManager;
+import DRMCBot.lavaplayer.PlayerManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 public class ResumeCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
-        PlayerManager playerManager=PlayerManager.getInstance();
-        GuildMusicManager musicManager=playerManager.getGuildMusicManager(ctx.getGuild());
+        final PlayerManager playerManager=PlayerManager.getInstance();
+        final GuildMusicManager musicManager=playerManager.getMusicManager(ctx.getGuild());
 
-        musicManager.player.setPaused(false);
+        musicManager.audioPlayer.setPaused(false);
         ctx.getChannel().sendMessage("歌曲已繼續播放").queue();
     }
 

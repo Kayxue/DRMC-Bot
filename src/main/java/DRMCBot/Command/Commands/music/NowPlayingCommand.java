@@ -2,12 +2,15 @@ package DRMCBot.Command.Commands.music;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import DRMCBot.Command.music.GuildMusicManager;
-import DRMCBot.Command.music.PlayerManager;
+import DRMCBot.lavaplayer.GuildMusicManager;
+import DRMCBot.lavaplayer.PlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.GuildVoiceState;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.Collections;
@@ -17,17 +20,44 @@ import java.util.concurrent.TimeUnit;
 public class NowPlayingCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
-        TextChannel channel=ctx.getChannel();
-        PlayerManager playerManager=PlayerManager.getInstance();
-        GuildMusicManager musicManager=playerManager.getGuildMusicManager(ctx.getGuild());
-        AudioPlayer player=musicManager.player;
+        final TextChannel channel=ctx.getChannel();
+        final Member self = ctx.getSelfMember();
+        final GuildVoiceState selfVoiceState = self.getVoiceState();
 
-        if (player.getPlayingTrack()==null){
-            channel.sendMessage("沒在播放任何東西").queue();
+        if (!selfVoiceState.inVoiceChannel()) {
+            ctx.getChannel().sendMessage("我不在語音頻道內！").queue();
             return;
         }
 
-        AudioTrackInfo info=player.getPlayingTrack().getInfo();
+        final Member member = ctx.getMember();
+        final GuildVoiceState memberVoiceState = member.getVoiceState();
+
+        if (!memberVoiceState.inVoiceChannel()){
+            channel.sendMessage("你必須加入一個語音頻道！").queue();
+            return;
+        }
+
+
+        if (!memberVoiceState.getChannel().equals(selfVoiceState.getChannel())) {
+            ctx.getChannel().sendMessage("您跟我在不同頻道！").queue();
+            return;
+        }
+
+        final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager(ctx.getGuild());
+        final AudioPlayer player = manager.audioPlayer;
+        final AudioTrack track = player.getPlayingTrack();
+
+        if (player.getPlayingTrack() == null) {
+            ctx.getChannel().sendMessage("目前沒有音樂正在播放！").queue();
+            return;
+        }
+
+        if (player.getPlayingTrack() == null) {
+            ctx.getChannel().sendMessage("目前沒有音樂正在播放！").queue();
+            return;
+        }
+
+        final AudioTrackInfo info = track.getInfo();
 
         channel.sendMessage(EmbedUtils.embedMessage(String.format(
                 "**正在播放：** [%s] (%s)\n%s %s － %s",

@@ -4,15 +4,14 @@ import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import DRMCBot.lavaplayer.GuildMusicManager;
 import DRMCBot.lavaplayer.PlayerManager;
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-public class SkipCommand implements ICommand {
+public class RepeatCommand implements ICommand {
     @Override
-    public void handle(CommandContext ctx) {
+    public void handle(CommandContext ctx) throws Exception {
         final TextChannel channel=ctx.getChannel();
         final Member self = ctx.getSelfMember();
         final GuildVoiceState selfVoiceState = self.getVoiceState();
@@ -37,19 +36,16 @@ public class SkipCommand implements ICommand {
         }
 
         final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager(ctx.getGuild());
-        final AudioPlayer audioPlayer = manager.audioPlayer;
+        final boolean newRepeating = !manager.scheduler.repeating;
 
-        if (audioPlayer.getPlayingTrack() == null) {
-            ctx.getChannel().sendMessage("目前沒有音樂正在播放！").queue();
-            return;
-        }
+        manager.scheduler.repeating = newRepeating;
 
-        manager.scheduler.nextTrack();
+        channel.sendMessageFormat("重複播放模式已成功%s", newRepeating ? "開啟" : "關閉").queue();
     }
 
     @Override
     public String getName() {
-        return "skip";
+        return "repeat";
     }
 
     @Override

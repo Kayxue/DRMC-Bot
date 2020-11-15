@@ -116,6 +116,8 @@ public class CommandManagerV2 {
         addCommand(new LinguistParseJsonTestCommand());
         addCommand(new SourceBinCommand());
         addCommand(new SayCommand());
+        addCommand(new DiscordJSDocumentationCommand());
+        addCommand(new RepeatCommand());
         /*-----------------------*/
     }
 
