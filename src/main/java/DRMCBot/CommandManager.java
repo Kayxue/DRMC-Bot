@@ -45,7 +45,7 @@ public class CommandManager {
         addCommand(new SetPrefixCommand());
         addCommand(new JoinCommand());
         addCommand(new LeaveCommand());
-        addCommand(new PlayCommand());
+        addCommand(new PlayCommand(eventWaiter));
         addCommand(new StopCommand());
         addCommand(new PauseCommand());
         addCommand(new ResumeCommand());

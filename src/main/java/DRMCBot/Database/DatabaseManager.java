@@ -4,7 +4,7 @@ import org.bson.Document;
 import org.json.JSONObject;
 
 public interface DatabaseManager {
-    DatabaseManager INSTANCE = new MongoDbDataSource();
+    DatabaseManager INSTANCE = new SQLiteDataSource();
 
     String getPrefix(long guildId);
 

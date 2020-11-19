@@ -1,6 +1,7 @@
 package DRMCBot;
 
 import DRMCBot.Category.Categories.DiscordInfoCategory;
+import DRMCBot.Category.Categories.MusicCategory;
 import DRMCBot.Category.Categories.NoCategory;
 import DRMCBot.Category.ICategory;
 import DRMCBot.Command.CommandContext;
@@ -20,6 +21,7 @@ public class CommandManagerV3 {
         /*------Add category------*/
         addCategory(new DiscordInfoCategory());
         addCategory(new NoCategory(this));
+        addCategory(new MusicCategory(eventWaiter));
         /*------------------------*/
     }
 
