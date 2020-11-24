@@ -118,6 +118,7 @@ public class CommandManagerV2 {
         addCommand(new SayCommand());
         addCommand(new DiscordJSDocumentationCommand());
         addCommand(new RepeatCommand());
+        addCommand(new OsuCommand());
         /*-----------------------*/
     }
 

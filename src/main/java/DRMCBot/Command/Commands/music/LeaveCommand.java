@@ -2,6 +2,8 @@ package DRMCBot.Command.Commands.music;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
+import DRMCBot.lavaplayer.GuildMusicManager;
+import DRMCBot.lavaplayer.PlayerManager;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
@@ -23,6 +25,13 @@ public class LeaveCommand implements ICommand {
         if (!voiceChannel.getMembers().contains(ctx.getMember())){
             channel.sendMessage("You have to be in the same voice channel as me to use this").queue();
             return;
+        }
+
+        final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager(ctx.getGuild());
+
+        if (manager.audioPlayer.getPlayingTrack() != null) {
+            manager.scheduler.player.stopTrack();
+            manager.scheduler.queue.clear();
         }
 
         audioManager.closeAudioConnection();

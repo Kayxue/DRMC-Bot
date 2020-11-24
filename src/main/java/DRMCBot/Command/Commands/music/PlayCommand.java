@@ -2,47 +2,35 @@ package DRMCBot.Command.Commands.music;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import DRMCBot.Config;
 import DRMCBot.lavaplayer.PlayerManager;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.services.youtube.YouTube;
+import DRMCBot.lavaplayer.YoutubeSearcher;
 import com.google.api.services.youtube.model.SearchResult;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
+import io.vavr.control.Either;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.managers.AudioManager;
 
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
+import java.util.regex.Pattern;
 
 public class PlayCommand implements ICommand {
     private final EventWaiter waiter;
-    private final YouTube youTube;
+    private final YoutubeSearcher youtubeSearcher = new YoutubeSearcher();
 
     public PlayCommand(EventWaiter waiter){
         this.waiter = waiter;
-        YouTube temp = null;
-
-        try {
-            temp = new YouTube.Builder(
-                    GoogleNetHttpTransport.newTrustedTransport(),
-                    JacksonFactory.getDefaultInstance(),
-                    null
-            )
-                    .setApplicationName("Application")
-                    .build();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        youTube = temp;
     }
 
     @Override
@@ -63,7 +51,7 @@ public class PlayCommand implements ICommand {
         boolean selfJoinChannelWithTheCommand = false;
 
         if (!memberVoiceState.inVoiceChannel()){
-            channel.sendMessage("Please join a voice channel").queue();
+            channel.sendMessage("請加入一個語音頻道！").queue();
             return;
         }
 
@@ -74,29 +62,30 @@ public class PlayCommand implements ICommand {
                 manager.openAudioConnection(memberVoiceState.getChannel());
                 selfJoinChannelWithTheCommand = true;
             } else {
-                ctx.getChannel().sendMessage("please join a voice channel").queue();
+                ctx.getChannel().sendMessage("請加入一個頻道！").queue();
                 return;
             }
         }
         if (!selfJoinChannelWithTheCommand) {
             if (!memberVoiceState.getChannel().equals(selfVoiceState.getChannel())) {
-                ctx.getChannel().sendMessage("we are in different channel").queue();
+                ctx.getChannel().sendMessage("我們在不同頻道！").queue();
                 return;
             }
         }
 
-
         String link=String.join(" ",ctx.getArgs());
-
         PlayerManager manager = PlayerManager.getInstance();
+        System.out.println(link);
+        System.out.println(isUrl(link));
+
         if (!isUrl(link)) {
             youtubeSearch(link, ctx.getAuthor().getIdLong(), channel,
                     choosed -> {
                         switch (choosed) {
-                            case "timeout" -> ctx.getChannel().sendMessage("Choose timeout").queue();
-                            case "noresult" -> ctx.getChannel().sendMessage("No result").queue();
-                            case "searcherror" -> ctx.getChannel().sendMessage("Search error").queue();
-                            case "canceled" -> ctx.getChannel().sendMessage("Search Canceled").queue();
+                            case "timeout" -> ctx.getChannel().sendMessage("選擇超時！").queue();
+                            case "noresult" -> ctx.getChannel().sendMessage("沒有結果！").queue();
+                            case "searcherror" -> ctx.getChannel().sendMessage("搜尋出錯！").queue();
+                            case "canceled" -> ctx.getChannel().sendMessage("搜尋取消！").queue();
                             default -> manager.loadAndPlay(channel, choosed);
                         }
                     });
@@ -107,44 +96,48 @@ public class PlayCommand implements ICommand {
 
     private boolean isUrl(String input){
         try{
-            new URI(input);
+            new URL(input);
             return true;
         }
-        catch (URISyntaxException ignored){
+        catch (MalformedURLException ignored){
             return false;
         }
+
+        /*
+        Pattern pattern = Pattern.compile("(http(s)?:\\/\\/(www\\.)?+(\\D{1,}\\.)+\\D{1,}(\\/)?+(.{1,})?)");
+        return pattern.matcher(input).matches();
+
+
+         */
+
     }
+
 
     public void youtubeSearch(String input,long author,TextChannel channel, Consumer<String> toPlay) {
         List<SearchResult> results;
         try {
-            results = youTube.search()
-                    .list("id,snippet")
-                    .setQ("faded")
-                    .setMaxResults(5L)
-                    .setType("video")
-                    .setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)")
-                    .setKey(Config.get("youtubekey"))
-                    .execute()
-                    .getItems();
+            results = youtubeSearcher.searchVideos(input, 10);
         } catch (Exception e) {
             e.printStackTrace();
             toPlay.accept("searcherror");
             return;
         }
+
         if (results.isEmpty()) {
             toPlay.accept("noresult");
             return;
         }
 
         StringBuilder resultstring = new StringBuilder();
-        for (int i=0;i<=4;i++) {
+        for (int i=0;i<=9;i++) {
             resultstring.append("**#").append(i + 1).append(":**").append(results.get(i).getSnippet().getTitle()).append("\n");
         }
+
         EmbedBuilder embed = EmbedUtils.defaultEmbed()
-                .setTitle("Search result (reply in 20s):")
+                .setTitle("搜尋結果（20秒內回覆）：")
                 .setDescription(resultstring.toString());
-        channel.sendMessage(embed.build()).queue();
+
+        Message botsent = channel.sendMessage(embed.build()).complete();
         waiter.waitForEvent(
                 GuildMessageReceivedEvent.class,
                 event -> {
@@ -170,8 +163,9 @@ public class PlayCommand implements ICommand {
                     toPlay.accept("timeout");
                 }
         );
-
     }
+
+
 
     @Override
     public String getName() {

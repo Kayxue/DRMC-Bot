@@ -44,9 +44,9 @@ dependencies {
     implementation "com.google.guava:guava:29.0-jre"
     implementation "net.hypixel:HypixelAPI:3.0.0"
     implementation group: 'com.jagrosh', name: 'JLyrics', version: '0.4'
-    implementation "com.github.oopsjpeg:osu4j:2.0.1"
     implementation 'com.github.ygimenez:Pagination-Utils:1.2.5b'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.11.3'
+    implementation group: 'io.vavr', name: 'vavr', version: '1.0.0-alpha-3'
 }
 
 compileJava.options.encoding = 'UTF-8'
