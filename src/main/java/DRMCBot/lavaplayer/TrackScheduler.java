@@ -34,6 +34,7 @@ public class TrackScheduler extends AudioEventAdapter {
         if (endReason.mayStartNext){
             if (this.repeating) {
                 this.player.startTrack(track.makeClone(), false);
+                return;
             }
 
             nextTrack();

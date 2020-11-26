@@ -29,10 +29,9 @@ public class LeaveCommand implements ICommand {
 
         final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager(ctx.getGuild());
 
-        if (manager.audioPlayer.getPlayingTrack() != null) {
-            manager.scheduler.player.stopTrack();
-            manager.scheduler.queue.clear();
-        }
+        manager.scheduler.repeating = false;
+        manager.scheduler.queue.clear();
+        manager.scheduler.player.stopTrack();
 
         audioManager.closeAudioConnection();
         channel.sendMessage("Disconnect from your channel.").queue();

@@ -119,6 +119,7 @@ public class CommandManagerV2 {
         addCommand(new DiscordJSDocumentationCommand());
         addCommand(new RepeatCommand());
         addCommand(new OsuCommand());
+        addCommand(new SetVolumeCommand());
         /*-----------------------*/
     }
 

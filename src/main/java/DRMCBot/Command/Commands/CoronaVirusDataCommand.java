@@ -4,23 +4,18 @@ import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 
-import java.util.Arrays;
 import java.util.List;
 
-public class BotInfoCommand implements ICommand {
-    @Override
-    public void handle(CommandContext ctx) {
-
-    }
+public class CoronaVirusDataCommand implements ICommand {
 
     @Override
-    public List<String> getAliases() {
-        return List.of("bi", "binfo");
+    public void handle(CommandContext ctx) throws Exception {
+
     }
 
     @Override
     public String getName() {
-        return "botinfo";
+        return null;
     }
 
     @Override
@@ -35,6 +30,11 @@ public class BotInfoCommand implements ICommand {
 
     @Override
     public EmbedBuilder gethelpembed() {
+        return null;
+    }
+
+    @Override
+    public List<String> getAliases() {
         return null;
     }
 }

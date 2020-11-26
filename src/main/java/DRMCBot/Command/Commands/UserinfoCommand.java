@@ -207,8 +207,7 @@ public class UserinfoCommand implements ICommand {
 
     @Override
     public List<String> getAliases() {
-        String[] strings = {"uinfo", "ui"};
-        return Arrays.asList(strings);
+        return List.of("uinfo", "ui");
     }
 
     @Override

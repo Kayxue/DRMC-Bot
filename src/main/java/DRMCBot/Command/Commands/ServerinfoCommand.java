@@ -212,8 +212,7 @@ public class ServerinfoCommand implements ICommand {
 
     @Override
     public List<String> getAliases() {
-        String[] strings = {"sinfo", "si"};
-        return Arrays.asList(strings);
+        return List.of("sinfo", "si", "gi", "guildinfo");
     }
 
     @Override

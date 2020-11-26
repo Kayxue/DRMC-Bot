@@ -44,6 +44,10 @@ public class PauseCommand implements ICommand {
             ctx.getChannel().sendMessage("目前沒有音樂正在播放！").queue();
             return;
         }
+        if (manager.audioPlayer.isPaused()) {
+            ctx.getChannel().sendMessage("目前已經為為暫停狀態！").queue();
+            return;
+        }
         manager.audioPlayer.setPaused(true);
         ctx.getChannel().sendMessage("歌曲已暫停").queue();
     }

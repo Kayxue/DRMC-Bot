@@ -70,6 +70,8 @@ public class SourceBinCommand implements ICommand {
             } else {
                 System.out.println(postresponse.message());
             }
+        } else {
+            ctx.getChannel().sendMessage("程式語言查詢伺服器出錯！").queue();
         }
     }
 

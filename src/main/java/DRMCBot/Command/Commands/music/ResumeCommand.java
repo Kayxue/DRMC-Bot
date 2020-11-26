@@ -43,6 +43,10 @@ public class ResumeCommand implements ICommand {
             ctx.getChannel().sendMessage("目前沒有音樂正在播放！").queue();
             return;
         }
+        if (!manager.audioPlayer.isPaused()) {
+            ctx.getChannel().sendMessage("歌曲目前播放中！").queue();
+            return;
+        }
         manager.audioPlayer.setPaused(false);
         ctx.getChannel().sendMessage("歌曲已繼續播放").queue();
     }
