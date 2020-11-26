@@ -25,7 +25,7 @@ public class CouponLeftCommand implements ICommand {
                         for (JsonNode jsonNode : jsonNodes) {
                             String storeName = jsonNode.get("storeNm").asText().substring(0, jsonNode.get("storeNm").asText().indexOf("("));
                             if (storeName.equals(input)) {
-                                EmbedBuilder embedBuilder=EmbedUtils.defaultEmbed()
+                                EmbedBuilder embedBuilder=EmbedUtils.getDefaultEmbed()
                                         .setTitle("查詢振興三倍券剩餘數量："+storeName)
                                         .setDescription("機構編號："+jsonNode.get("storeCd").asText())
                                         .addField("機構地址：","``"+jsonNode.get("zipCd").asText()+jsonNode.get("addr").asText()+"``",false)
@@ -40,7 +40,7 @@ public class CouponLeftCommand implements ICommand {
                                 contains += storeName+"（"+jsonNode.get("hsnNm").asText()+"）\n";
                             }
                         }
-                    EmbedBuilder embed = EmbedUtils.defaultEmbed();
+                    EmbedBuilder embed = EmbedUtils.getDefaultEmbed();
                     if (contains.length() == 0) {
                         embed.setTitle("沒有符合或相似的結果！")
                                 .setDescription("嗯，真的。請再次檢查您輸入的內容");

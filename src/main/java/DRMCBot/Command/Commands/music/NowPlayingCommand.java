@@ -84,7 +84,7 @@ public class NowPlayingCommand implements ICommand {
         ImageIO.write(imageToEdit, "png", new File(loadingBarFile));
         File loadingbar = new File(loadingBarFile);
         channel.sendMessage(
-                EmbedUtils.defaultEmbed()
+                EmbedUtils.getDefaultEmbed()
                         .setDescription(String.format("**正在播放：** [%s](%s)\n%s %s － %s", info.title, info.uri, player.isPaused() ? "\u23F8" : "▶", formatTime(player.getPlayingTrack().getPosition()), formatTime(player.getPlayingTrack().getDuration())))
                         .setImage("attachment://" + loadingBarFile)
                         .build()

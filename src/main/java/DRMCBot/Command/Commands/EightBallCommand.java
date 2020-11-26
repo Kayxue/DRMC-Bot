@@ -32,7 +32,7 @@ public class EightBallCommand implements ICommand {
         }
         JSONObject jsonObj = new JSONObject(response.body().string());
         ctx.getChannel().sendMessage(
-                EmbedUtils.defaultEmbed()
+                EmbedUtils.getDefaultEmbed()
                         .setAuthor(
                                 "Magic \uD83C\uDFB1",
                                 ctx.getJDA().getInviteUrl(),

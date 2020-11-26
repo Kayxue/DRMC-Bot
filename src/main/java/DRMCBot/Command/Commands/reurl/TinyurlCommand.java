@@ -34,7 +34,7 @@ public class TinyurlCommand implements ICommand {
             if (requestbody.equals("Error")) {
                 ctx.getChannel().sendMessage("請輸入有效連結！").queue();
             } else {
-                EmbedBuilder embed = EmbedUtils.defaultEmbed()
+                EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                         .setTitle("轉短連結完成！")
                         .setDescription("感謝您使用此機器人服務！")
                         .addField("縮短後的連結：", requestbody, false)

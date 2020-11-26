@@ -10,7 +10,7 @@ import java.time.ZonedDateTime;
 
 public class Utils {
     public static EmbedBuilder DiscordJSEmbedParser(JSONObject json, boolean needTimeStamp) {
-        EmbedBuilder embed = EmbedUtils.defaultEmbed();
+        EmbedBuilder embed = EmbedUtils.getDefaultEmbed();
         try {
             embed.setColor(json.getInt("color"));
         } catch (Exception ignored) {

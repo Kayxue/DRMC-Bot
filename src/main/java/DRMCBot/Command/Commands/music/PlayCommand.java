@@ -133,7 +133,7 @@ public class PlayCommand implements ICommand {
             resultstring.append("**#").append(i + 1).append(":**").append(results.get(i).getSnippet().getTitle()).append("\n");
         }
 
-        EmbedBuilder embed = EmbedUtils.defaultEmbed()
+        EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                 .setTitle("搜尋結果（20秒內回覆）：")
                 .setDescription(resultstring.toString());
 

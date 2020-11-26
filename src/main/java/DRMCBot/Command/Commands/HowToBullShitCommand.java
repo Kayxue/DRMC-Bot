@@ -39,7 +39,7 @@ public class HowToBullShitCommand implements ICommand {
                 .build();
         Response response = httpClient.newCall(request).execute();
         String respond=response.body().string().replaceAll("&nbsp;","").replaceAll("<br>","\n");
-        EmbedBuilder embed = EmbedUtils.defaultEmbed()
+        EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                 .setTitle("唬爛產生器")
                 .setDescription("```" + respond + "```")
                 .setFooter("感謝Bill Hsu製作唬爛產生器網頁\n原唬爛產生器網址：https://howtobullshit.me/","https://avatars3.githubusercontent.com/u/28007209?s=460&u=8d1eb0ced119617cf37fb983bc5998a804d99e57&v=4");

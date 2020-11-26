@@ -15,7 +15,7 @@ public class HelpCommand implements ICommand {
         User botowner = ctx.getJDA().getUserById("470516498050580480");
         String[] x = {"discordinfo", "otherinfo", "generation", "entertainment", "music", "suggestion", "ticket", "management","giveaway"};
         List<String> category = Arrays.asList(x);
-        EmbedBuilder embed = EmbedUtils.defaultEmbed()
+        EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                 .setAuthor(ctx.getJDA().getSelfUser().getName() + "#" + ctx.getJDA().getSelfUser().getDiscriminator(), null, ctx.getJDA().getSelfUser().getAvatarUrl())
                 .setTitle("指令幫助");
         if (ctx.getArgs().isEmpty()) {

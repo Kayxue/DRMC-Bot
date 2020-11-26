@@ -61,7 +61,7 @@ public class StartGiveawayCommand implements ICommand {
         toReact.add("\u2705");
         toReact.add("\u274e");
 
-        EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed()
+        EmbedBuilder embedBuilder = EmbedUtils.getDefaultEmbed()
                 .setTitle("請注意！確定舉辦？")
                 .setDescription("此機器人因處於開發階段，開發員會經常關閉bot而造成有時抽獎結束開獎時bot無法開獎而造成您必須自行開獎，若您無法接受，請使用其他機器人開獎！");
         ctx.getChannel().sendMessage(embedBuilder.build()).queue(
@@ -142,7 +142,7 @@ public class StartGiveawayCommand implements ICommand {
             CreatedDay = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calendar.getTime()));
             calendar.add(Calendar.SECOND, (int) Second);
             EndDay = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calendar.getTime()));
-            EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed()
+            EmbedBuilder embedBuilder = EmbedUtils.getDefaultEmbed()
                     .setTitle(":tada: 抽獎已開始！")
                     .setDescription("**抽獎獎項：**" + price + "\n" + "**抽出人數：**" + winnerCount + "\n**剩餘時間：**" + d + "天" + h + "小時" + m + "分" + s + "秒")
                     .setFooter("由" + GiveawayCreator.getUser().getAsTag() + "舉辦\n" + "將結束於：" + EndDay + " (GMT+08:00)", GiveawayCreator.getUser().getAvatarUrl());
@@ -161,7 +161,7 @@ public class StartGiveawayCommand implements ICommand {
                     long h = (Second % 86400) / 3600;
                     long m = ((Second % 86400) % 3600) / 60;
                     long s = ((Second % 86400) % 3600) % 60;
-                    EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed()
+                    EmbedBuilder embedBuilder = EmbedUtils.getDefaultEmbed()
                             .setTitle(":tada: 抽獎已開始！")
                             .setDescription("**抽獎獎項：**" + price + "\n" + "**抽出人數：**" + winnerCount + "\n**剩餘時間：**" + d + "天" + h + "小時" + m + "分" + s + "秒")
                             .setFooter("由" + GiveawayCreator.getUser().getAsTag() + "舉辦\n" + "將結束於：" + EndDay + " (GMT+08:00)", GiveawayCreator.getUser().getAvatarUrl());
@@ -200,7 +200,7 @@ public class StartGiveawayCommand implements ICommand {
                         }
                     }
                     String winner = String.join("、", choosed);
-                    EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed()
+                    EmbedBuilder embedBuilder = EmbedUtils.getDefaultEmbed()
                             .setTitle(":tada: 抽獎已圓滿結束！")
                             .setDescription("**抽獎獎項：**" + price + "\n**得獎者：**" + winner)
                             .setFooter("由" + GiveawayCreator.getUser().getAsTag() + "舉辦\n" + "已結束於：" + EndDay + " (GMT+08:00)", GiveawayCreator.getUser().getAvatarUrl())
@@ -209,7 +209,7 @@ public class StartGiveawayCommand implements ICommand {
                     GiveawayMessageChannel.sendMessage(":tada: 恭喜" + winner + "！" + (winnerCount == 1 ? "你們" : "你") + "成功獲得了" + price + "！").queue();
 
                 } else {
-                    EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed()
+                    EmbedBuilder embedBuilder = EmbedUtils.getDefaultEmbed()
                             .setTitle(":tada: 抽獎已圓滿結束！")
                             .setDescription("**抽獎獎項：**" + price + "\n**得獎者：**" + "沒有人")
                             .setFooter("由" + GiveawayCreator.getUser().getAsTag() + "舉辦\n" + "已結束於：" + EndDay + " (GMT+08:00)", GiveawayCreator.getUser().getAvatarUrl())

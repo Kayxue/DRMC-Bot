@@ -177,7 +177,7 @@ public class UserinfoCommand implements ICommand {
             description = "關於使用者" + member.getUser().getName() + "的資訊";
         }
 
-        EmbedBuilder embed = EmbedUtils.defaultEmbed()
+        EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                 .setTitle("使用者資訊")
                 .setDescription(description)
                 .addField("使用者名稱：", member.getUser().getName() + "#" + member.getUser().getDiscriminator(), false)

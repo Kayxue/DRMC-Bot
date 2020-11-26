@@ -32,7 +32,7 @@ public class SuggestionCommand implements ICommand {
         String suggestion = String.join(" ", args);
         JSONObject channelandsuggestioncount = mongoDbDataSource.getServerSuggestionCount(guildId);
         final TextChannel suggestionsendchannel = ctx.getGuild().getTextChannelById(channelandsuggestioncount.getLong("suggestionchannel"));
-        EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed()
+        EmbedBuilder embedBuilder = EmbedUtils.getDefaultEmbed()
                 .setTitle("建議#" + channelandsuggestioncount.getInt("suggestioncount"))
                 .setDescription("建議內容："+suggestion);
 

@@ -48,7 +48,7 @@ public class OsuCommand implements ICommand {
         String joinDate = userjson.getString("join_date").replaceAll(" ", "T");
         OffsetDateTime joinedNoZone = OffsetDateTime.of(LocalDateTime.parse(joinDate), ZoneOffset.UTC);
         ZonedDateTime joinedWithZone = joinedNoZone.atZoneSameInstant(ZoneId.of("Asia/Taipei"));
-        EmbedBuilder embed = EmbedUtils.defaultEmbed()
+        EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                 .setTitle(userjson.getString("username") + "｜" + userjson.getString("user_id") + "｜" + (userjson.get("pp_rank").toString().equals("null") ? "0" : "#" + userjson.getString("pp_rank")), userProfileUrl)
                 .setDescription(
                         "SS+－" + (userjson.get("count_rank_ssh").toString().equals("null") ? "0" : userjson.getInt("count_rank_ssh")) + "｜" +

@@ -70,18 +70,7 @@ public class SetVolumeCommand implements ICommand {
 
         final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager(ctx.getGuild());
         manager.audioPlayer.setVolume(volume);
-
-        final String loadingBarFile = "loadingBarValue.png";
-        LoadingBarConfig config = LoadingBarConfig.defaultConfig()
-                .setFillColor(Color.decode("#01afef"));
-        try (FileOutputStream outputStream = new FileOutputStream(loadingBarFile)) {
-            outputStream.write(LoadingBar.generateImage(volume, config));
-        } catch (IOException ignored) {
-
-        }
-        File loadingbar = new File(loadingBarFile);
-        ctx.getChannel().sendMessage("音量已設定成" + volume + "%").addFile(loadingbar).queue();
-        loadingbar.deleteOnExit();
+        ctx.getChannel().sendMessage("音量已設定成" + volume + "%").queue();
     }
 
     @Override

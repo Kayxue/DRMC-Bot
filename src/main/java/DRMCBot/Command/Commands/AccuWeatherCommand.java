@@ -71,7 +71,7 @@ public class AccuWeatherCommand implements ICommand {
             JSONArray searchWeatherDataResult = new JSONArray(weatherDataResponse.body().string());
             JSONObject weatherDataResult = (JSONObject) searchWeatherDataResult.get(0);
             if (!ifDetailed) {
-                EmbedBuilder embed = EmbedUtils.defaultEmbed()
+                EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                         .setTitle(cityName + "現在天氣")
                         .addField("目前天氣：", weatherDataResult.getString("WeatherText"), true)
                         .addField("目前溫度：", weatherDataResult.getJSONObject("Temperature").getJSONObject("Metric").getInt("Value") + "\u2103", true)
@@ -81,7 +81,7 @@ public class AccuWeatherCommand implements ICommand {
                         .setFooter("資料提供者：AccuWeather (https://www.accuweather.com/)\n資料更新時間：" + weatherDataResult.getString("LocalObservationDateTime").split("T")[0] + " " + weatherDataResult.getString("LocalObservationDateTime").split("T")[1].substring(0, 8), "https://lh3.ggpht.com/7BB1gD1EJ9g2mcqHfAtMuP0Z5Zg1a1syl4l8GTGIXFUUUpTSbg_txXw99YAVUZ9B8A=h300");
                 ctx.getChannel().sendMessage(embed.build()).queue();
             } else {
-                EmbedBuilder embed = EmbedUtils.defaultEmbed()
+                EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                         .setTitle(cityName + "現在天氣")
                         .addField("目前天氣：", weatherDataResult.getString("WeatherText"), true)
                         .addField("目前溫度：", "**測量溫度：**" + weatherDataResult.getJSONObject("Temperature").getJSONObject("Metric").getInt("Value") + "\u2103\n"
@@ -118,7 +118,7 @@ public class AccuWeatherCommand implements ICommand {
                 String sunset = Sun.getString("Set");
                 String moonrise= Moon.getString("Rise");
                 String moonSet = Moon.getString("Set");
-                EmbedBuilder embed = EmbedUtils.defaultEmbed()
+                EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                         .setTitle(cityName + HeadLine.getString("Text"))
                         .setDescription("以下之時間之時區皆為（GMT+" + sunrise.split("\\+")[1] + "）")
                         .addField("溫度",
@@ -147,7 +147,7 @@ public class AccuWeatherCommand implements ICommand {
                         .setFooter("資料提供者：AccuWeather (https://www.accuweather.com/)", "https://lh3.ggpht.com/7BB1gD1EJ9g2mcqHfAtMuP0Z5Zg1a1syl4l8GTGIXFUUUpTSbg_txXw99YAVUZ9B8A=h300");
                 ctx.getChannel().sendMessage(embed.build()).queue();
             } else {
-                EmbedBuilder embed = EmbedUtils.defaultEmbed()
+                EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                         .setTitle(cityName + HeadLine.getString("Text"))
                         .addField("溫度",
                                 "**最高溫度：**" + Temperature.getJSONObject("Maximum").getInt("Value") + "\u2103\n"

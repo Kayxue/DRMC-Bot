@@ -56,7 +56,7 @@ public class ExchangeCommand implements ICommand {
                         output = output * json.get("USD" + to).get("Exrate").asDouble();
                     }
                     output = Double.parseDouble(formator.format(output));
-                    EmbedBuilder embed = EmbedUtils.defaultEmbed()
+                    EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                             .setTitle("貨幣換算")
                             .setDescription(dollar + " **" + from + "**" + " ➡ ️" + output + " **" + to + "**\n\n"
                                     + "> 今日匯率：1 " + from + " = " + formator.format((1 / json.get("USD" + from).get("Exrate").asDouble())

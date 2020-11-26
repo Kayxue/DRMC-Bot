@@ -12,7 +12,7 @@ public class JLyricCommand implements ICommand {
     public void handle(CommandContext ctx) throws Exception {
         LyricsClient lyricsClient = new LyricsClient();
         Lyrics lyrics = lyricsClient.getLyrics(String.join(" ", ctx.getArgs())).get();
-        EmbedBuilder embed = EmbedUtils.defaultEmbed()
+        EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                 .setTitle(lyrics.getTitle() + "-" + lyrics.getAuthor())
                 .setDescription("```" + lyrics.getContent() + "```");
         ctx.getChannel().sendMessage(embed.build()).queue();

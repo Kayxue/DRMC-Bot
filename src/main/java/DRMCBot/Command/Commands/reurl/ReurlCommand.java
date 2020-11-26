@@ -45,7 +45,7 @@ public class ReurlCommand implements ICommand {
                     ctx.getChannel().sendMessage("指令遇到錯誤！\n網頁回應訊息為：" + errorcode + "若問題持續發生請先改用其他url生成服務！").queue();
                 }
             } catch (Exception e) {
-                EmbedBuilder embed = EmbedUtils.defaultEmbed()
+                EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                         .setTitle("轉短連結完成！")
                         .setDescription("感謝您使用此機器人服務！")
                         .addField("縮短後的連結：", jsonrequest.getString("short_url"), false)

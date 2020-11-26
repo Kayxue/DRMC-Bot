@@ -22,7 +22,7 @@ public class HelpCommandV2 implements ICommand {
     public void handle(CommandContext ctx) {
         User botowner = ctx.getJDA().getUserById("470516498050580480");
         List<String> args = ctx.getArgs();
-        EmbedBuilder embed = EmbedUtils.defaultEmbed();
+        EmbedBuilder embed = EmbedUtils.getDefaultEmbed();
         embed.setAuthor(ctx.getJDA().getSelfUser().getName() + "#" + ctx.getJDA().getSelfUser().getDiscriminator(), null, ctx.getJDA().getSelfUser().getAvatarUrl());
         embed.setTitle("指令幫助");
         embed.addField("查詢方法", "```help [類別/指令名稱]```", false);

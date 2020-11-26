@@ -63,7 +63,7 @@ public class SourceBinCommand implements ICommand {
                 //System.out.println("Posted finished!");
                 //System.out.println(postresponse.body().string());
                 JSONObject postrequestjson = new JSONObject(postresponse.body().string());
-                EmbedBuilder builder = EmbedUtils.defaultEmbed()
+                EmbedBuilder builder = EmbedUtils.getDefaultEmbed()
                         .setTitle(postrequestjson.getString("key"), "https://sourceb.in/" + postrequestjson.getString("key"))
                         .setDescription("```" + (languageid != 372 ? ctx.getArgs().get(0) : "") + "\n" + messagecontent.substring(messagecontent.indexOf(ctx.getArgs().get(1))) + "```");
                 ctx.getChannel().sendMessage(builder.build()).queue();

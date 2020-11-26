@@ -40,7 +40,7 @@ public class InstagramCommand implements ICommand {
             final int followers=user.get("followers").get("count").asInt();
             final int uploads=user.get("uploads").get("count").asInt();
 
-            final EmbedBuilder embed= EmbedUtils.defaultEmbed()
+            final EmbedBuilder embed= EmbedUtils.getDefaultEmbed()
                     .setTitle("Instagram info of "+username,"https://www.instagram.com/"+username)
                     .setThumbnail(pfp)
                     .setDescription(String.format(

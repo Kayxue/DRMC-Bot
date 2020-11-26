@@ -42,7 +42,7 @@ public class GetHypixelServerBoosterCommand implements ICommand {
                         }
                         output += "\n```";
                         System.out.println(output);
-                        EmbedBuilder embed = EmbedUtils.defaultEmbed()
+                        EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                                 .setTitle("目前Hypixel加成名單")
                                 .setDescription(output);
                         ctx.getChannel().sendMessage(embed.build()).queue();

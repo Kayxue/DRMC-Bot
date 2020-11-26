@@ -54,7 +54,7 @@ public class CommandRunLengthCommand implements ICommand {
             ZonedDateTime endedat = ZonedDateTime.now(ZoneId.of("Asia/Taipei"));
             String gotcommandlength = "取得指令時間：" + Duration.between(startedat, gotcmdat).toMillis() + "毫秒";
             String runcommandlength = "執行指令時間：" + Duration.between(gotcmdat, endedat).toMillis() + "毫秒";
-            EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed()
+            EmbedBuilder embedBuilder = EmbedUtils.getDefaultEmbed()
                     .setTitle("指令" + args.get(0) + "執行時長")
                     .setDescription(gotcommandlength + "\n" + runcommandlength);
             ctx.getChannel().sendMessage(embedBuilder.build()).queue();

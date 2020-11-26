@@ -172,7 +172,7 @@ public class ServerinfoCommand implements ICommand {
                 + "(UTC" + timeCreatedWithZone.getOffset() + ")" + "\n"
                 + "``(" + TimeLength + ")``";
 
-        final EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed()
+        final EmbedBuilder embedBuilder = EmbedUtils.getDefaultEmbed()
                 .setTitle("關於伺服器「" + guild.getName() + "」")
                 .setDescription("關於伺服器" + guild.getName() + "的資訊")
                 .addField("成員［" + membercount + "］：",

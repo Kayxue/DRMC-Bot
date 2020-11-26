@@ -14,7 +14,7 @@ public class ChannelAllPinCommand implements ICommand {
     public void handle(CommandContext ctx) {
         List<Message> messages=ctx.getChannel().retrievePinnedMessages().complete();
         Emote pinemote = ctx.getJDA().getEmotesByName("pinani", true).get(0);
-        EmbedBuilder embed = EmbedUtils.defaultEmbed()
+        EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                 .setTitle(pinemote.getAsMention() + " 此頻道之全部釘選訊息");
         String output = "";
         if (messages.isEmpty()) {

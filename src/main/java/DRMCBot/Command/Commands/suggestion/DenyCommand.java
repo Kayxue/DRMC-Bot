@@ -55,7 +55,7 @@ public class DenyCommand implements ICommand {
                             reason.add(ctx.getArgs().get(i));
                         }
                         String reasonstring = String.join(" ", reason);
-                        EmbedBuilder embedBuilder = EmbedUtils.defaultEmbed()
+                        EmbedBuilder embedBuilder = EmbedUtils.getDefaultEmbed()
                                 .setColor(0xF53221)
                                 .setTitle("建議#" + Long.parseLong(ctx.getArgs().get(0)))
                                 .addField("建議內容：", data.getString("suggestion"), false)
