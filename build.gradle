@@ -48,9 +48,10 @@ dependencies {
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.11.3'
     implementation group: 'io.vavr', name: 'vavr', version: '1.0.0-alpha-3'
     implementation group: 'me.duncte123', name: 'loadingbar', version: '1.2.1_12'
-    implementation "org.jfree:jfreechart:1.5.1"
-    implementation "org.jfree:jcommon:1.0.24"
-    implementation "incanter:gnujaxp:1"
+    implementation 'org.jfree:jfreechart:1.5.1'
+    implementation 'org.jfree:jcommon:1.0.24'
+    implementation group: 'incanter', name: 'gnujaxp', version: '1'
+
 }
 
 compileJava.options.encoding = 'UTF-8'

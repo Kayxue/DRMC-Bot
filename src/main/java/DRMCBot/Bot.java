@@ -62,6 +62,7 @@ public class Bot {
                 .build();
 
         Pages.activate(jda);
+        PaginatorUtil.jda = jda;
     }
     public static void main(String[] args) throws LoginException {
         new Bot();

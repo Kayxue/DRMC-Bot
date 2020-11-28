@@ -15,6 +15,10 @@ import DRMCBot.Command.Commands.admin.*;
 import DRMCBot.Command.Commands.anime.ChinoCommand;
 import DRMCBot.Command.Commands.anime.KitsuneCommand;
 import DRMCBot.Command.Commands.anime.NekoCommand;
+import DRMCBot.Command.Commands.code.DiscordJSDocumentationCommand;
+import DRMCBot.Command.Commands.code.HasteCommand;
+import DRMCBot.Command.Commands.code.PasteCommand;
+import DRMCBot.Command.Commands.code.SourceBinCommand;
 import DRMCBot.Command.Commands.music.*;
 import DRMCBot.Command.Commands.reurl.ReurlCommand;
 import DRMCBot.Command.Commands.reurl.TinyurlCommand;
@@ -101,7 +105,7 @@ public class CommandManagerV2 {
         //addCommand(new AnimeMemeCommand());
         addCommand(new EightBallCommand());
         addCommand(new NekoCommand());
-        addCommand(new CommandRunLengthCommand(null));
+        addCommand(new CommandRunLengthCommandV2(this));
         addCommand(new KitsuneCommand());
         addCommand(new GetHypixelServerBoosterCommand());
         addCommand(new JLyricCommand());
@@ -120,6 +124,8 @@ public class CommandManagerV2 {
         addCommand(new RepeatCommand());
         addCommand(new OsuCommand());
         addCommand(new SetVolumeCommand());
+        addCommand(new CoronaVirusDataCommand());
+        addCommand(new TestPaginatorIWroteCommand());
         /*-----------------------*/
     }
 
@@ -182,7 +188,6 @@ public class CommandManagerV2 {
                 }
             }
         }
-
         return null;
     }
 

@@ -2,13 +2,12 @@ package DRMCBot.Category.Categories;
 
 import DRMCBot.Category.CategoryBase;
 import DRMCBot.Category.ICategory;
-import DRMCBot.Command.Commands.DiscordJSDocumentationCommand;
+import DRMCBot.Command.Commands.code.DiscordJSDocumentationCommand;
 import DRMCBot.Command.Commands.HelpCommandV3;
 import DRMCBot.Command.Commands.SayCommand;
 import DRMCBot.Command.ICommand;
 import DRMCBot.CommandManagerV3;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class NoCategory extends CategoryBase implements ICategory {
