@@ -2,12 +2,11 @@ package DRMCBot.Command.Commands;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import DRMCBot.PaginatorUtil;
+import DRMCBot.Utils.PaginatorUtil;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class TestPaginatorIWroteCommand implements ICommand {
     @Override

@@ -2,7 +2,6 @@ package DRMCBot.Command.Commands.code;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import me.duncte123.botcommons.web.WebUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -11,7 +10,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import static DRMCBot.Utils.DiscordJSEmbedParser;
+import static DRMCBot.Utils.Utils.DiscordJSEmbedParser;
 
 public class DiscordJSDocumentationCommand implements ICommand {
     @Override

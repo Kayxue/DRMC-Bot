@@ -1,27 +1,20 @@
 package DRMCBot;
 
-import DRMCBot.Database.SQLiteDataSource;
+import DRMCBot.Utils.PaginatorUtil;
 import com.github.ygimenez.method.Pages;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
-import com.neovisionaries.ws.client.WebSocketFactory;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import me.duncte123.botcommons.web.WebUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.Compression;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
-import okhttp3.Cache;
 
 import javax.security.auth.login.LoginException;
-import java.sql.SQLException;
-import java.util.EnumSet;
 
 public class Bot {
 

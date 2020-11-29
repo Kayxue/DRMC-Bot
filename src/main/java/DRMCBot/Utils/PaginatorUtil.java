@@ -1,4 +1,4 @@
-package DRMCBot;
+package DRMCBot.Utils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
@@ -13,18 +13,18 @@ import java.util.List;
 public class PaginatorUtil extends ListenerAdapter {
     final List<EmbedBuilder> embeds;
     final int secondToReact;
+    public static JDA jda;
+    private final Message message;
+    private final String FIRSTPAGE = "\u23ee\ufe0f";
+    private final String PREVIOUSPAGE = "\u25c0\ufe0f";
+    private final String STOP = "\u23f9\ufe0f";
+    private final String NEXTPAGE = "\u25b6\ufe0f";
+    private final String LASTPAGE = "\u23ed\ufe0f";
     int timeLeft;
-    static JDA jda;
-    final Message message;
-    final String FIRSTPAGE = "\u23ee\ufe0f";
-    final String PREVIOUSPAGE = "\u25c0\ufe0f";
-    final String STOP = "\u23f9\ufe0f";
-    final String NEXTPAGE = "\u25b6\ufe0f";
-    final String LASTPAGE = "\u23ed\ufe0f";
     boolean run = true;
     int nowEmbed = 0;
-    Thread countdownThread;
-    Thread addReaction;
+    private Thread countdownThread;
+    private Thread addReaction;
 
     public PaginatorUtil(List<EmbedBuilder> embeds, int secondToReact, TextChannel channel) {
         this.embeds = embeds;

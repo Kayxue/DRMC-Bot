@@ -2,8 +2,6 @@ package DRMCBot.Command.Commands.code;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import com.google.api.client.json.Json;
-import com.google.gson.JsonObject;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import okhttp3.*;
@@ -30,6 +28,7 @@ public class PastemystCommand implements ICommand {
         JSONObject languageDetail;
         if (getDefineLanguageResponse.code() == 404) {
             languageName = "Plain Text";
+            getDefineLanguageResponse.close();
         } else {
             languageDetail = new JSONObject(getDefineLanguageResponse.body().string());
             languageName = languageDetail.getString("name");
