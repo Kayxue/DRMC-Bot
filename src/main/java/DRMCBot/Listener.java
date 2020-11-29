@@ -21,6 +21,7 @@ import java.time.ZonedDateTime;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 public class Listener extends ListenerAdapter {
 
@@ -90,15 +91,15 @@ public class Listener extends ListenerAdapter {
 
     @Override
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
-        User user=event.getAuthor();
+        User user = event.getAuthor();
 
         if (user.isBot() || event.isWebhookMessage()){
             return;
         }
 
-        final long guildID=event.getGuild().getIdLong();
-        String prefix=VeryBadDesign.PREFIXES.computeIfAbsent(guildID, DatabaseManager.INSTANCE::getPrefix);
-        String raw=event.getMessage().getContentRaw();
+        final long guildID = event.getGuild().getIdLong();
+        String prefix = VeryBadDesign.PREFIXES.computeIfAbsent(guildID, DatabaseManager.INSTANCE::getPrefix);
+        String raw = event.getMessage().getContentRaw();
 
         if (raw.equalsIgnoreCase(prefix + "shutdown")) {
             LOGGER.info("Shutting Down");
@@ -108,7 +109,7 @@ public class Listener extends ListenerAdapter {
         }
         if (raw.startsWith(prefix)){
             try {
-                manager.handle(event,prefix);
+                manager.handle(event, prefix);
             } catch (Exception e) {
                 e.printStackTrace();
             }

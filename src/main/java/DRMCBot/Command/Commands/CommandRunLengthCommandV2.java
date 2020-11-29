@@ -17,7 +17,7 @@ public class CommandRunLengthCommandV2 implements ICommand {
     private final CommandManagerV2 commandManager;
 
     public CommandRunLengthCommandV2(CommandManagerV2 manager) {
-        commandManager = manager;
+        this.commandManager = manager;
     }
 
     @Override
