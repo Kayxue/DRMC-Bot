@@ -1,8 +1,6 @@
 package DRMCBot;
 
-import DRMCBot.Category.Categories.DiscordInfoCategory;
-import DRMCBot.Category.Categories.MusicCategory;
-import DRMCBot.Category.Categories.NoCategory;
+import DRMCBot.Category.Categories.*;
 import DRMCBot.Category.ICategory;
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
@@ -14,14 +12,21 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 public class CommandManagerV3 {
-    private final HashMap<String, ArrayList<ICommand>> categories = new HashMap<>();
     private final TreeMap<String, ICategory> category = new TreeMap<>();
 
     public CommandManagerV3(EventWaiter eventWaiter) {
         /*------Add category------*/
-        addCategory(new DiscordInfoCategory());
-        addCategory(new NoCategory(this));
+        addCategory(new DiscordInfoCategory(this));
+        addCategory(new NoCategory(eventWaiter));
         addCategory(new MusicCategory(eventWaiter));
+        addCategory(new CodeCategory());
+        addCategory(new EntertainmentCategory());
+        addCategory(new GenerationCategory());
+        addCategory(new GiveawayCategory(eventWaiter));
+        addCategory(new ManagementCategory());
+        addCategory(new OtherInfoCategory());
+        addCategory(new SuggestionCategory());
+        addCategory(new TicketCategory());
         /*------------------------*/
     }
 
@@ -45,7 +50,15 @@ public class CommandManagerV3 {
     }
 
     public ICategory getCategory(String categoryname) {
-        return category.get(categoryname);
+        try {
+            return category.get(categoryname);
+        } catch (NullPointerException ignored) {
+            return null;
+        }
+    }
+
+    public TreeMap<String, ICategory> getCategoryDescription() {
+        return category;
     }
 
     @Nullable

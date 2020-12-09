@@ -26,13 +26,13 @@ public class Listener extends ListenerAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Listener.class);
     ScheduledExecutorService executor;
-    //private final CommandManagerV3 manager;
-    private final CommandManagerV2 manager;
+    private final CommandManagerV3 manager;
+    //private final CommandManagerV2 manager;
     //private final CommandManager manager;
 
     public Listener(EventWaiter waiter) {
-        //manager = new CommandManagerV3(waiter);
-        manager = new CommandManagerV2(waiter);
+        manager = new CommandManagerV3(waiter);
+        //manager = new CommandManagerV2(waiter);
         //manager = new CommandManager(waiter);
     }
 

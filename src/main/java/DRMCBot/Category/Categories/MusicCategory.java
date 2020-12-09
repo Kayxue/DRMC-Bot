@@ -2,10 +2,7 @@ package DRMCBot.Category.Categories;
 
 import DRMCBot.Category.CategoryBase;
 import DRMCBot.Category.ICategory;
-import DRMCBot.Command.Commands.music.JoinCommand;
-import DRMCBot.Command.Commands.music.LeaveCommand;
-import DRMCBot.Command.Commands.music.PlayCommand;
-import DRMCBot.Command.Commands.music.StopCommand;
+import DRMCBot.Command.Commands.music.*;
 import DRMCBot.Command.ICommand;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 
@@ -17,6 +14,13 @@ public class MusicCategory extends CategoryBase implements ICategory {
         addCommand(new StopCommand());
         addCommand(new LeaveCommand());
         addCommand(new JoinCommand());
+        addCommand(new PauseCommand());
+        addCommand(new ResumeCommand());
+        addCommand(new QueueCommand());
+        addCommand(new SkipCommand());
+        addCommand(new NowPlayingCommand());
+        addCommand(new RepeatCommand());
+        addCommand(new SetVolumeCommand());
     }
 
     @Override
@@ -31,6 +35,6 @@ public class MusicCategory extends CategoryBase implements ICategory {
 
     @Override
     public String getDescription() {
-        return null;
+        return "音樂播放類";
     }
 }

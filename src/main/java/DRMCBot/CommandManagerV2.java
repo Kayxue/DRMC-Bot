@@ -41,7 +41,7 @@ public class CommandManagerV2 {
         addCategory("music","音樂播放類");
         addCategory("suggestion","建議類（目前僅限DRMC使用）");
         addCategory("ticket","管理員私訊窗口類（目前僅限DRMC使用）");
-        addCategory("management","Discord與機器人資訊類");
+        addCategory("management","管理類");
         addCategory("giveaway","抽獎類（目前暫停使用）");
         addCategory("code","程式碼桶子工具類");
         addCategory("nocategory","未分類");

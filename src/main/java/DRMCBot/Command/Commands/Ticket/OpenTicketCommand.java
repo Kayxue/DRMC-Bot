@@ -58,7 +58,7 @@ public class OpenTicketCommand implements ICommand {
 
     @Override
     public String getName() {
-        return "ticket";
+        return "openticket";
     }
 
     @Override
