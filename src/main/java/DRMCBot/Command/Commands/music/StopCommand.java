@@ -35,10 +35,11 @@ public class StopCommand implements ICommand {
             return;
         }
 
-        final GuildMusicManager manager=PlayerManager.getInstance().getMusicManager(ctx.getGuild());
+        final GuildMusicManager manager=PlayerManager.getInstance().getMusicManager(ctx.getChannel());
 
         manager.scheduler.player.stopTrack();
         manager.scheduler.queue.clear();
+        manager.scheduler.controller.removeController();
 
         ctx.getChannel().sendMessage("已停止播放並清空音樂列表").queue();
     }

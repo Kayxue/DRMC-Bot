@@ -13,6 +13,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class PlayerManager {
     private static PlayerManager INSTANCE;
@@ -27,18 +28,22 @@ public class PlayerManager {
         AudioSourceManagers.registerLocalSource(this.audioPlayerManager);
     }
 
-    public GuildMusicManager getMusicManager(Guild guild) {
-        return this.musicManagers.computeIfAbsent(guild.getIdLong(), (guildId) -> {
-            final GuildMusicManager guildMusicManager = new GuildMusicManager(this.audioPlayerManager);
+    public GuildMusicManager getMusicManager(TextChannel channel) {
+        GuildMusicManager manager = this.musicManagers.computeIfAbsent(channel.getGuild().getIdLong(), (guildId) -> {
+            final GuildMusicManager guildMusicManager = new GuildMusicManager(this.audioPlayerManager, channel);
 
-            guild.getAudioManager().setSendingHandler(guildMusicManager.getSendHandler());
+            channel.getGuild().getAudioManager().setSendingHandler(guildMusicManager.getSendHandler());
 
             return guildMusicManager;
         });
+        if (manager.scheduler.controller.messageShowChannel == null) {
+            manager.scheduler.controller.messageShowChannel = channel;
+        }
+        return manager;
     }
 
     public void loadAndPlay(TextChannel channel,String trackUrl) {
-        final GuildMusicManager musicManager = this.getMusicManager(channel.getGuild());
+        final GuildMusicManager musicManager = this.getMusicManager(channel);
 
         this.audioPlayerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
             @Override
@@ -50,7 +55,11 @@ public class PlayerManager {
                         .append("` by `")
                         .append(track.getInfo().author)
                         .append("`")
-                        .queue();
+                        .queue(
+                                message -> {
+                                    message.delete().queueAfter(5, TimeUnit.SECONDS);
+                                }
+                        );
             }
 
             @Override

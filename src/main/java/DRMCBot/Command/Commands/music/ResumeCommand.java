@@ -36,7 +36,7 @@ public class ResumeCommand implements ICommand {
             return;
         }
 
-        final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager(ctx.getGuild());
+        final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager(ctx.getChannel());
         final AudioPlayer audioPlayer = manager.audioPlayer;
 
         if (audioPlayer.getPlayingTrack() == null) {
@@ -48,6 +48,7 @@ public class ResumeCommand implements ICommand {
             return;
         }
         manager.audioPlayer.setPaused(false);
+        manager.scheduler.controller.editPausing(false);
         ctx.getChannel().sendMessage("歌曲已繼續播放").queue();
     }
 

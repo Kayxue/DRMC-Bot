@@ -51,7 +51,7 @@ public class NowPlayingCommand implements ICommand {
             return;
         }
 
-        final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager(ctx.getGuild());
+        final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager(ctx.getChannel());
         final AudioPlayer player = manager.audioPlayer;
         final AudioTrack track = player.getPlayingTrack();
 

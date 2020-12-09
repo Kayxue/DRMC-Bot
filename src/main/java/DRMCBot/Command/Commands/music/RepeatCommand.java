@@ -35,7 +35,7 @@ public class RepeatCommand implements ICommand {
             return;
         }
 
-        final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager(ctx.getGuild());
+        final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager(ctx.getChannel());
         final boolean newRepeating = !manager.scheduler.repeating;
 
         manager.scheduler.repeating = newRepeating;

@@ -68,7 +68,7 @@ public class SetVolumeCommand implements ICommand {
             return;
         }
 
-        final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager(ctx.getGuild());
+        final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager(ctx.getChannel());
         manager.audioPlayer.setVolume(volume);
         ctx.getChannel().sendMessage("音量已設定成" + volume + "%").queue();
     }

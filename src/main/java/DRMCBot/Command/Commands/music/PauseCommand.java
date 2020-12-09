@@ -37,7 +37,7 @@ public class PauseCommand implements ICommand {
             return;
         }
 
-        final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager(ctx.getGuild());
+        final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager(ctx.getChannel());
         final AudioPlayer audioPlayer = manager.audioPlayer;
 
         if (audioPlayer.getPlayingTrack() == null) {
@@ -49,6 +49,7 @@ public class PauseCommand implements ICommand {
             return;
         }
         manager.audioPlayer.setPaused(true);
+        manager.scheduler.controller.editPausing(true);
         ctx.getChannel().sendMessage("歌曲已暫停").queue();
     }
 
