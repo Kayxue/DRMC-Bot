@@ -75,7 +75,7 @@ public class ChinoCommand implements ICommand {
                 if (!pictureResponse.isSuccessful()) {
                     ctx.getChannel().sendMessage("失敗！若問題持續發生，請向New DL/RS/MC Chatroom請求協助！").queue();
                 }
-                File outputFile = new File("tmp.jpg");
+                File outputFile = new File("chino.png");
                 pictureResponse.body().source().readAll(Okio.sink(outputFile));
 
                 EmbedBuilder embedBuilder = EmbedUtils.getDefaultEmbed()
