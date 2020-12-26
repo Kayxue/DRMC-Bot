@@ -1,6 +1,6 @@
 package DRMCBot;
 
-import DRMCBot.Utils.PaginatorUtil;
+import DRMCBot.Utils.Paginator;
 import com.github.ygimenez.method.Pages;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import me.duncte123.botcommons.messaging.EmbedUtils;
@@ -17,17 +17,15 @@ import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import javax.security.auth.login.LoginException;
 
 public class Bot {
-
     private Bot() throws LoginException {
         EventWaiter eventWaiter = new EventWaiter();
 
         WebUtils.setUserAgent("Mozilla/5.0 DRMC Bot#7872");
         EmbedUtils.setEmbedBuilder(
-                ()-> new EmbedBuilder()
-                .setColor(0x01afef)
-                .setFooter("DRMC Bot")
+                () -> new EmbedBuilder()
+                        .setColor(0x01afef)
+                        .setFooter("DRMC Bot")
         );
-
 
         JDA jda = JDABuilder.createDefault(
                 Config.get("TOKEN"),
@@ -55,8 +53,9 @@ public class Bot {
                 .build();
 
         Pages.activate(jda);
-        PaginatorUtil.jda = jda;
+        Paginator.jda = jda;
     }
+
     public static void main(String[] args) throws LoginException {
         new Bot();
     }

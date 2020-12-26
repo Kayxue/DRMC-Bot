@@ -9,8 +9,9 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class PaginatorUtil extends ListenerAdapter {
+public class Paginator extends ListenerAdapter {
     final List<EmbedBuilder> embeds;
     final int secondToReact;
     public static JDA jda;
@@ -20,22 +21,24 @@ public class PaginatorUtil extends ListenerAdapter {
     private final String STOP = "\u23f9\ufe0f";
     private final String NEXTPAGE = "\u25b6\ufe0f";
     private final String LASTPAGE = "\u23ed\ufe0f";
-    int timeLeft;
+    AtomicInteger timeLeft;
     boolean run = true;
     int nowEmbed = 0;
     private Thread countdownThread;
     private Thread addReaction;
 
-    public PaginatorUtil(List<EmbedBuilder> embeds, int secondToReact, TextChannel channel) {
+    public Paginator(List<EmbedBuilder> embeds, int secondToReact, TextChannel channel) {
         this.embeds = embeds;
         this.secondToReact = secondToReact;
-        this.timeLeft = secondToReact;
+        this.timeLeft = new AtomicInteger(secondToReact);
         this.message = channel.sendMessage(embeds.get(0).build()).complete();
+    }
+
+    public void start() {
         jda.addEventListener(this);
         countdownThread = new Thread(() -> {
-            while (timeLeft > 0 && run) {
-                timeLeft -= 1;
-                System.out.println(timeLeft);
+            while (timeLeft.get() > 0 && run) {
+                timeLeft.addAndGet(-1);
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException ignore) {
@@ -55,18 +58,18 @@ public class PaginatorUtil extends ListenerAdapter {
         });
         addReaction.start();
     }
+
     @Override
     public void onGuildMessageReactionAdd(@NotNull GuildMessageReactionAddEvent event) {
         if (message.getId().equals(event.getMessageId()) && !event.getUser().isBot()) {
             boolean changepage = false;
-            timeLeft = secondToReact;
+            timeLeft = new AtomicInteger(secondToReact);
             System.out.println(event.getReactionEmote().getName());
             switch (event.getReactionEmote().getName()) {
                 case FIRSTPAGE -> {                                //⏮️
                     if (nowEmbed > 0) {
                         nowEmbed = 0;
                         changepage = true;
-                        System.out.println("葉面已更改！");
                     }
                     message.removeReaction(FIRSTPAGE, event.getUser()).queue();
                 }
@@ -74,7 +77,6 @@ public class PaginatorUtil extends ListenerAdapter {
                     if (nowEmbed > 0) {
                         nowEmbed -= 1;
                         changepage = true;
-                        System.out.println("葉面已更改！");
                     }
                     message.removeReaction(PREVIOUSPAGE, event.getUser()).queue();
                 }
@@ -88,7 +90,6 @@ public class PaginatorUtil extends ListenerAdapter {
                     if (nowEmbed < embeds.size() - 1) {
                         nowEmbed += 1;
                         changepage = true;
-                        System.out.println("葉面已更改！");
                     }
                     message.removeReaction(NEXTPAGE, event.getUser()).queue();
                 }
@@ -96,7 +97,6 @@ public class PaginatorUtil extends ListenerAdapter {
                     if (nowEmbed < embeds.size() - 1) {
                         nowEmbed = embeds.size() - 1;
                         changepage = true;
-                        System.out.println("葉面已更改！");
                     }
                     message.removeReaction(LASTPAGE, event.getUser()).queue();
                 }

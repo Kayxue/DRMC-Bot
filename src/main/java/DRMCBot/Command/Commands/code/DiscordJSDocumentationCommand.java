@@ -21,7 +21,7 @@ public class DiscordJSDocumentationCommand implements ICommand {
             return;
         }
         OkHttpClient client = new OkHttpClient();
-        String url = "https://djsdocs.sorta.moe/v2/embed?src=master&q=" + String.join("%20", args);
+        String url = "https://djsdocs.sorta.moe/v2/embed?src=stable&q=" + String.join("%20", args);
         Request request = new Request.Builder()
                 .url(url)
                 .addHeader("user-agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36")
@@ -40,6 +40,11 @@ public class DiscordJSDocumentationCommand implements ICommand {
     @Override
     public String getName() {
         return "discordjs";
+    }
+
+    @Override
+    public List<String> getAliases() {
+        return List.of("djs");
     }
 
     @Override

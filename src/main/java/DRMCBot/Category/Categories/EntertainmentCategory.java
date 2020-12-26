@@ -22,6 +22,7 @@ public class EntertainmentCategory extends CategoryBase implements ICategory {
         addCommand(new JokeCommand());
         addCommand(new MemeCommand());
         addCommand(new SaltyCommand());
+        addCommand(new HowGayCommand());
     }
     @Override
     public List<ICommand> getCommand() {

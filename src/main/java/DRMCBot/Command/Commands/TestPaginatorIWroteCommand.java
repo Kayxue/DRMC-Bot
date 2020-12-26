@@ -2,7 +2,7 @@ package DRMCBot.Command.Commands;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import DRMCBot.Utils.PaginatorUtil;
+import DRMCBot.Utils.Paginator;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 
@@ -15,7 +15,7 @@ public class TestPaginatorIWroteCommand implements ICommand {
         for (int i = 0; i <= 10; i++) {
             embeds.add(EmbedUtils.embedMessage(String.valueOf(i)));
         }
-        new PaginatorUtil(embeds, 20, ctx.getChannel());
+        new Paginator(embeds, 20, ctx.getChannel());
     }
 
     @Override
