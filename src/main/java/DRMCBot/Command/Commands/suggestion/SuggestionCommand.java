@@ -2,6 +2,7 @@ package DRMCBot.Command.Commands.suggestion;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
+import DRMCBot.Database.DatabaseManager;
 import DRMCBot.Database.MongoDbDataSource;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -11,10 +12,10 @@ import net.dv8tion.jda.api.entities.User;
 import org.bson.Document;
 import org.json.JSONObject;
 
+import javax.xml.crypto.Data;
 import java.util.List;
 
 public class SuggestionCommand implements ICommand {
-    MongoDbDataSource mongoDbDataSource = new MongoDbDataSource();
 
     @Override
     public void handle(CommandContext ctx) {
@@ -30,7 +31,7 @@ public class SuggestionCommand implements ICommand {
             return;
         }
         String suggestion = String.join(" ", args);
-        JSONObject channelandsuggestioncount = mongoDbDataSource.getServerSuggestionCount(guildId);
+        JSONObject channelandsuggestioncount = DatabaseManager.INSTANCE.getServerSuggestionCount(guildId);
         final TextChannel suggestionsendchannel = ctx.getGuild().getTextChannelById(channelandsuggestioncount.getLong("suggestionchannel"));
         EmbedBuilder embedBuilder = EmbedUtils.getDefaultEmbed()
                 .setTitle("建議#" + channelandsuggestioncount.getInt("suggestioncount"))
@@ -39,7 +40,7 @@ public class SuggestionCommand implements ICommand {
         suggestionsendchannel.sendMessage(embedBuilder.build()).queue(
                 (message) -> {
                     final long messageId = message.getIdLong();
-                    Document insertinfo = mongoDbDataSource.insertsuggestion(guildId, user.getIdLong(), messageId, suggestion);
+                    Document insertinfo = DatabaseManager.INSTANCE.insertsuggestion(guildId, user.getIdLong(), messageId, suggestion);
                     if (insertinfo.getBoolean("success")) {
                         Emote check=ctx.getJDA().getEmotesByName("checkani",true).get(0);
                         Emote cross = ctx.getJDA().getEmotesByName("crossani", true).get(0);

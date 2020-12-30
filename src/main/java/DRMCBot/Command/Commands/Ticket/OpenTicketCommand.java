@@ -2,6 +2,7 @@ package DRMCBot.Command.Commands.Ticket;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
+import DRMCBot.Database.DatabaseManager;
 import DRMCBot.Database.MongoDbDataSource;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -11,12 +12,10 @@ import org.json.JSONObject;
 
 public class OpenTicketCommand implements ICommand {
 
-    MongoDbDataSource mongoDbDataSource = new MongoDbDataSource();
-
     @Override
     public void handle(CommandContext ctx) {
         Member ticketcreator = ctx.getMember();
-        JSONObject jsonObject = mongoDbDataSource.getguildticketcategory(ctx.getGuild().getIdLong());
+        JSONObject jsonObject = DatabaseManager.INSTANCE.getguildticketcategory(ctx.getGuild().getIdLong());
         if (jsonObject.getBoolean("success")) {
             Category ticketcategory = ctx.getGuild().getCategoryById(jsonObject.getLong("categoryid"));
             if (ticketcategory == null) {

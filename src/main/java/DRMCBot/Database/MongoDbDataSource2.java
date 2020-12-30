@@ -153,4 +153,9 @@ public class MongoDbDataSource2 implements DatabaseManager{
             return new JSONObject().put("success", false);
         }
     }
+
+    @Override
+    public JSONObject getlogchannel(long serverid) {
+        return null;
+    }
 }

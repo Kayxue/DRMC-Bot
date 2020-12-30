@@ -121,4 +121,14 @@ public class SQLiteDataSource implements DatabaseManager{
     public Document editsuggestion(String action, long serverid, long suggestionid) {
         return null;
     }
+
+    @Override
+    public JSONObject getguildticketcategory(long serverid) {
+        return null;
+    }
+
+    @Override
+    public JSONObject getlogchannel(long serverid) {
+        return null;
+    }
 }

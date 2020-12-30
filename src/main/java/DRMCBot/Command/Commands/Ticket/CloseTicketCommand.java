@@ -2,6 +2,7 @@ package DRMCBot.Command.Commands.Ticket;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
+import DRMCBot.Database.DatabaseManager;
 import DRMCBot.Database.MongoDbDataSource;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -10,8 +11,6 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import org.json.JSONObject;
 
 public class CloseTicketCommand implements ICommand {
-
-    MongoDbDataSource mongoDbDataSource = new MongoDbDataSource();
 
     @Override
     public void handle(CommandContext ctx) {
@@ -23,7 +22,7 @@ public class CloseTicketCommand implements ICommand {
             ctx.getChannel().sendMessage("我沒有權限執行此指令！").queue();
             return;
         }
-        JSONObject jsonObject = mongoDbDataSource.getguildticketcategory(ctx.getGuild().getIdLong());
+        JSONObject jsonObject = DatabaseManager.INSTANCE.getguildticketcategory(ctx.getGuild().getIdLong());
         Category ticketcategory = ctx.getGuild().getCategoryById(jsonObject.getLong("categoryid"));
         TextChannel ticketchannel = ctx.getChannel();
         if (!ticketcategory.getChannels().contains(ticketchannel)) {

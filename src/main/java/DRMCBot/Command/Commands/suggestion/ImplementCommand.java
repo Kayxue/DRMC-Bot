@@ -2,6 +2,7 @@ package DRMCBot.Command.Commands.suggestion;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
+import DRMCBot.Database.DatabaseManager;
 import DRMCBot.Database.MongoDbDataSource;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -15,8 +16,6 @@ import org.bson.Document;
 import java.util.ArrayList;
 
 public class ImplementCommand implements ICommand {
-
-    MongoDbDataSource mongoDbDataSource = new MongoDbDataSource();
 
     @Override
     public void handle(CommandContext ctx) {
@@ -43,7 +42,7 @@ public class ImplementCommand implements ICommand {
             ctx.getChannel().sendMessage("請輸入建議編號！").queue();
             return;
         }
-        Document data = mongoDbDataSource.editsuggestion("implement", ctx.getGuild().getIdLong(), Long.parseLong(ctx.getArgs().get(0)));
+        Document data = DatabaseManager.INSTANCE.editsuggestion("implement", ctx.getGuild().getIdLong(), Long.parseLong(ctx.getArgs().get(0)));
         if (data.get("success").equals(true)) {
             final User suggestionAuthor = ctx.getSelfUser().getJDA().getUserById(data.getLong("author"));
             final TextChannel suggestionchannel = ctx.getGuild().getTextChannelById(data.getLong("suggestionchannel"));

@@ -17,4 +17,8 @@ public interface DatabaseManager {
     Document insertsuggestion(long serverid, long authorid, long messageid, String suggestion);
 
     Document editsuggestion(String action,long serverid,long suggestionid);
+
+    JSONObject getguildticketcategory(long serverid);
+
+    JSONObject getlogchannel(long serverid);
 }

@@ -27,8 +27,9 @@ public class ChinoCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) throws IOException {
         String userId = ctx.getAuthor().getId();
-        if (ChinoCommandInCooldown.containsKey(userId)) {
-            ctx.getChannel().sendMessage("您正在冷卻中！冷卻倒數："+ChinoCommandInCooldown.get(userId)+"秒").queue();
+        ChinoCommandInCooldown.put(userId, 60);
+        if (ChinoCommandInCooldown.size() != 0) {
+            ctx.getChannel().sendMessage("正在冷卻中！冷卻倒數：" + ChinoCommandInCooldown.get(ChinoCommandInCooldown.keySet().toArray()[0]) + "秒").queue();
             LOGGER.info(ctx.getAuthor().getAsTag() + "正在冷卻中");
             return;
         }
@@ -88,7 +89,6 @@ public class ChinoCommand implements ICommand {
                 outputFile.deleteOnExit();
             }
         }
-        ChinoCommandInCooldown.put(userId, 60);
         new Thread(() -> {
             while (ChinoCommandInCooldown.get(userId) > 0) {
                 try {

@@ -1,5 +1,6 @@
 package DRMCBot;
 
+import DRMCBot.Database.DatabaseManager;
 import DRMCBot.Database.MongoDbDataSource;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -16,11 +17,10 @@ import java.time.ZonedDateTime;
 import static me.duncte123.botcommons.messaging.EmbedUtils.*;
 
 public class LogListener extends ListenerAdapter {
-    MongoDbDataSource mongoDbDataSource = new MongoDbDataSource();
 
     @Override
     public void onGuildVoiceJoin(@Nonnull GuildVoiceJoinEvent event) {
-        JSONObject logchanneldata = mongoDbDataSource.getlogchannel(event.getGuild().getIdLong());
+        JSONObject logchanneldata = DatabaseManager.INSTANCE.getlogchannel(event.getGuild().getIdLong());
         if (logchanneldata.getBoolean("success")) {
             TextChannel logchannel = event.getGuild().getTextChannelById(logchanneldata.getLong("logchannelid"));
             EmbedBuilder embed = getDefaultEmbed()
@@ -36,7 +36,7 @@ public class LogListener extends ListenerAdapter {
 
     @Override
     public void onGuildVoiceLeave(@Nonnull GuildVoiceLeaveEvent event) {
-        JSONObject logchanneldata = mongoDbDataSource.getlogchannel(event.getGuild().getIdLong());
+        JSONObject logchanneldata = DatabaseManager.INSTANCE.getlogchannel(event.getGuild().getIdLong());
         if (logchanneldata.getBoolean("success")) {
             TextChannel logchannel = event.getGuild().getTextChannelById(logchanneldata.getLong("logchannelid"));
             EmbedBuilder embed = getDefaultEmbed()
