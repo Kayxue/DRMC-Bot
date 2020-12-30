@@ -27,12 +27,13 @@ public class ChinoCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) throws IOException {
         String userId = ctx.getAuthor().getId();
-        ChinoCommandInCooldown.put(userId, 60);
+
         if (ChinoCommandInCooldown.size() != 0) {
             ctx.getChannel().sendMessage("正在冷卻中！冷卻倒數：" + ChinoCommandInCooldown.get(ChinoCommandInCooldown.keySet().toArray()[0]) + "秒").queue();
             LOGGER.info(ctx.getAuthor().getAsTag() + "正在冷卻中");
             return;
         }
+        ChinoCommandInCooldown.put(userId, 60);
         LOGGER.info("即將對" + ctx.getAuthor().getAsTag() + "發送圖片");
         OkHttpClient client = new OkHttpClient();
         Random random = new Random();

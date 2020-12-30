@@ -7,5 +7,11 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\Kay\Desktop\Java\DRMC-Bot\database.db</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="database [2]" uuid="124b396f-d8e7-4733-9d07-c8e7a849ec45">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Kay\Desktop\Java\drmc-bot\database.db</jdbc-url>
+    </data-source>
   </component>
 </project>
