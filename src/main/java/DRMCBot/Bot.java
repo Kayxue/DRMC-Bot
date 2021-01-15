@@ -50,6 +50,7 @@ public class Bot {
                 .setCompression(Compression.ZLIB)
                 .addEventListeners(eventWaiter, new Listener(eventWaiter))
                 .addEventListeners(new LogListener())
+                .addEventListeners(new AutoModerator())
                 .build();
 
         Pages.activate(jda);

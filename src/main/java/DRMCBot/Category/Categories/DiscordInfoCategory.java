@@ -15,7 +15,7 @@ public class DiscordInfoCategory extends CategoryBase implements ICategory {
     public DiscordInfoCategory(CommandManagerV3 managerV3) {
         addCommand(new PingCommand());
         addCommand(new ServerinfoCommand());
-        addCommand(new BotInfoCommand());
+        addCommand(new BotInfoCommand(managerV3));
         addCommand(new CommandRunLengthCommandV3(managerV3));
         addCommand(new HelpCommandV3(managerV3));
         addCommand(new UserinfoCommand());

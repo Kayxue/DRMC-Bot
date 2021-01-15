@@ -1,6 +1,6 @@
 package DRMCBot.Command.Commands;
 
-import DRMCBot.CacheList;
+import DRMCBot.Cache;
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -8,19 +8,19 @@ import net.dv8tion.jda.api.EmbedBuilder;
 public class CooldownTestCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
-        if (CacheList.TestCooldownCommandInCooldown.contains(ctx.getAuthor())) {
+        if (Cache.TestCooldownCommandInCooldown.contains(ctx.getAuthor())) {
             ctx.getChannel().sendMessage("您正在冷卻中！").queue();
             return;
         }
         new Thread(() -> {
-            CacheList.TestCooldownCommandInCooldown.add(ctx.getAuthor());
+            Cache.TestCooldownCommandInCooldown.add(ctx.getAuthor());
             ctx.getChannel().sendMessage("冷卻中.....").queue();
             try {
                 Thread.sleep(10000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            CacheList.TestCooldownCommandInCooldown.remove(ctx.getAuthor());
+            Cache.TestCooldownCommandInCooldown.remove(ctx.getAuthor());
             ctx.getChannel().sendMessage("冷卻完畢！").queue();
         }).start();
     }

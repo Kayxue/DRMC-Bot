@@ -25,6 +25,7 @@ public class CoronaVirusDataCommand implements ICommand {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url("https://api.covid19api.com/summary")
+                .addHeader("X-Access-Token", "5cf9dfd5-3449-485e-b5ae-70a60e997864")
                 .build();
         Response response = client.newCall(request).execute();
         if (!response.isSuccessful()) {

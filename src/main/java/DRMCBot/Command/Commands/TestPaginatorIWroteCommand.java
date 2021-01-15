@@ -15,7 +15,7 @@ public class TestPaginatorIWroteCommand implements ICommand {
         for (int i = 0; i <= 10; i++) {
             embeds.add(EmbedUtils.embedMessage(String.valueOf(i)));
         }
-        new Paginator(embeds, 20, ctx.getChannel());
+        new Paginator(embeds, 20, ctx.getChannel()).start();
     }
 
     @Override

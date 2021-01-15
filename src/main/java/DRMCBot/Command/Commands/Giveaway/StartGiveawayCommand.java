@@ -1,6 +1,6 @@
 package DRMCBot.Command.Commands.Giveaway;
 
-import DRMCBot.CacheList;
+import DRMCBot.Cache;
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
@@ -113,7 +113,7 @@ public class StartGiveawayCommand implements ICommand {
         );
     }
 
-    public class GiveawayRunner {
+    private class GiveawayRunner {
         public long Second;
         public TextChannel GiveawayMessageChannel;
         public Message GiveawayMessage;
@@ -148,7 +148,7 @@ public class StartGiveawayCommand implements ICommand {
                     .setFooter("由" + GiveawayCreator.getUser().getAsTag() + "舉辦\n" + "將結束於：" + EndDay + " (GMT+08:00)", GiveawayCreator.getUser().getAvatarUrl());
             GiveawayMessage = GiveawayMessageChannel.sendMessage(embedBuilder.build()).complete();
             GiveawayMessage.addReaction(toReactGiveawayEmoji).complete();
-            CacheList.RunningGiveaway.put(GiveawayMessageChannel.getId() + GiveawayMessage.getId(), Second);
+            Cache.RunningGiveaway.put(GiveawayMessageChannel.getId() + GiveawayMessage.getId(), Second);
             new Thread(this::Run).start();
         }
 
@@ -167,7 +167,7 @@ public class StartGiveawayCommand implements ICommand {
                             .setFooter("由" + GiveawayCreator.getUser().getAsTag() + "舉辦\n" + "將結束於：" + EndDay + " (GMT+08:00)", GiveawayCreator.getUser().getAvatarUrl());
                     GiveawayMessage.editMessage(embedBuilder.build()).queue();
                 }
-                if (!CacheList.RunningGiveaway.containsKey(GiveawayMessageChannel.getId() + GiveawayMessage.getId())) {
+                if (!Cache.RunningGiveaway.containsKey(GiveawayMessageChannel.getId() + GiveawayMessage.getId())) {
                     toRoll = false;
                     break;
                 }
@@ -217,7 +217,7 @@ public class StartGiveawayCommand implements ICommand {
                     GiveawayMessage.editMessage(embedBuilder.build()).queue();
                     GiveawayMessageChannel.sendMessage("沒有人參加此次抽獎喔！").queue();
                 }
-                CacheList.RunningGiveaway.remove(GiveawayMessage.getChannel().getId() + GiveawayMessage.getId());
+                Cache.RunningGiveaway.remove(GiveawayMessage.getChannel().getId() + GiveawayMessage.getId());
             }
         }
     }

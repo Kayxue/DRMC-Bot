@@ -63,16 +63,6 @@ public class Listener extends ListenerAdapter {
     }
 
     @Override
-    public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
-        super.onGuildMemberJoin(event);
-    }
-
-    @Override
-    public void onGuildMemberRemove(@Nonnull GuildMemberRemoveEvent event) {
-        super.onGuildMemberRemove(event);
-    }
-
-    @Override
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent event) {
         User user = event.getAuthor();
 
@@ -95,6 +85,7 @@ public class Listener extends ListenerAdapter {
                 manager.handle(event, prefix);
             } catch (Exception e) {
                 e.printStackTrace();
+                event.getChannel().sendMessage(e.getLocalizedMessage()).queue();
             }
         }
     }

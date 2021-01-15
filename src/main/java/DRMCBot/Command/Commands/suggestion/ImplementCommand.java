@@ -16,7 +16,7 @@ import org.bson.Document;
 import java.util.ArrayList;
 
 public class ImplementCommand implements ICommand {
-
+    MongoDbDataSource mongoDbDataSource = new MongoDbDataSource();
     @Override
     public void handle(CommandContext ctx) {
         final Member member = ctx.getMember();
@@ -42,7 +42,7 @@ public class ImplementCommand implements ICommand {
             ctx.getChannel().sendMessage("請輸入建議編號！").queue();
             return;
         }
-        Document data = DatabaseManager.INSTANCE.editsuggestion("implement", ctx.getGuild().getIdLong(), Long.parseLong(ctx.getArgs().get(0)));
+        Document data = mongoDbDataSource.editsuggestion("implement", ctx.getGuild().getIdLong(), Long.parseLong(ctx.getArgs().get(0)));
         if (data.get("success").equals(true)) {
             final User suggestionAuthor = ctx.getSelfUser().getJDA().getUserById(data.getLong("author"));
             final TextChannel suggestionchannel = ctx.getGuild().getTextChannelById(data.getLong("suggestionchannel"));

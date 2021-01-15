@@ -4,23 +4,28 @@ import DRMCBot.Database.DatabaseManager;
 import DRMCBot.Database.MongoDbDataSource;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
 import javax.annotation.Nonnull;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static me.duncte123.botcommons.messaging.EmbedUtils.*;
 
 public class LogListener extends ListenerAdapter {
-
+    MongoDbDataSource mongoDbDataSource = new MongoDbDataSource();
     @Override
     public void onGuildVoiceJoin(@Nonnull GuildVoiceJoinEvent event) {
-        JSONObject logchanneldata = DatabaseManager.INSTANCE.getlogchannel(event.getGuild().getIdLong());
+        JSONObject logchanneldata = mongoDbDataSource.getlogchannel(event.getGuild().getIdLong());
         if (logchanneldata.getBoolean("success")) {
             TextChannel logchannel = event.getGuild().getTextChannelById(logchanneldata.getLong("logchannelid"));
             EmbedBuilder embed = getDefaultEmbed()
@@ -36,7 +41,7 @@ public class LogListener extends ListenerAdapter {
 
     @Override
     public void onGuildVoiceLeave(@Nonnull GuildVoiceLeaveEvent event) {
-        JSONObject logchanneldata = DatabaseManager.INSTANCE.getlogchannel(event.getGuild().getIdLong());
+        JSONObject logchanneldata = mongoDbDataSource.getlogchannel(event.getGuild().getIdLong());
         if (logchanneldata.getBoolean("success")) {
             TextChannel logchannel = event.getGuild().getTextChannelById(logchanneldata.getLong("logchannelid"));
             EmbedBuilder embed = getDefaultEmbed()
@@ -47,6 +52,21 @@ public class LogListener extends ListenerAdapter {
                     .setColor(0xF0301E)
                     .setTimestamp(ZonedDateTime.now(ZoneId.of("Asia/Taipei")));
             logchannel.sendMessage(embed.build()).queue();
+        }
+    }
+
+    @Override
+    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
+        while (Cache.ContentCache.keySet().size() > 100) {
+            Cache.ContentCache.remove(Cache.ContentCache.keySet().toArray()[0]);
+        }
+        while (Cache.AttachmentsLinksList.keySet().size() > 100) {
+            Cache.AttachmentsLinksList.remove(Cache.AttachmentsLinksList.keySet().toArray()[0]);
+        }
+        Cache.ContentCache.put(event.getMessageId(), event.getMessage().getContentRaw());
+        if (event.getMessage().getAttachments().size() > 0) {
+            List<String> AttachmentsLinks=event.getMessage().getAttachments().stream().map(Message.Attachment::getProxyUrl).collect(Collectors.toList());
+            Cache.AttachmentsLinksList.put(event.getMessageId(), AttachmentsLinks);
         }
     }
 }

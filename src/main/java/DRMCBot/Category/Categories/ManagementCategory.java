@@ -17,6 +17,7 @@ public class ManagementCategory extends CategoryBase implements ICategory {
         addCommand(new SetPrefixCommand());
         addCommand(new UnPinMessageCommand());
         addCommand(new ChannelAllPinCommand());
+        addCommand(new ClearUserAllMessageCommand());
     }
     @Override
     public List<ICommand> getCommand() {

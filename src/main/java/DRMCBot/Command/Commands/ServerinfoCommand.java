@@ -4,22 +4,22 @@ import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.*;
 
 import java.time.*;
-import java.util.Arrays;
 import java.util.List;
 
 public class ServerinfoCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
         final Guild guild = ctx.getGuild();
-        int usercount = 0;
-        int botcount = 0;
-        int online = 0;
-        int idle = 0;
-        int dnd = 0;
-        int offline = 0;
+        int usercount;
+        int botcount;
+        int online;
+        int idle;
+        int dnd;
+        int offline;
         int membercount = guild.getMemberCount();
         String verification_level = "";
         String region = "";
@@ -34,24 +34,13 @@ public class ServerinfoCommand implements ICommand {
         final ZonedDateTime timeCreatedWithZone = timeCreated.atZoneSameInstant(ZoneId.of("Asia/Taipei"));
         final String ownermention = guild.getOwner().getAsMention();
 
-        for (Member member : guild.getMembers()) {
-            if (!member.getUser().isBot()) {
-                usercount += 1;
-            } else {
-                botcount += 1;
-            }
-            switch (member.getOnlineStatus()) {
-                case ONLINE -> online += 1;
-
-                case IDLE -> idle += 1;
-
-                case DO_NOT_DISTURB -> dnd += 1;
-
-                default -> offline += 1;
-            }
-        }
-
-
+        List<Member> members = guild.getMembers();
+        usercount = (int) members.stream().filter(member -> !member.getUser().isBot()).count();
+        botcount = (int) members.stream().filter(member -> member.getUser().isBot()).count();
+        online = (int) members.stream().filter(member -> member.getOnlineStatus().equals(OnlineStatus.ONLINE)).count();
+        idle = (int) members.stream().filter(member -> member.getOnlineStatus().equals(OnlineStatus.IDLE)).count();
+        dnd = (int) members.stream().filter(member -> member.getOnlineStatus().equals(OnlineStatus.DO_NOT_DISTURB)).count();
+        offline = members.size() - online - idle - dnd;
 
         if_two_factor = guild.getRequiredMFALevel() == Guild.MFALevel.TWO_FACTOR_AUTH;
 
@@ -80,8 +69,6 @@ public class ServerinfoCommand implements ICommand {
                 two_factor = "關閉";
             }
         }
-
-        botcount = membercount - usercount;
 
         switch (guild.getRegion()) {
             case AMSTERDAM, VIP_AMSTERDAM -> region = "阿姆斯特丹";

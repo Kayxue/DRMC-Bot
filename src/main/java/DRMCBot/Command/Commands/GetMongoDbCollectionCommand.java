@@ -9,9 +9,10 @@ import org.json.JSONObject;
 
 public class GetMongoDbCollectionCommand implements ICommand {
 
+    MongoDbDataSource mongoDbDataSource = new MongoDbDataSource();
     @Override
     public void handle(CommandContext ctx) {
-        JSONObject jsonObject = DatabaseManager.INSTANCE.getsomething(ctx.getGuild().getIdLong());
+        JSONObject jsonObject = mongoDbDataSource.getsomething(ctx.getGuild().getIdLong());
         ctx.getChannel().sendMessage(jsonObject.toString('4')).queue();
     }
 

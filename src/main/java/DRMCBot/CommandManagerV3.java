@@ -49,6 +49,14 @@ public class CommandManagerV3 {
         category.put(categorytoadd.getName(), categorytoadd);
     }
 
+    public long returnCommandsCount() {
+        int toReturn = 0;
+        for (String categoryKeys : category.keySet()) {
+            toReturn += category.get(categoryKeys).getCommand().size();
+        }
+        return toReturn;
+    }
+
     public ICategory getCategory(String categoryname) {
         try {
             return category.get(categoryname);

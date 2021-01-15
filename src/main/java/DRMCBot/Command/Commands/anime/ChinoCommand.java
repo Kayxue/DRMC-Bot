@@ -15,11 +15,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
-import static DRMCBot.CacheList.ChinoCommandInCooldown;
+import static DRMCBot.Cache.ChinoCommandInCooldown;
 
 public class ChinoCommand implements ICommand {
     private static final Logger LOGGER = LoggerFactory.getLogger(ChinoCommand.class);

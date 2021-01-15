@@ -17,6 +17,7 @@ import java.util.List;
 
 public class SuggestionCommand implements ICommand {
 
+    MongoDbDataSource mongoDbDataSource = new MongoDbDataSource();
     @Override
     public void handle(CommandContext ctx) {
         final User user = ctx.getAuthor();
@@ -31,7 +32,7 @@ public class SuggestionCommand implements ICommand {
             return;
         }
         String suggestion = String.join(" ", args);
-        JSONObject channelandsuggestioncount = DatabaseManager.INSTANCE.getServerSuggestionCount(guildId);
+        JSONObject channelandsuggestioncount = mongoDbDataSource.getServerSuggestionCount(guildId);
         final TextChannel suggestionsendchannel = ctx.getGuild().getTextChannelById(channelandsuggestioncount.getLong("suggestionchannel"));
         EmbedBuilder embedBuilder = EmbedUtils.getDefaultEmbed()
                 .setTitle("建議#" + channelandsuggestioncount.getInt("suggestioncount"))
@@ -40,7 +41,7 @@ public class SuggestionCommand implements ICommand {
         suggestionsendchannel.sendMessage(embedBuilder.build()).queue(
                 (message) -> {
                     final long messageId = message.getIdLong();
-                    Document insertinfo = DatabaseManager.INSTANCE.insertsuggestion(guildId, user.getIdLong(), messageId, suggestion);
+                    Document insertinfo = mongoDbDataSource.insertsuggestion(guildId, user.getIdLong(), messageId, suggestion);
                     if (insertinfo.getBoolean("success")) {
                         Emote check=ctx.getJDA().getEmotesByName("checkani",true).get(0);
                         Emote cross = ctx.getJDA().getEmotesByName("crossani", true).get(0);

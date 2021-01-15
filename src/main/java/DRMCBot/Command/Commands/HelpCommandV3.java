@@ -11,6 +11,9 @@ import net.dv8tion.jda.api.entities.User;
 
 import java.util.List;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class HelpCommandV3 implements ICommand {
     private final CommandManagerV3 commandManager;
@@ -29,28 +32,23 @@ public class HelpCommandV3 implements ICommand {
         embed.setTitle("指令幫助");
         embed.addField("查詢方法", "```help [類別/指令名稱]```", false);
         if (args.isEmpty()) {
-            String fieldValue = "";
             TreeMap<String, ICategory> category = commandManager.getCategoryDescription();
-            for (String key : category.keySet()) {
-                fieldValue += "**" + key + "**－" + (category.get(key).getDescription() == null ? "請等待作者新增描述" : category.get(key).getDescription()) + "\n";
-            }
-            embed.addField("類別選項", fieldValue, false);
+            List<String> outputList = category.keySet().stream().map(key -> "**" + key + "**－" + (category.get(key).getDescription() == null ? "請等待作者新增描述" : category.get(key).getDescription())).collect(toList());
+            output = String.join("\n", outputList);
+            embed.addField("類別選項", output, false);
         } else {
             ICategory category = commandManager.getCategory(args.get(0));
             if (category != null) {
-                for (ICommand cmd : category.getCommand()) {
-                    output += "**" + cmd.getName() + "**－" + (cmd.getdescription() == null ? "請等待作者新增描述" : cmd.getdescription()) + "\n";
-                }
+                List<String> outputList = category.getCommand().stream().map(cmd -> "**" + cmd.getName() + "**－" + (cmd.getdescription() == null ? "請等待作者新增描述" : cmd.getdescription())).collect(toList());
+                output = String.join("\n", outputList);
                 embed.addField(category.getDescription(), output, false);
             } else {
                 ICommand cmd = commandManager.getCommand(args.get(0));
                 if (cmd == null) {
-                    String fieldValue = "";
                     TreeMap<String, ICategory> categories = commandManager.getCategoryDescription();
-                    for (String key : categories.keySet()) {
-                        fieldValue += "**" + key + "**－" + categories.get(key).getDescription() + "\n";
-                    }
-                    embed.addField("類別選項", fieldValue, false);
+                    List<String> outputList = categories.keySet().stream().map(key -> "**" + key + "**－" + (categories.get(key).getDescription() == null ? "請等待作者新增描述" : categories.get(key).getDescription())).collect(toList());
+                    output = String.join("\n", outputList);
+                    embed.addField("類別選項", output, false);
                 } else {
                     if (cmd.gethelpembed() != null) {
                         ctx.getChannel().sendMessage(cmd.gethelpembed().build()).queue();
