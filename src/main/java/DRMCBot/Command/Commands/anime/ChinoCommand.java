@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import static DRMCBot.Cache.ChinoCommandInCooldown;
@@ -117,7 +119,17 @@ public class ChinoCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

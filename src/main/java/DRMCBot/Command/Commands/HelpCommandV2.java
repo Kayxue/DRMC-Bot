@@ -46,12 +46,7 @@ public class HelpCommandV2 implements ICommand {
                     }
                     embed.addField("類別選項", fieldValue.toString(), false);
                 } else {
-                    if (cmd.gethelpembed() == null) {
-                        ctx.getChannel().sendMessage("請等待作者新增指令幫助！").queue();
-                    } else {
-                        ctx.getChannel().sendMessage(cmd.gethelpembed().build()).queue();
-                    }
-                    return;
+
                 }
             } else {
                 TreeMap<String, String> categoryDescription = commandManager.getCategoryDescription();
@@ -82,8 +77,17 @@ public class HelpCommandV2 implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
         return null;
     }
 
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
+        return null;
+    }
 }

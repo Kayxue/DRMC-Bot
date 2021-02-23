@@ -8,7 +8,6 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.CharacterSetECI;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import net.dv8tion.jda.api.EmbedBuilder;
 import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
@@ -17,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class QRCodeCommand2 implements ICommand {
@@ -81,7 +81,17 @@ public class QRCodeCommand2 implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class HelpCommand implements ICommand {
@@ -146,8 +147,17 @@ public class HelpCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
         return null;
     }
 
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
+        return null;
+    }
 }

@@ -3,13 +3,16 @@ package DRMCBot.Category.Categories;
 import DRMCBot.Category.CategoryBase;
 import DRMCBot.Category.ICategory;
 import DRMCBot.Command.Commands.ChannelAllPinCommand;
+import DRMCBot.Command.Commands.Owner.OpenBotControllerCommad;
+import DRMCBot.Command.Commands.Owner.ReopenBotControllerCommand;
 import DRMCBot.Command.Commands.admin.*;
 import DRMCBot.Command.ICommand;
+import DRMCBot.CommandManagerV3;
 
 import java.util.List;
 
 public class ManagementCategory extends CategoryBase implements ICategory {
-    public ManagementCategory() {
+    public ManagementCategory(CommandManagerV3 managerV3) {
         addCommand(new BanCommand());
         addCommand(new ClearCommand());
         addCommand(new KickCommand());
@@ -17,7 +20,6 @@ public class ManagementCategory extends CategoryBase implements ICategory {
         addCommand(new SetPrefixCommand());
         addCommand(new UnPinMessageCommand());
         addCommand(new ChannelAllPinCommand());
-        addCommand(new ClearUserAllMessageCommand());
     }
     @Override
     public List<ICommand> getCommand() {

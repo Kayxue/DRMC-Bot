@@ -2,11 +2,11 @@ package DRMCBot.Command.Commands.admin;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class BanCommand implements ICommand {
@@ -78,11 +78,25 @@ public class BanCommand implements ICommand {
 
     @Override
     public String getdescription() {
-        return null;
+        return "從此伺服器封鎖一位成員";
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
-        return null;
+    public List<String> getUsages() {
+        return List.of("ban <user>");
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return List.of("ban @我不是人#1234","ban 123456789012345678");
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
+        HashMap<String, String> user = new HashMap<>();
+        user.put("沒有指定", "可以是任意使用者ID或提及之使用者");
+        HashMap<String,HashMap<String,String>> toReturn=new HashMap<>();
+        toReturn.put("user", user);
+        return toReturn;
     }
 }

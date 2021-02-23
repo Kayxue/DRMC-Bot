@@ -2,7 +2,6 @@ package DRMCBot.Command.Commands;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import DRMCBot.CommandManager;
 import DRMCBot.CommandManagerV2;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -11,6 +10,7 @@ import java.time.Duration;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CommandRunLengthCommandV2 implements ICommand {
@@ -80,7 +80,17 @@ public class CommandRunLengthCommandV2 implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

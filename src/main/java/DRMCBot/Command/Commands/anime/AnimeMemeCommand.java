@@ -9,6 +9,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.List;
+
 public class AnimeMemeCommand implements ICommand {
     OkHttpClient client = new OkHttpClient();
     @Override
@@ -39,7 +42,17 @@ public class AnimeMemeCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.hypixel.api.HypixelAPI;
 import net.hypixel.api.reply.BoostersReply;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class GetHypixelServerBoosterCommand implements ICommand {
@@ -77,7 +78,17 @@ public class GetHypixelServerBoosterCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

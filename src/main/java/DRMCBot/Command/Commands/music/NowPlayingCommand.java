@@ -10,7 +10,6 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import me.duncte123.loadingbar.LoadingBar;
 import me.duncte123.loadingbar.LoadingBarConfig;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -22,6 +21,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -113,7 +113,17 @@ public class NowPlayingCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 

@@ -2,8 +2,9 @@ package DRMCBot.Command.Commands.GiveawayTest;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import net.dv8tion.jda.api.EmbedBuilder;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,7 +47,17 @@ public class RegularExpressionTestCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

@@ -4,10 +4,10 @@ import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import com.github.natanbc.reliqua.util.StatusCodeValidator;
 import me.duncte123.botcommons.web.WebUtils;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -62,12 +62,31 @@ public class MinecraftCommand implements ICommand {
 
     @Override
     public String getdescription() {
-        return null;
+        return "搜尋Minecraft使用者";
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
-        return null;
+    public List<String> getUsages() {
+        return List.of("mineccraft <mode> <info>");
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return List.of("minecraft uuid 11111111111111111111111111111111","minecraft username BlaBlaBla");
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
+        HashMap<String, String> mode = new HashMap<>();
+        mode.put("uuid", "以uuid搜尋");
+        mode.put("username", "以username搜尋");
+        HashMap<String, String> info = new HashMap<>();
+        info.put("若第一個參數為uuid", "可為任意玩家之名稱");
+        info.put("若第一個參數為username", "可為任意玩家之uuid");
+        HashMap<String, HashMap<String, String>> toReturn = new HashMap<>();
+        toReturn.put("info", info);
+        toReturn.put("mode", mode);
+        return toReturn;
     }
 
     private void fetchUUID(String username, Consumer<String> callback) {

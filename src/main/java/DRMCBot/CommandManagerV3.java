@@ -4,7 +4,9 @@ import DRMCBot.Category.Categories.*;
 import DRMCBot.Category.ICategory;
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
+import DRMCBot.Swing.BotController;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import javax.annotation.Nullable;
@@ -13,8 +15,12 @@ import java.util.regex.Pattern;
 
 public class CommandManagerV3 {
     private final TreeMap<String, ICategory> category = new TreeMap<>();
+    public BotController botController;
+    public JDA jda;
 
     public CommandManagerV3(EventWaiter eventWaiter) {
+
+
         /*------Add category------*/
         addCategory(new DiscordInfoCategory(this));
         addCategory(new NoCategory(eventWaiter));
@@ -23,10 +29,11 @@ public class CommandManagerV3 {
         addCategory(new EntertainmentCategory());
         addCategory(new GenerationCategory());
         addCategory(new GiveawayCategory(eventWaiter));
-        addCategory(new ManagementCategory());
+        addCategory(new ManagementCategory(this));
         addCategory(new OtherInfoCategory());
         addCategory(new SuggestionCategory());
         addCategory(new TicketCategory());
+        addCategory(new OwnerCategory(this));
         /*------------------------*/
     }
 
@@ -82,6 +89,11 @@ public class CommandManagerV3 {
         }
 
         return null;
+    }
+
+    public void setJda(JDA jda) {
+        this.jda = jda;
+        this.botController = new BotController(this, jda);
     }
 
     void handle(GuildMessageReceivedEvent event, String prefix) throws Exception {

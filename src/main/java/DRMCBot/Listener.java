@@ -3,6 +3,7 @@ package DRMCBot;
 import DRMCBot.Database.DatabaseManager;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import me.duncte123.botcommons.BotCommons;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
@@ -40,7 +41,9 @@ public class Listener extends ListenerAdapter {
     public void onReady(@Nonnull ReadyEvent event) {
         LOGGER.info(event.getJDA().getSelfUser().getAsTag()+" is ready");
 
-        executor = Executors.newScheduledThreadPool(2);
+        manager.setJda(event.getJDA());
+
+        executor = Executors.newScheduledThreadPool(1);
 
         Runnable task = () -> {
             event.getJDA().getPresence().setActivity(Activity.watching("Welcome to New DL/RS/MC Chatroom"));
@@ -78,7 +81,6 @@ public class Listener extends ListenerAdapter {
             LOGGER.info("Shutting Down");
             BotCommons.shutdown(event.getJDA());
             System.exit(0);
-            return;
         }
         if (raw.startsWith(prefix)){
             try {

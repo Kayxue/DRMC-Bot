@@ -8,6 +8,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static DRMCBot.Utils.Utils.DiscordJSEmbedParser;
@@ -58,7 +59,17 @@ public class DiscordJSDocumentationCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

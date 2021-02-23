@@ -3,12 +3,13 @@ package DRMCBot.Command.Commands;
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageReaction;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class EventWaiterTestCommand implements ICommand {
@@ -24,7 +25,6 @@ public class EventWaiterTestCommand implements ICommand {
     public void handle(CommandContext ctx) {
         TextChannel channel= ctx.getChannel();
         long channelid = channel.getIdLong();
-
         channel.sendMessage("Please react with " + EMOTE).queue(
                 message -> {
                     message.addReaction(EMOTE).queue();
@@ -70,7 +70,17 @@ public class EventWaiterTestCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

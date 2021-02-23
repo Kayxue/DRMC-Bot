@@ -3,11 +3,12 @@ package DRMCBot.Command.Commands.PaginatorUtilTest;
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import com.github.ygimenez.method.Pages;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import java.util.function.BiConsumer;
 
 public class ButtonizeTestCommand implements ICommand {
@@ -43,7 +44,17 @@ public class ButtonizeTestCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

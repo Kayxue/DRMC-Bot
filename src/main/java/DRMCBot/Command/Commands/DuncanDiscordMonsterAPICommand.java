@@ -6,6 +6,9 @@ import me.duncte123.botcommons.messaging.EmbedUtils;
 import me.duncte123.botcommons.web.WebUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 
+import java.util.HashMap;
+import java.util.List;
+
 public class DuncanDiscordMonsterAPICommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) throws Exception {
@@ -51,7 +54,17 @@ public class DuncanDiscordMonsterAPICommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

@@ -6,11 +6,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import me.duncte123.botcommons.web.ContentType;
 import me.duncte123.botcommons.web.WebParserUtils;
 import me.duncte123.botcommons.web.WebUtils;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.function.Consumer;
 
 public class HasteCommand implements ICommand {
@@ -76,7 +77,17 @@ public class HasteCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

@@ -3,13 +3,15 @@ package DRMCBot.Command.Commands.Ticket;
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import DRMCBot.Database.MongoDbDataSource;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Category;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class OpenTicketCommand implements ICommand {
     MongoDbDataSource mongoDbDataSource = new MongoDbDataSource();
@@ -72,7 +74,17 @@ public class OpenTicketCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

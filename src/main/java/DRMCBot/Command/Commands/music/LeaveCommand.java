@@ -4,10 +4,12 @@ import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import DRMCBot.lavaplayer.GuildMusicManager;
 import DRMCBot.lavaplayer.PlayerManager;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.managers.AudioManager;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class LeaveCommand implements ICommand {
 
@@ -54,7 +56,17 @@ public class LeaveCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

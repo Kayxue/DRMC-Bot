@@ -1,7 +1,6 @@
 package DRMCBot.Command;
 
-import net.dv8tion.jda.api.EmbedBuilder;
-
+import java.util.HashMap;
 import java.util.List;
 
 public interface ICommand {
@@ -13,7 +12,11 @@ public interface ICommand {
 
     String getdescription();
 
-    EmbedBuilder gethelpembed();
+    List<String> getUsages();
+
+    List<String> getExamples();
+
+    HashMap<String, HashMap<String, String>> getArguments();
 
     default List<String> getAliases(){
         return List.of();

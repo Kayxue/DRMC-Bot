@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -116,7 +117,17 @@ public class CoronaVirusDataCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

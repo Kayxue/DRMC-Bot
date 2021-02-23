@@ -2,9 +2,9 @@ package DRMCBot.Command.Commands.admin;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class UnPinMessageCommand implements ICommand {
@@ -42,7 +42,17 @@ public class UnPinMessageCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

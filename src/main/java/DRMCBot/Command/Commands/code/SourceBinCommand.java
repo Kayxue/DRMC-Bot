@@ -10,10 +10,7 @@ import okhttp3.*;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class SourceBinCommand implements ICommand {
     @Override
@@ -176,7 +173,17 @@ public class SourceBinCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

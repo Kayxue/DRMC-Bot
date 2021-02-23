@@ -2,8 +2,8 @@ package DRMCBot.Command.Commands;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import net.dv8tion.jda.api.EmbedBuilder;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class SayCommand implements ICommand {
@@ -33,7 +33,17 @@ public class SayCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

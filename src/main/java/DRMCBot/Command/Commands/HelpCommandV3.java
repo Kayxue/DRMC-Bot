@@ -3,15 +3,15 @@ package DRMCBot.Command.Commands;
 import DRMCBot.Category.ICategory;
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import DRMCBot.CommandManagerV2;
 import DRMCBot.CommandManagerV3;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Emote;
 import net.dv8tion.jda.api.entities.User;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -50,13 +50,7 @@ public class HelpCommandV3 implements ICommand {
                     output = String.join("\n", outputList);
                     embed.addField("類別選項", output, false);
                 } else {
-                    if (cmd.gethelpembed() != null) {
-                        ctx.getChannel().sendMessage(cmd.gethelpembed().build()).queue();
-                        return;
-                    } else {
-                        ctx.getChannel().sendMessage("請等待作者新增！").queue();
-                        return;
-                    }
+                    embed = getCommandHelpEmbed(cmd);
                 }
             }
         }
@@ -76,12 +70,41 @@ public class HelpCommandV3 implements ICommand {
 
     @Override
     public String getdescription() {
-        return null;
+        return "獲取機器人指令";
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return List.of("help");
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return List.of("help");
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 
+    private EmbedBuilder getCommandHelpEmbed(ICommand cmd){
+        EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
+                .setTitle(cmd.getName())
+                .setDescription(cmd.getdescription())
+                .addField("用法", "```\n" + (cmd.getUsages() == null ? "未新增" : String.join("\n", cmd.getUsages())) + "```", true)
+                .addField("範例", "```\n" + (cmd.getExamples() == null ? "未新增" : String.join("\n", cmd.getExamples())) + "```", true);
+        HashMap<String, HashMap<String, String>> argumentMap = cmd.getArguments();
+        if (argumentMap != null){
+            argumentMap.keySet().stream().iterator().forEachRemaining(
+                    key -> {
+                        HashMap<String, String> optmap = argumentMap.get(key);
+                        List<String> options = optmap.keySet().stream().map(opt -> "**" + opt + "**－" + optmap.get(opt)).collect(toList());
+                        String value = String.join("\n", options);
+                        embed.addField(key + "選項", value, false);
+                    }
+            );
+        }
+        return embed;
+    }
 }

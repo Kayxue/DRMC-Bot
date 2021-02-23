@@ -6,7 +6,6 @@ import DRMCBot.lavaplayer.PlayerManager;
 import DRMCBot.lavaplayer.YoutubeSearcher;
 import com.google.api.services.youtube.model.SearchResult;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
-import io.vavr.control.Either;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.GuildVoiceState;
@@ -17,13 +16,11 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.managers.AudioManager;
 
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
-import java.util.regex.Pattern;
 
 public class PlayCommand implements ICommand {
     private final EventWaiter waiter;
@@ -183,7 +180,17 @@ public class PlayCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

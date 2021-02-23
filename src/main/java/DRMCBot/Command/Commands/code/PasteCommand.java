@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import org.menudocs.paste.PasteClient;
 import org.menudocs.paste.PasteClientBuilder;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class PasteCommand implements ICommand {
@@ -62,7 +63,17 @@ public class PasteCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

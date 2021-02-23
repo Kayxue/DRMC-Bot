@@ -3,8 +3,10 @@ package DRMCBot.Command.Commands;
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import me.duncte123.botcommons.messaging.EmbedUtils;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class PingCommand implements ICommand {
     @Override
@@ -36,7 +38,17 @@ public class PingCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

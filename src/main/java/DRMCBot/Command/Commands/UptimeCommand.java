@@ -2,10 +2,11 @@ package DRMCBot.Command.Commands;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
+import java.util.HashMap;
+import java.util.List;
 
 public class UptimeCommand implements ICommand {
     @Override
@@ -44,7 +45,17 @@ public class UptimeCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

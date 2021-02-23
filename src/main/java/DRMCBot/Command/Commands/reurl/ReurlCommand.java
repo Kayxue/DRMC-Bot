@@ -8,6 +8,7 @@ import okhttp3.*;
 import org.json.JSONObject;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 
 public class ReurlCommand implements ICommand {
@@ -83,7 +84,17 @@ public class ReurlCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

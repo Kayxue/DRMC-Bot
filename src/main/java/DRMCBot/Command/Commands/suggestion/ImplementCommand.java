@@ -2,7 +2,6 @@ package DRMCBot.Command.Commands.suggestion;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import DRMCBot.Database.DatabaseManager;
 import DRMCBot.Database.MongoDbDataSource;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -14,6 +13,8 @@ import net.dv8tion.jda.api.entities.User;
 import org.bson.Document;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class ImplementCommand implements ICommand {
     MongoDbDataSource mongoDbDataSource = new MongoDbDataSource();
@@ -110,7 +111,17 @@ public class ImplementCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

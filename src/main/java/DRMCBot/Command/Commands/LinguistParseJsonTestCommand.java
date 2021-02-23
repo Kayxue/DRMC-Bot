@@ -4,11 +4,13 @@ import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import net.dv8tion.jda.api.EmbedBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class LinguistParseJsonTestCommand implements ICommand {
     @Override
@@ -59,7 +61,17 @@ public class LinguistParseJsonTestCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }

@@ -5,11 +5,12 @@ import DRMCBot.Command.ICommand;
 import com.github.ygimenez.method.Pages;
 import com.github.ygimenez.model.Page;
 import com.github.ygimenez.type.PageType;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class PaginatorTestCommand implements ICommand {
@@ -46,7 +47,17 @@ public class PaginatorTestCommand implements ICommand {
     }
 
     @Override
-    public EmbedBuilder gethelpembed() {
+    public List<String> getUsages() {
+        return null;
+    }
+
+    @Override
+    public List<String> getExamples() {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, HashMap<String, String>> getArguments() {
         return null;
     }
 }
