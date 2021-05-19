@@ -148,6 +148,8 @@ public class PlayCommand implements ICommand {
                 },
                 event -> {
                     int choosed = Integer.parseInt(event.getMessage().getContentRaw());
+                    botsent.delete().queue();
+                    event.getMessage().delete().queue();
                     if (choosed == 0) {
                         toPlay.accept("canceled");
                     } else {
