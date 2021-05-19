@@ -1,9 +1,9 @@
-.gradle
-build
+.gradle/
+build/
 .env
 /src/main/java/DRMCBot/EnvironmentVariable.java
 /out
-.idea
+.idea/
 /target/
 /bin/
 chino.png
