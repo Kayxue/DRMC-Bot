@@ -15,8 +15,8 @@ public class LeaveCommand implements ICommand {
 
     @Override
     public void handle(CommandContext ctx) {
-        TextChannel channel=ctx.getChannel();
-        AudioManager audioManager=ctx.getGuild().getAudioManager();
+        TextChannel channel = ctx.getChannel();
+        AudioManager audioManager = ctx.getGuild().getAudioManager();
 
         if (!audioManager.isConnected()){
             channel.sendMessage("I'm not connected to a voice channel").queue();

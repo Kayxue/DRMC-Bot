@@ -2,7 +2,7 @@
 build/
 .env
 /src/main/java/DRMCBot/EnvironmentVariable.java
-/out
+out/
 .idea/
 /target/
 /bin/

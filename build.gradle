@@ -14,6 +14,11 @@ sourceCompatibility = JavaVersion.VERSION_15
 
 repositories {
     jcenter()
+    mavenCentral() // for transitive dependencies
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
     maven {
         url "https://repo.hypixel.net/repository/Hypixel/"
     }
@@ -22,12 +27,12 @@ repositories {
         name = "jitpack"
         url = uri("https://jitpack.io")
     }
-    mavenCentral()
+
     maven { url "https://raw.githubusercontent.com/joecks/google-play-scraper-java/master/release/" }
 }
 
 dependencies {
-    implementation group: 'net.dv8tion', name: 'JDA', version: '4.2.0_227'
+    implementation("net.dv8tion:JDA:4.3.0_310")
     implementation group: 'com.jagrosh', name: 'jda-utilities', version: '3.0.5'
     implementation group: 'me.duncte123', name: 'botCommons', version: '2.0.122'
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
