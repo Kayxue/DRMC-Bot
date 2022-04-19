@@ -67,7 +67,7 @@ public class SourceBinCommand implements ICommand {
                         .setTitle(postrequestjson.getString("key"), "https://sourceb.in/" + postrequestjson.getString("key"))
                         .setDescription("```" + (languageid != 372 ? ctx.getArgs().get(0) : "") + "\n" + messagecontent.substring(messagecontent.indexOf(ctx.getArgs().get(1))) + "```")
                         .setColor(0xfb5756);
-                ctx.getChannel().sendMessage(builder.build()).addFile(icon, "icon.png").queue();
+                ctx.getChannel().sendMessageEmbeds(builder.build()).addFile(icon, "icon.png").queue();
             } else {
                 System.out.println(postresponse.message());
             }

@@ -21,7 +21,7 @@ public class HasteCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
 
-        final TextChannel channel = ctx.getChannel();
+        final TextChannel channel = (TextChannel) ctx.getChannel();
 
         if (ctx.getArgs().isEmpty()) {
             channel.sendMessage("Missing arguments").queue();

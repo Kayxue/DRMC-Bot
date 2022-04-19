@@ -3,8 +3,9 @@ package DRMCBot.Utils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,11 +28,11 @@ public class Paginator extends ListenerAdapter {
     private Thread countdownThread;
     private Thread addReaction;
 
-    public Paginator(List<EmbedBuilder> embeds, int secondToReact, TextChannel channel) {
+    public Paginator(List<EmbedBuilder> embeds, int secondToReact, MessageChannel channel) {
         this.embeds = embeds;
         this.secondToReact = secondToReact;
         this.timeLeft = new AtomicInteger(secondToReact);
-        this.message = channel.sendMessage(embeds.get(0).build()).complete();
+        this.message = channel.sendMessageEmbeds(embeds.get(0).build()).complete();
     }
 
     public void start() {
@@ -60,7 +61,7 @@ public class Paginator extends ListenerAdapter {
     }
 
     @Override
-    public void onGuildMessageReactionAdd(@NotNull GuildMessageReactionAddEvent event) {
+    public void onMessageReactionAdd(@NotNull MessageReactionAddEvent event) {
         if (message.getId().equals(event.getMessageId()) && !event.getUser().isBot()) {
             boolean changepage = false;
             timeLeft = new AtomicInteger(secondToReact);
@@ -102,7 +103,7 @@ public class Paginator extends ListenerAdapter {
                 }
             }
             if (changepage) {
-                message.editMessage(embeds.get(nowEmbed).build()).queue();
+                message.editMessageEmbeds(embeds.get(nowEmbed).build()).queue();
             }
         }
     }

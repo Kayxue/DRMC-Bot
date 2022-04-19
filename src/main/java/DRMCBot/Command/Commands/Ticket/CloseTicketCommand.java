@@ -26,7 +26,7 @@ public class CloseTicketCommand implements ICommand {
         }
         JSONObject jsonObject = mongoDbDataSource.getguildticketcategory(ctx.getGuild().getIdLong());
         Category ticketcategory = ctx.getGuild().getCategoryById(jsonObject.getLong("categoryid"));
-        TextChannel ticketchannel = ctx.getChannel();
+        TextChannel ticketchannel = (TextChannel) ctx.getChannel();
         if (!ticketcategory.getChannels().contains(ticketchannel)) {
             ctx.getChannel().sendMessage("此指令無法用在非票口頻道！").queue();
             return;

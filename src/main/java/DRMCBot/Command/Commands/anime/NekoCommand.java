@@ -23,7 +23,7 @@ public class NekoCommand implements ICommand {
         if (response.code() == 200) {
             JSONObject jsonObject = new JSONObject(response.body().string());
             EmbedBuilder embed = EmbedUtils.embedImage(jsonObject.getString("url"));
-            ctx.getChannel().sendMessage(embed.build()).queue();
+            ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
         } else {
             ctx.getChannel().sendMessage("伺服器有點問題，請稍後再試！").queue();
         }

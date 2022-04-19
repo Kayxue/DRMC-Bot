@@ -2,7 +2,7 @@ package DRMCBot.Command.Commands.Hypixel;
 
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
-import DRMCBot.EnvironmentVariable;
+import DRMCBot.Config;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.hypixel.api.HypixelAPI;
@@ -10,12 +10,13 @@ import net.hypixel.api.reply.BoostersReply;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public class GetHypixelServerBoosterCommand implements ICommand {
 
     @Override
     public void handle(CommandContext ctx) {
-        HypixelAPI api = new HypixelAPI(EnvironmentVariable.uuid);
+        HypixelAPI api = new HypixelAPI(UUID.fromString(Config.get("HypixelKey")));
         api.getBoosters().whenCompleteAsync(
                 (reply, throwable) -> {
                     String output = "";
@@ -46,7 +47,7 @@ public class GetHypixelServerBoosterCommand implements ICommand {
                         EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                                 .setTitle("目前Hypixel加成名單")
                                 .setDescription(output);
-                        ctx.getChannel().sendMessage(embed.build()).queue();
+                        ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
                     }
                 }
         );

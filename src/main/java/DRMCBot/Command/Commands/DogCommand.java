@@ -21,7 +21,7 @@ public class DogCommand implements ICommand {
                     if ("success".equals(json.get("status").asText())) {
                         String url = json.get("message").asText();
                         EmbedBuilder embedBuilder = EmbedUtils.embedImage(url);
-                        ctx.getChannel().sendMessage(embedBuilder.build()).queue();
+                        ctx.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
                     } else {
                         ctx.getChannel().sendMessage("API出錯了！").queue();
                     }

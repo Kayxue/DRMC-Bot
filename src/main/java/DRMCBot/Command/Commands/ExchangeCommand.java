@@ -65,7 +65,7 @@ public class ExchangeCommand implements ICommand {
                                     * json.get("USD" + to).get("Exrate").asDouble()) + " " + to)
                             .setFooter("感謝即匯站提供匯率！\n更新時間：" + " " + json.get("USD" + from).get("UTC").asText());
 
-                    ctx.getChannel().sendMessage(embed.build()).queue();
+                    ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
                 },
                 Throwable::printStackTrace
         );

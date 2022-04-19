@@ -46,7 +46,7 @@ public class BotInfoCommand implements ICommand {
                 .addField("其他資訊", "**指令總數：**" + commandsCount + "\n" +
                         "**被邀請至伺服器數：**" + ctx.getJDA().getGuilds().size() + "\n" +
                         "**Java版本：**" + System.getProperty("java.version"), false)
-                .addField("JDA", "**版本：**``" + JDAInfo.VERSION_MAJOR + "." + JDAInfo.VERSION_MINOR + "." + JDAInfo.VERSION_REVISION + "_" + JDAInfo.VERSION_BUILD + "``\n" +
+                .addField("JDA", "**版本：**``" + JDAInfo.VERSION + "``\n" +
                         "**音訊Gateway版本：**``" + JDAInfo.AUDIO_GATEWAY_VERSION + "``\n" +
                         "**Gateway版本：**``" + JDAInfo.DISCORD_GATEWAY_VERSION + "``\n" +
                         "**Rest版本：**``" + JDAInfo.DISCORD_REST_VERSION + "``", false)
@@ -58,7 +58,7 @@ public class BotInfoCommand implements ICommand {
                         "**剩餘記憶體可用：**``" + appMemoryFree + "MB``\n", false)
                 .setThumbnail(self.getAvatarUrl())
                 .setFooter("機器人作者：" + botowner.getAsTag(), botowner.getAvatarUrl());
-        ctx.getChannel().sendMessage(embed.build()).queue();
+        ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
     }
 
     @Override

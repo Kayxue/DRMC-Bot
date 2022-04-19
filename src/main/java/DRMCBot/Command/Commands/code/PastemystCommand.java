@@ -72,7 +72,7 @@ public class PastemystCommand implements ICommand {
                 .addField("連結", pasteUrl, false)
                 .addField("程式碼", "```" + (languageName.equals("Plain Text") ? "" : args.get(0) + "\n") + codeToPaste + "```", false);
 
-        ctx.getChannel().sendMessage(embed.build()).queue();
+        ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
     }
 
     @Override

@@ -18,7 +18,7 @@ public class SaltyCommand implements ICommand {
             return;
         }
         EmbedBuilder embed = EmbedUtils.embedImage("https://api.alexflipnote.dev/salty?image=" + members.get(0).getUser().getAvatarUrl());
-        ctx.getChannel().sendMessage(embed.build()).queue();
+        ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
     }
 
     @Override

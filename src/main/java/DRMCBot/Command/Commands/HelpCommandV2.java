@@ -58,7 +58,7 @@ public class HelpCommandV2 implements ICommand {
             }
         }
         embed.setFooter("機器人由「" + botowner.getName() + "#" + botowner.getDiscriminator() + "」製作", botowner.getAvatarUrl());
-        ctx.getChannel().sendMessage(embed.build()).queue();
+        ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
     }
 
     @Override

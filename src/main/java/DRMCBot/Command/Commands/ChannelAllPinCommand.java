@@ -28,7 +28,7 @@ public class ChannelAllPinCommand implements ICommand {
             }
             embed.setDescription("```" + output + "```");
         }
-        ctx.getChannel().sendMessage(embed.build()).queue();
+        ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
     }
 
     @Override

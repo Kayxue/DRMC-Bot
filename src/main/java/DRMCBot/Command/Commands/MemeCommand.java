@@ -14,7 +14,7 @@ import java.util.List;
 public class MemeCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
-        final TextChannel channel=ctx.getChannel();
+        final TextChannel channel=(TextChannel) ctx.getChannel();
         WebUtils.ins.getJSONObject("https://apis.duncte123.me/meme").async((json)->{
             if(!json.get("success").asBoolean()){
                 channel.sendMessage("有地方出錯了，請稍後再試一次").queue();
@@ -28,7 +28,7 @@ public class MemeCommand implements ICommand {
             final String image=data.get("image").asText();
             final EmbedBuilder embed=EmbedUtils.embedImageWithTitle(title,url,image);
 
-            channel.sendMessage(embed.build()).queue();
+            channel.sendMessageEmbeds(embed.build()).queue();
         });
     }
 

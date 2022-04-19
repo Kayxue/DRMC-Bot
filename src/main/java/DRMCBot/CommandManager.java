@@ -6,9 +6,6 @@ import DRMCBot.Command.Commands.Giveaway.StartGiveawayCommand;
 import DRMCBot.Command.Commands.GiveawayTest.GiveawayWaitTestCommand;
 import DRMCBot.Command.Commands.GiveawayTest.RegularExpressionTestCommand;
 import DRMCBot.Command.Commands.Hypixel.GetHypixelServerBoosterCommand;
-import DRMCBot.Command.Commands.PaginatorUtilTest.ButtonizeTestCommand;
-import DRMCBot.Command.Commands.PaginatorUtilTest.CategoryTestCommand;
-import DRMCBot.Command.Commands.PaginatorUtilTest.PaginatorTestCommand;
 import DRMCBot.Command.Commands.Ticket.CloseTicketCommand;
 import DRMCBot.Command.Commands.Ticket.OpenTicketCommand;
 import DRMCBot.Command.Commands.admin.*;
@@ -26,7 +23,7 @@ import DRMCBot.Command.Commands.EightBallCommand;
 import DRMCBot.Command.ICommand;
 import DRMCBot.Command.Commands.music.QueueCommand;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -99,9 +96,6 @@ public class CommandManager {
         addCommand(new DuncanDiscordMonsterAPICommand());
         addCommand(new NewMainQRCodeCommand());
         addCommand(new ExchangeCommand());
-        addCommand(new PaginatorTestCommand());
-        addCommand(new CategoryTestCommand());
-        addCommand(new ButtonizeTestCommand());
         addCommand(new RemoveBackgroundCommand());
         addCommand(new SaltyCommand());
         addCommand(new LinguistParseJsonTestCommand());
@@ -132,7 +126,7 @@ public class CommandManager {
         return null;
     }
 
-    void handle(GuildMessageReceivedEvent event,String prefix) throws Exception {
+    void handle(MessageReceivedEvent event, String prefix) throws Exception {
         String[] split=event.getMessage().getContentRaw()
                 .replaceFirst("(?i)"+ Pattern.quote(prefix),"")
                 .split("\\s+");

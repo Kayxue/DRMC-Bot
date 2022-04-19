@@ -14,7 +14,7 @@ import java.util.List;
 public class SetPrefixCommand implements ICommand{
     @Override
     public void handle(CommandContext ctx) {
-        final TextChannel channel=ctx.getChannel();
+        final TextChannel channel=(TextChannel) ctx.getChannel();
         final List<String> args=ctx.getArgs();
         final Member member=ctx.getMember();
 

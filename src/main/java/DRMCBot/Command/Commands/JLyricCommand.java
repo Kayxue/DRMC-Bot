@@ -18,7 +18,7 @@ public class JLyricCommand implements ICommand {
         EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                 .setTitle(lyrics.getTitle() + "-" + lyrics.getAuthor())
                 .setDescription("```" + lyrics.getContent() + "```");
-        ctx.getChannel().sendMessage(embed.build()).queue();
+        ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
     }
 
     @Override

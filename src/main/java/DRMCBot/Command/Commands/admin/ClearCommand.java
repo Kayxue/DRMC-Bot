@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class ClearCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
-        TextChannel channel = ctx.getChannel();
+        TextChannel channel = (TextChannel) ctx.getChannel();
         Member me = ctx.getMember();
         Member bot= ctx.getSelfMember();
 

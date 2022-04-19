@@ -30,8 +30,8 @@ public class OpenTicketCommand implements ICommand {
                     textChannel -> {
                         textChannel.getManager().setTopic("票口開啟人：" + ctx.getAuthor().getName() + "#" + ctx.getAuthor().getDiscriminator()).queue();
                         Role everyone = ctx.getGuild().getPublicRole();
-                        Permission[] permissions = {Permission.MESSAGE_READ,
-                                Permission.MESSAGE_WRITE,
+                        Permission[] permissions = {Permission.VIEW_CHANNEL,
+                                Permission.MESSAGE_SEND,
                                 Permission.MESSAGE_HISTORY,
                                 Permission.MESSAGE_ADD_REACTION,
                                 Permission.MESSAGE_ATTACH_FILES};

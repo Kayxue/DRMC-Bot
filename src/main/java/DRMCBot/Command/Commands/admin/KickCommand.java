@@ -13,7 +13,7 @@ import java.util.List;
 public class KickCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
-        final TextChannel channel = ctx.getChannel();
+        final TextChannel channel = (TextChannel) ctx.getChannel();
         final Message message = ctx.getMessage();
         final Member member = ctx.getMember();
         final List<String> args = ctx.getArgs();

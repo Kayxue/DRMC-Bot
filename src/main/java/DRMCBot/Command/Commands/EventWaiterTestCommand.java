@@ -3,10 +3,11 @@ package DRMCBot.Command.Commands;
 import DRMCBot.Command.CommandContext;
 import DRMCBot.Command.ICommand;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageReaction;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +24,7 @@ public class EventWaiterTestCommand implements ICommand {
 
     @Override
     public void handle(CommandContext ctx) {
-        TextChannel channel= ctx.getChannel();
+        MessageChannel channel= ctx.getChannel();
         long channelid = channel.getIdLong();
         channel.sendMessage("Please react with " + EMOTE).queue(
                 message -> {
@@ -33,9 +34,9 @@ public class EventWaiterTestCommand implements ICommand {
         );
     }
 
-    private void initWaiter(long messageid, TextChannel channel) {
+    private void initWaiter(long messageid, MessageChannel channel) {
         waiter.waitForEvent(
-                GuildMessageReactionAddEvent.class,
+                MessageReactionAddEvent.class,
                 event -> {
                     MessageReaction.ReactionEmote emote = event.getReactionEmote();
                     User user = event.getUser();

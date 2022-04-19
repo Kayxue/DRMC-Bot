@@ -41,7 +41,7 @@ public class TinyurlCommand implements ICommand {
                         .addField("縮短後的連結：", requestbody, false)
                         .setFooter("感謝tinyurl.com提供此原服務！","https://lh3.googleusercontent.com/aG5YTLGKdPW1BkDuR9COXjaXsVDvabEJ97HSyyIdKKdSr-FQly---VoAAnvaAEMzuhY");
 
-                ctx.getChannel().sendMessage(embed.build()).queue();
+                ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
             }
         }
     }

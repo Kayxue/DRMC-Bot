@@ -62,7 +62,7 @@ public class DenyCommand implements ICommand {
                                 .addField("原因：", reasonstring, false)
                                 .setFooter(ctx.getAuthor().getName() + "#" + ctx.getAuthor().getDiscriminator(), ctx.getAuthor().getAvatarUrl());
                         Emote cross = ctx.getJDA().getEmotesByName("crossani", true).get(0);
-                        message.editMessage(cross.getAsMention()+" 建議已被駁回！").embed(embedBuilder.build()).queue(
+                        message.editMessage(cross.getAsMention()+" 建議已被駁回！").setEmbeds(embedBuilder.build()).queue(
                                 editmessage -> {
                                     Emote check=ctx.getJDA().getEmotesByName("checkani",true).get(0);
                                     editmessage.removeReaction(check).queue();
@@ -73,7 +73,7 @@ public class DenyCommand implements ICommand {
                         );
                         suggestionAuthor.openPrivateChannel().queue(
                                 channel -> {
-                                    channel.sendMessage("您提的建議已被駁回！原因為：" + reasonstring).embed(embedBuilder.build()).queue();
+                                    channel.sendMessage("您提的建議已被駁回！原因為：" + reasonstring).setEmbeds(embedBuilder.build()).queue();
                                     ctx.getChannel().sendMessage("建議已成功批准！").queue();
                                 },
                                 error -> {

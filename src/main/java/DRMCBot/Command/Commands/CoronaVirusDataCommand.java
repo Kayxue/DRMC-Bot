@@ -5,6 +5,7 @@ import DRMCBot.Command.ICommand;
 import DRMCBot.Utils.Paginator;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.TextChannel;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -85,7 +86,7 @@ public class CoronaVirusDataCommand implements ICommand {
                         .addField("總康復數", String.valueOf(toFind.getInt("TotalRecovered")), true)
                         .addField("新康復數", String.valueOf(toFind.getInt("NewRecovered")), true)
                         .setThumbnail("https://flagcdn.com/w160/" + toFind.getString("CountryCode").toLowerCase() + ".png");
-                ctx.getChannel().sendMessage(embed.build()).queue();
+                ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
             } else {
                 ctx.getChannel().sendMessage("找不到指定國家！").queue();
             }

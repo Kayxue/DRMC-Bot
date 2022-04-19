@@ -8,7 +8,7 @@ import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
-import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
@@ -41,7 +41,7 @@ public class MusicPlayerController extends ListenerAdapter {
         if (playerControllerMessage == null) {
             EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                     .setTitle("\u25B6正在播放：" + track.getInfo().title + " by " + track.getInfo().author, track.getInfo().uri);
-            playerControllerMessage = messageShowChannel.sendMessage(embed.build()).complete();
+            playerControllerMessage = messageShowChannel.sendMessageEmbeds(embed.build()).complete();
             nowPlaying = track;
             jda.addEventListener(this);
             new Thread(() -> {
@@ -57,14 +57,14 @@ public class MusicPlayerController extends ListenerAdapter {
             EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                     .setTitle("\u25B6正在播放：" + track.getInfo().title + " by " + track.getInfo().author, track.getInfo().uri);
             nowPlaying = track;
-            playerControllerMessage = playerControllerMessage.editMessage(embed.build()).complete();
+            playerControllerMessage = playerControllerMessage.editMessageEmbeds(embed.build()).complete();
         }
     }
 
     public void removeController() {
         if (playerControllerMessage != null) {
             EmbedBuilder embed = EmbedUtils.getDefaultEmbed().setTitle("播放已結束");
-            playerControllerMessage.editMessage(embed.build()).queue();
+            playerControllerMessage.editMessageEmbeds(embed.build()).queue();
             playerControllerMessage.clearReactions().queue();
         }
         jda.removeEventListener(this);
@@ -78,22 +78,22 @@ public class MusicPlayerController extends ListenerAdapter {
         if (isPausing) {
             EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                     .setTitle("\u23F8播放暫停中：" + nowPlaying.getInfo().title + " by " + nowPlaying.getInfo().author, nowPlaying.getInfo().uri);
-            playerControllerMessage = playerControllerMessage.editMessage(embed.build()).complete();
+            playerControllerMessage = playerControllerMessage.editMessageEmbeds(embed.build()).complete();
         } else {
             EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                     .setTitle("\u25B6正在播放：" + nowPlaying.getInfo().title + " by " + nowPlaying.getInfo().author, nowPlaying.getInfo().uri);
-            playerControllerMessage = playerControllerMessage.editMessage(embed.build()).complete();
+            playerControllerMessage = playerControllerMessage.editMessageEmbeds(embed.build()).complete();
         }
     }
 
     @Override
-    public void onGuildMessageReactionAdd(@NotNull GuildMessageReactionAddEvent event) {
+    public void onMessageReactionAdd(@NotNull MessageReactionAddEvent event) {
         if (event.getMessageIdLong() == playerControllerMessage.getIdLong() && !event.getUser().isBot()) {
-            final TextChannel channel = event.getChannel();
+            final TextChannel channel = (TextChannel) event.getChannel();
             final Member self = event.getGuild().getSelfMember();
             final GuildVoiceState selfVoiceState = self.getVoiceState();
 
-            if (!selfVoiceState.inVoiceChannel()) {
+            if (!selfVoiceState.inAudioChannel()) {
                 channel.sendMessage("我不在語音頻道內！").queue();
                 return;
             }
@@ -101,7 +101,7 @@ public class MusicPlayerController extends ListenerAdapter {
             final Member member = event.getMember();
             final GuildVoiceState memberVoiceState = member.getVoiceState();
 
-            if (!memberVoiceState.inVoiceChannel()){
+            if (!memberVoiceState.inAudioChannel()){
                 channel.sendMessage("你必須加入一個語音頻道！").queue();
                 return;
             }

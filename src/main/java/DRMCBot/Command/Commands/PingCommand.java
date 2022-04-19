@@ -14,7 +14,7 @@ public class PingCommand implements ICommand {
         JDA jda=ctx.getJDA();
         jda.getRestPing().queue(
                 (ping) -> ctx.getChannel()
-                        .sendMessage(EmbedUtils.getDefaultEmbed()
+                        .sendMessageEmbeds(EmbedUtils.getDefaultEmbed()
                                 .setTitle("回應資訊")
                                 .setDescription("運行於：``" + System.getProperty("os.name") + " (Ver. " + System.getProperty("os.version") + ")``" + "\n休息時回應: " + ping
                                         + "毫秒\n網路端回應: " + jda.getGatewayPing()

@@ -19,7 +19,7 @@ public class PasteCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
         final List<String> args=ctx.getArgs();
-        final TextChannel channel=ctx.getChannel();
+        final TextChannel channel=(TextChannel) ctx.getChannel();
 
         if(args.size()<2){
             channel.sendMessage("缺少參數！").queue();
@@ -42,7 +42,7 @@ public class PasteCommand implements ICommand {
                             .appendDescription(paste.getBody())
                             .appendDescription("```");
 
-                    channel.sendMessage(builder.build()).queue();
+                    channel.sendMessageEmbeds(builder.build()).queue();
                 })
         );
     }

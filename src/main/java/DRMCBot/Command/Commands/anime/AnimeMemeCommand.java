@@ -20,7 +20,7 @@ public class AnimeMemeCommand implements ICommand {
         Response response = client.newCall(request).execute();
         if (response.isSuccessful()) {
             EmbedBuilder embed = EmbedUtils.embedImage(new JSONObject(response.body().string()).getString("url"));
-            ctx.getChannel().sendMessage(embed.build()).queue();
+            ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
         } else {
             ctx.getChannel().sendMessage("抱歉伺服器出錯了！").queue();
         }

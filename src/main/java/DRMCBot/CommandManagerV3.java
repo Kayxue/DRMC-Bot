@@ -7,7 +7,7 @@ import DRMCBot.Command.ICommand;
 import DRMCBot.Swing.BotController;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -96,7 +96,7 @@ public class CommandManagerV3 {
         this.botController = new BotController(this, jda);
     }
 
-    void handle(GuildMessageReceivedEvent event, String prefix) throws Exception {
+    void handle(MessageReceivedEvent event, String prefix) throws Exception {
         String[] split = event.getMessage().getContentRaw()
                 .replaceFirst("(?i)" + Pattern.quote(prefix), "")
                 .split("\\s+");

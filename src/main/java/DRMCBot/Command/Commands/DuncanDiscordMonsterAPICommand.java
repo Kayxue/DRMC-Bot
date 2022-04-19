@@ -16,7 +16,7 @@ public class DuncanDiscordMonsterAPICommand implements ICommand {
         WebUtils.ins.getJSONObject("https://apis.duncte123.me/animal/discord-monster").async(
                 json -> {
                     EmbedBuilder embed = EmbedUtils.embedImageWithTitle("編號id：" + json.get("data").get("id").asInt(), null, json.get("data").get("file").asText());
-                    ctx.getChannel().sendMessage(embed.build()).queue();
+                    ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
                 },
                 error -> error.printStackTrace()
         );

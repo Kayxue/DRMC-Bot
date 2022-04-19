@@ -16,7 +16,7 @@ public class SetVolumeCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) throws Exception {
         final List<String> args = ctx.getArgs();
-        final TextChannel channel=ctx.getChannel();
+        final TextChannel channel=(TextChannel) ctx.getChannel();
         final Member self = ctx.getSelfMember();
         final GuildVoiceState selfVoiceState = self.getVoiceState();
         int volume;
@@ -43,7 +43,7 @@ public class SetVolumeCommand implements ICommand {
             return;
         }
 
-        if (!selfVoiceState.inVoiceChannel()) {
+        if (!selfVoiceState.inAudioChannel()) {
             ctx.getChannel().sendMessage("我不在語音頻道內！").queue();
             return;
         }
@@ -51,7 +51,7 @@ public class SetVolumeCommand implements ICommand {
         final Member member = ctx.getMember();
         final GuildVoiceState memberVoiceState = member.getVoiceState();
 
-        if (!memberVoiceState.inVoiceChannel()){
+        if (!memberVoiceState.inAudioChannel()){
             channel.sendMessage("你必須加入一個語音頻道！").queue();
             return;
         }
@@ -62,7 +62,7 @@ public class SetVolumeCommand implements ICommand {
             return;
         }
 
-        final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager(ctx.getChannel());
+        final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager((TextChannel) ctx.getChannel());
         manager.audioPlayer.setVolume(volume);
         ctx.getChannel().sendMessage("音量已設定成" + volume + "%").queue();
     }

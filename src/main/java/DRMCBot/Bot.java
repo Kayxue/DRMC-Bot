@@ -1,7 +1,6 @@
 package DRMCBot;
 
 import DRMCBot.Utils.Paginator;
-import com.github.ygimenez.method.Pages;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import me.duncte123.botcommons.web.WebUtils;
@@ -42,7 +41,7 @@ public class Bot {
                 GatewayIntent.DIRECT_MESSAGE_TYPING,
                 GatewayIntent.DIRECT_MESSAGES
         )
-                .enableCache(CacheFlag.VOICE_STATE, CacheFlag.CLIENT_STATUS, CacheFlag.ACTIVITY, CacheFlag.MEMBER_OVERRIDES, CacheFlag.EMOTE)
+                .enableCache(CacheFlag.ROLE_TAGS,CacheFlag.VOICE_STATE, CacheFlag.CLIENT_STATUS, CacheFlag.ACTIVITY, CacheFlag.MEMBER_OVERRIDES, CacheFlag.EMOTE)
                 .setChunkingFilter(ChunkingFilter.ALL)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .setBulkDeleteSplittingEnabled(true)
@@ -52,8 +51,6 @@ public class Bot {
                 .addEventListeners(new LogListener())
                 .addEventListeners(new AutoModerator())
                 .build();
-
-        Pages.activate(jda);
         Paginator.jda = jda;
     }
 

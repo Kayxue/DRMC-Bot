@@ -8,11 +8,8 @@ import com.google.api.services.youtube.model.SearchResult;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.GuildVoiceState;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.managers.AudioManager;
 
 import java.net.MalformedURLException;
@@ -32,7 +29,7 @@ public class PlayCommand implements ICommand {
 
     @Override
     public void handle(CommandContext ctx) {
-        final TextChannel channel=ctx.getChannel();
+        final TextChannel channel=(TextChannel) ctx.getChannel();
         final List<String> args = ctx.getArgs();
 
         if (args.isEmpty()){
@@ -47,14 +44,14 @@ public class PlayCommand implements ICommand {
         final GuildVoiceState memberVoiceState = member.getVoiceState();
         boolean selfJoinChannelWithTheCommand = false;
 
-        if (!memberVoiceState.inVoiceChannel()){
+        if (!memberVoiceState.inAudioChannel()){
             channel.sendMessage("請加入一個語音頻道！").queue();
             return;
         }
 
 
-        if (!selfVoiceState.inVoiceChannel()) {
-            if (memberVoiceState.inVoiceChannel()) {
+        if (!selfVoiceState.inAudioChannel()) {
+            if (memberVoiceState.inAudioChannel()) {
                 AudioManager manager = ctx.getGuild().getAudioManager();
                 manager.openAudioConnection(memberVoiceState.getChannel());
                 selfJoinChannelWithTheCommand = true;
@@ -72,8 +69,6 @@ public class PlayCommand implements ICommand {
 
         String link=String.join(" ",ctx.getArgs());
         PlayerManager manager = PlayerManager.getInstance();
-        System.out.println(link);
-        System.out.println(isUrl(link));
 
         if (!isUrl(link)) {
             youtubeSearch(link, ctx.getAuthor().getIdLong(), channel,
@@ -134,9 +129,9 @@ public class PlayCommand implements ICommand {
                 .setTitle("搜尋結果（20秒內回覆）：")
                 .setDescription(resultstring.toString());
 
-        Message botsent = channel.sendMessage(embed.build()).complete();
+        Message botsent = channel.sendMessageEmbeds(embed.build()).complete();
         waiter.waitForEvent(
-                GuildMessageReceivedEvent.class,
+                MessageReceivedEvent.class,
                 event -> {
                     int choose = -1;
                     try {

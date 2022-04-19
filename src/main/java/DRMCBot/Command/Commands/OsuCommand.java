@@ -67,7 +67,7 @@ public class OsuCommand implements ICommand {
                 .addField("加入時間", getTimeString(joinedWithZone), true)
                 .setThumbnail(useravatarurl)
                 .setImage(rankCardUrl);
-        ctx.getChannel().sendMessage(embed.build()).queue();
+        ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
     }
 
     private String getTimeString(ZonedDateTime dateTime) {

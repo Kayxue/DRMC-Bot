@@ -128,7 +128,7 @@ public class HelpCommand implements ICommand {
                             + "**giveaway**－抽獎類（目前暫停使用）", false);
         }
         embed.setFooter("機器人由「" + botowner.getName() + "#" + botowner.getDiscriminator() + "」製作", botowner.getAvatarUrl());
-        ctx.getChannel().sendMessage(embed.build()).queue();
+        ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
     }
 
     @Override

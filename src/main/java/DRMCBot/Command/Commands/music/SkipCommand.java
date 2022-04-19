@@ -15,11 +15,11 @@ import java.util.List;
 public class SkipCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
-        final TextChannel channel=ctx.getChannel();
+        final TextChannel channel=(TextChannel) ctx.getChannel();
         final Member self = ctx.getSelfMember();
         final GuildVoiceState selfVoiceState = self.getVoiceState();
 
-        if (!selfVoiceState.inVoiceChannel()) {
+        if (!selfVoiceState.inAudioChannel()) {
             ctx.getChannel().sendMessage("我不在語音頻道內！").queue();
             return;
         }
@@ -27,7 +27,7 @@ public class SkipCommand implements ICommand {
         final Member member = ctx.getMember();
         final GuildVoiceState memberVoiceState = member.getVoiceState();
 
-        if (!memberVoiceState.inVoiceChannel()){
+        if (!memberVoiceState.inAudioChannel()){
             channel.sendMessage("你必須加入一個語音頻道！").queue();
             return;
         }
@@ -38,7 +38,7 @@ public class SkipCommand implements ICommand {
             return;
         }
 
-        final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager(ctx.getChannel());
+        final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager((TextChannel) ctx.getChannel());
         final AudioPlayer audioPlayer = manager.audioPlayer;
 
         if (audioPlayer.getPlayingTrack() == null) {

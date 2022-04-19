@@ -6,10 +6,14 @@ import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.Category;
 
 import java.time.*;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+
+import static java.util.Locale.*;
 
 public class ServerinfoCommand implements ICommand {
     @Override
@@ -23,7 +27,7 @@ public class ServerinfoCommand implements ICommand {
         int offline;
         int membercount = guild.getMemberCount();
         String verification_level = "";
-        String region = "";
+        String locale = "";
         String two_factor;
         String timeCreatedString;
         boolean if_two_factor;
@@ -71,44 +75,25 @@ public class ServerinfoCommand implements ICommand {
             }
         }
 
-        switch (guild.getRegion()) {
-            case AMSTERDAM, VIP_AMSTERDAM -> region = "阿姆斯特丹";
-
-            case BRAZIL, VIP_BRAZIL -> region = "巴西";
-
-            case EU_CENTRAL, VIP_EU_CENTRAL -> region = "歐洲中部";
-
-            case EU_WEST, VIP_EU_WEST -> region = "歐洲西部";
-
-            case EUROPE -> region = "歐洲";
-
-            case FRANKFURT, VIP_FRANKFURT -> region = "法蘭克福";
-
-            case INDIA -> region = "印度";
-
-            case HONG_KONG -> region = "香港";
-
-            case JAPAN, VIP_JAPAN -> region = "日本";
-
-            case LONDON, VIP_LONDON -> region = "倫敦";
-
-            case RUSSIA -> region = "俄羅斯";
-
-            case SINGAPORE, VIP_SINGAPORE -> region = "新加坡";
-
-            case SOUTH_AFRICA, VIP_SOUTH_AFRICA -> region = "非洲南部";
-
-            case SOUTH_KOREA, VIP_SOUTH_KOREA -> region = "南韓";
-
-            case SYDNEY, VIP_SYDNEY -> region = "雪梨";
-
-            case US_CENTRAL, VIP_US_CENTRAL -> region = "美國中部";
-
-            case US_EAST, VIP_US_EAST -> region = "美國東部";
-
-            case US_SOUTH, VIP_US_SOUTH -> region = "美國南部";
-
-            case US_WEST, VIP_US_WEST -> region = "美國西部";
+        Locale guildLocale = guild.getLocale();
+        if (TAIWAN.equals(guildLocale)) {
+            locale = "台灣";
+        } else if (CHINA.equals(guildLocale)) {
+            locale = "中國";
+        } else if (FRENCH.equals(guildLocale)) {
+            locale = "法文";
+        } else if (GERMANY.equals(guildLocale)) {
+            locale = "德國";
+        } else if (ITALY.equals(guildLocale)) {
+            locale = "義大利";
+        } else if (JAPAN.equals(guildLocale)) {
+            locale = "日本";
+        } else if (UK.equals(guildLocale)) {
+            locale = "英國";
+        } else if (US.equals(guildLocale)) {
+            locale = "美國";
+        } else {
+            locale = guildLocale.getCountry();
         }
 
         String TimeLength = "";
@@ -179,13 +164,13 @@ public class ServerinfoCommand implements ICommand {
                 .addField("安全層級：",
                         "驗證等級：" + verification_level + "\n" +
                                 "兩步驗證：" + two_factor, true)
-                .addField("伺服器地區",region,true)
+                .addField("伺服器地區",locale,true)
                 .addField("伺服器創建時間", timeCreatedString,true)
                 .addField("服主",ownermention,true)
                 .setThumbnail(guild.getIconUrl())
                 .setFooter("伺服器ID："+guild.getId()+"\n"+ctx.getAuthor().getName()+"#"+ctx.getAuthor().getDiscriminator(),ctx.getAuthor().getAvatarUrl());
 
-        ctx.getChannel().sendMessage(embedBuilder.build()).queue();
+        ctx.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
     }
 
     public String formattime(int i) {

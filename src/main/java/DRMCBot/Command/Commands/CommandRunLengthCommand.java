@@ -58,7 +58,7 @@ public class CommandRunLengthCommand implements ICommand {
             EmbedBuilder embedBuilder = EmbedUtils.getDefaultEmbed()
                     .setTitle("指令" + args.get(0) + "執行時長")
                     .setDescription(gotcommandlength + "\n" + runcommandlength);
-            ctx.getChannel().sendMessage(embedBuilder.build()).queue();
+            ctx.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
         } else {
             ctx.getChannel().sendMessage("指令出錯！").queue();
         }

@@ -20,7 +20,7 @@ public class CatCommand implements ICommand {
                 json -> {
                     String url = json.get(0).get("url").asText();
                     EmbedBuilder embedBuilder = EmbedUtils.embedImage(url);
-                    ctx.getChannel().sendMessage(embedBuilder.build()).queue();
+                    ctx.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
                 },
                 error -> {
                     ctx.getChannel().sendMessage(error.getLocalizedMessage()).queue();

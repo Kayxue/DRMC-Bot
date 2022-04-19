@@ -19,20 +19,20 @@ public class HowGayCommand implements ICommand {
             EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                     .setTitle("Gay r8 Machine")
                     .setDescription("你是" + gay + "%同性戀");
-            ctx.getChannel().sendMessage(embed.build()).queue();
+            ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
         } else {
             if (ctx.getMessage().getMentionedMembers().size() == 0) {
                 Member member = ctx.getGuild().getMemberById(args.get(0));
                 EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                         .setTitle("Gay隨機機器")
                         .setDescription(member.getEffectiveName() + "是" + gay + "%同性戀");
-                ctx.getChannel().sendMessage(embed.build()).queue();
+                ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
             } else {
                 Member member = ctx.getMessage().getMentionedMembers().get(0);
                 EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                         .setTitle("Gay隨機機器")
                         .setDescription(member.getEffectiveName() + "是" + gay + "%同性戀");
-                ctx.getChannel().sendMessage(embed.build()).queue();
+                ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
             }
         }
     }

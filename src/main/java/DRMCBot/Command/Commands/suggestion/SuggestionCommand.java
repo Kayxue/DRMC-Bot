@@ -37,7 +37,7 @@ public class SuggestionCommand implements ICommand {
                 .setTitle("建議#" + channelandsuggestioncount.getInt("suggestioncount"))
                 .setDescription("建議內容："+suggestion);
 
-        suggestionsendchannel.sendMessage(embedBuilder.build()).queue(
+        suggestionsendchannel.sendMessageEmbeds(embedBuilder.build()).queue(
                 (message) -> {
                     final long messageId = message.getIdLong();
                     Document insertinfo = mongoDbDataSource.insertsuggestion(guildId, user.getIdLong(), messageId, suggestion);

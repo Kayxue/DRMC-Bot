@@ -35,7 +35,7 @@ public class DiscordJSDocumentationCommand implements ICommand {
         }
         JSONObject Embeddata = new JSONObject(responsebody);
         EmbedBuilder embed = DiscordJSEmbedParser(Embeddata, false);
-        ctx.getChannel().sendMessage(embed.build()).queue();
+        ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
     }
 
     @Override

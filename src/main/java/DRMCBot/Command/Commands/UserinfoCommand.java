@@ -190,7 +190,7 @@ public class UserinfoCommand implements ICommand {
                 .setFooter(member.getUser().getName() + "#" + member.getUser().getDiscriminator() + "\n" +
                         "ID:" + member.getUser().getId(), member.getUser().getAvatarUrl());
 
-        ctx.getChannel().sendMessage(embed.build()).queue();
+        ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
 
 
     }

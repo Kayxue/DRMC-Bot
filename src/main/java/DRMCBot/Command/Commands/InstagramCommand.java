@@ -17,7 +17,7 @@ public class InstagramCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
         final List<String> args=ctx.getArgs();
-        final TextChannel channel=ctx.getChannel();
+        final TextChannel channel=(TextChannel) ctx.getChannel();
 
         if(args.isEmpty()){
             channel.sendMessage("請指定您要查詢的使用者名稱！");
@@ -53,7 +53,7 @@ public class InstagramCommand implements ICommand {
                             uploads
                     ))
                     .setImage(getLatestImage(json.get("images")));
-            channel.sendMessage(embed.build()).queue();
+            channel.sendMessageEmbeds(embed.build()).queue();
         });
     }
 

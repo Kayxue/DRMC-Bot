@@ -79,7 +79,7 @@ public class AccuWeatherCommand implements ICommand {
                         .addField("目前UV指數：", String.valueOf(weatherDataResult.getInt("UVIndex")), true)
                         .addField("目前降水類型：", !weatherDataResult.getBoolean("HasPrecipitation") ? "無降水" : weatherDataResult.getString("PrecipitationType"), true)
                         .setFooter("資料提供者：AccuWeather (https://www.accuweather.com/)\n資料更新時間：" + weatherDataResult.getString("LocalObservationDateTime").split("T")[0] + " " + weatherDataResult.getString("LocalObservationDateTime").split("T")[1].substring(0, 8), "https://lh3.ggpht.com/7BB1gD1EJ9g2mcqHfAtMuP0Z5Zg1a1syl4l8GTGIXFUUUpTSbg_txXw99YAVUZ9B8A=h300");
-                ctx.getChannel().sendMessage(embed.build()).queue();
+                ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
             } else {
                 EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                         .setTitle(cityName + "現在天氣")
@@ -96,7 +96,7 @@ public class AccuWeatherCommand implements ICommand {
                         .addField("氣壓：", "**目前氣壓大小：**" + weatherDataResult.getJSONObject("Pressure").getJSONObject("Metric").getInt("Value") + "毫巴"
                                 + "\n氣壓趨勢：" + weatherDataResult.getJSONObject("PressureTendency").getString("LocalizedText"), true)
                         .setFooter("資料提供者：AccuWeather (https://www.accuweather.com/)\n資料更新時間：" + weatherDataResult.getString("LocalObservationDateTime").split("T")[0] + " " + weatherDataResult.getString("LocalObservationDateTime").split("T")[1].substring(0, 8)+"（GMT+"+weatherDataResult.getString("LocalObservationDateTime").split("\\+")[1]+"）", "https://lh3.ggpht.com/7BB1gD1EJ9g2mcqHfAtMuP0Z5Zg1a1syl4l8GTGIXFUUUpTSbg_txXw99YAVUZ9B8A=h300");
-                ctx.getChannel().sendMessage(embed.build()).queue();
+                ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
             }
         } else {
             Request weatherDataRequest = new Request.Builder()
@@ -145,7 +145,7 @@ public class AccuWeatherCommand implements ICommand {
                                         + "**月亮形狀：**" + Moon.getString("Phase"), true)
                         .addBlankField(true)
                         .setFooter("資料提供者：AccuWeather (https://www.accuweather.com/)", "https://lh3.ggpht.com/7BB1gD1EJ9g2mcqHfAtMuP0Z5Zg1a1syl4l8GTGIXFUUUpTSbg_txXw99YAVUZ9B8A=h300");
-                ctx.getChannel().sendMessage(embed.build()).queue();
+                ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
             } else {
                 EmbedBuilder embed = EmbedUtils.getDefaultEmbed()
                         .setTitle(cityName + HeadLine.getString("Text"))
@@ -159,7 +159,7 @@ public class AccuWeatherCommand implements ICommand {
                         .addField("早上：", "**天氣：**" + DayData.getString("IconPhrase") + "\n降雨機率：" + DayData.getInt("PrecipitationProbability") + "%", true)
                         .addField("晚上：", "**天氣：**" + NightData.getString("IconPhrase") + "\n降雨機率：" + NightData.getInt("PrecipitationProbability") + "%", true)
                         .setFooter("資料提供者：AccuWeather (https://www.accuweather.com/)", "https://lh3.ggpht.com/7BB1gD1EJ9g2mcqHfAtMuP0Z5Zg1a1syl4l8GTGIXFUUUpTSbg_txXw99YAVUZ9B8A=h300");
-                ctx.getChannel().sendMessage(embed.build()).queue();
+                ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
             }
         }
     }

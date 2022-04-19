@@ -15,7 +15,7 @@ public class MinecraftCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
         final List<String> args = ctx.getArgs();
-        final TextChannel channel = ctx.getChannel();
+        final TextChannel channel =(TextChannel) ctx.getChannel();
 
         if (args.size() < 2) {
             channel.sendMessage("正確用法：minecraft uuid/names <username/uuid>").queue();

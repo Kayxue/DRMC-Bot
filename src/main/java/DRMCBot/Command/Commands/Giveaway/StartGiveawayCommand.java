@@ -8,7 +8,7 @@ import me.duncte123.botcommons.messaging.EmbedUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
-import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
@@ -33,7 +33,7 @@ public class StartGiveawayCommand implements ICommand {
 
     @Override
     public void handle(CommandContext ctx) {
-        if (!ctx.getSelfMember().hasPermission(Permission.MESSAGE_WRITE)) {
+        if (!ctx.getSelfMember().hasPermission(Permission.MESSAGE_SEND)) {
             return;
         }
 
@@ -64,12 +64,12 @@ public class StartGiveawayCommand implements ICommand {
         EmbedBuilder embedBuilder = EmbedUtils.getDefaultEmbed()
                 .setTitle("請注意！確定舉辦？")
                 .setDescription("此機器人因處於開發階段，開發員會經常關閉bot而造成有時抽獎結束開獎時bot無法開獎而造成您必須自行開獎，若您無法接受，請使用其他機器人開獎！");
-        ctx.getChannel().sendMessage(embedBuilder.build()).queue(
+        ctx.getChannel().sendMessageEmbeds(embedBuilder.build()).queue(
                 message -> {
                     message.addReaction(toReact.get(0)).queue();
                     message.addReaction(toReact.get(1)).queue();
                     waiter.waitForEvent(
-                            GuildMessageReactionAddEvent.class,
+                            MessageReactionAddEvent.class,
                             event -> {
                                 MessageReaction.ReactionEmote emote = event.getReactionEmote();
                                 User user = event.getUser();
@@ -115,7 +115,7 @@ public class StartGiveawayCommand implements ICommand {
 
     private class GiveawayRunner {
         public long Second;
-        public TextChannel GiveawayMessageChannel;
+        public MessageChannel GiveawayMessageChannel;
         public Message GiveawayMessage;
         public String price;
         public int winnerCount;
@@ -124,7 +124,7 @@ public class StartGiveawayCommand implements ICommand {
         public String CreatedDay;
         public String EndDay;
 
-        public GiveawayRunner(long second, TextChannel channel, int winnerCount, String price, Member creator) {
+        public GiveawayRunner(long second, MessageChannel channel, int winnerCount, String price, Member creator) {
             this.Second = second;
             this.GiveawayMessageChannel = channel;
             this.winnerCount = winnerCount;
@@ -146,7 +146,7 @@ public class StartGiveawayCommand implements ICommand {
                     .setTitle(":tada: 抽獎已開始！")
                     .setDescription("**抽獎獎項：**" + price + "\n" + "**抽出人數：**" + winnerCount + "\n**剩餘時間：**" + d + "天" + h + "小時" + m + "分" + s + "秒")
                     .setFooter("由" + GiveawayCreator.getUser().getAsTag() + "舉辦\n" + "將結束於：" + EndDay + " (GMT+08:00)", GiveawayCreator.getUser().getAvatarUrl());
-            GiveawayMessage = GiveawayMessageChannel.sendMessage(embedBuilder.build()).complete();
+            GiveawayMessage = GiveawayMessageChannel.sendMessageEmbeds(embedBuilder.build()).complete();
             GiveawayMessage.addReaction(toReactGiveawayEmoji).complete();
             Cache.RunningGiveaway.put(GiveawayMessageChannel.getId() + GiveawayMessage.getId(), Second);
             new Thread(this::Run).start();
@@ -165,7 +165,7 @@ public class StartGiveawayCommand implements ICommand {
                             .setTitle(":tada: 抽獎已開始！")
                             .setDescription("**抽獎獎項：**" + price + "\n" + "**抽出人數：**" + winnerCount + "\n**剩餘時間：**" + d + "天" + h + "小時" + m + "分" + s + "秒")
                             .setFooter("由" + GiveawayCreator.getUser().getAsTag() + "舉辦\n" + "將結束於：" + EndDay + " (GMT+08:00)", GiveawayCreator.getUser().getAvatarUrl());
-                    GiveawayMessage.editMessage(embedBuilder.build()).queue();
+                    GiveawayMessage.editMessageEmbeds(embedBuilder.build()).queue();
                 }
                 if (!Cache.RunningGiveaway.containsKey(GiveawayMessageChannel.getId() + GiveawayMessage.getId())) {
                     toRoll = false;
@@ -205,7 +205,7 @@ public class StartGiveawayCommand implements ICommand {
                             .setDescription("**抽獎獎項：**" + price + "\n**得獎者：**" + winner)
                             .setFooter("由" + GiveawayCreator.getUser().getAsTag() + "舉辦\n" + "已結束於：" + EndDay + " (GMT+08:00)", GiveawayCreator.getUser().getAvatarUrl())
                             .setColor(0x0DFC3D);
-                    GiveawayMessage.editMessage(embedBuilder.build()).queue();
+                    GiveawayMessage.editMessageEmbeds(embedBuilder.build()).queue();
                     GiveawayMessageChannel.sendMessage(":tada: 恭喜" + winner + "！" + (winnerCount == 1 ? "你們" : "你") + "成功獲得了" + price + "！").queue();
 
                 } else {
@@ -214,7 +214,7 @@ public class StartGiveawayCommand implements ICommand {
                             .setDescription("**抽獎獎項：**" + price + "\n**得獎者：**" + "沒有人")
                             .setFooter("由" + GiveawayCreator.getUser().getAsTag() + "舉辦\n" + "已結束於：" + EndDay + " (GMT+08:00)", GiveawayCreator.getUser().getAvatarUrl())
                             .setColor(0x0DFC3D);
-                    GiveawayMessage.editMessage(embedBuilder.build()).queue();
+                    GiveawayMessage.editMessageEmbeds(embedBuilder.build()).queue();
                     GiveawayMessageChannel.sendMessage("沒有人參加此次抽獎喔！").queue();
                 }
                 Cache.RunningGiveaway.remove(GiveawayMessage.getChannel().getId() + GiveawayMessage.getId());

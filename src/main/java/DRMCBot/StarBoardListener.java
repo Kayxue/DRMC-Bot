@@ -1,14 +1,15 @@
 package DRMCBot;
 
-import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import org.jetbrains.annotations.NotNull;
 
 public class StarBoardListener extends ListenerAdapter {
     @Override
-    public void onGuildMessageReactionAdd(@NotNull GuildMessageReactionAddEvent event) {
-        if (event.getUser().isBot()) {
+    public void onMessageReactionAdd(@NotNull MessageReactionAddEvent event) {
+        if (event.getUser().isBot()||!event.isFromGuild()) {
             return;
         }
 

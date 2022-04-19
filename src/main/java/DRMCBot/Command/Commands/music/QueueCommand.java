@@ -18,9 +18,9 @@ import java.util.concurrent.BlockingQueue;
 public class QueueCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) {
-        final TextChannel channel=ctx.getChannel();
+        final TextChannel channel=(TextChannel) ctx.getChannel();
         final PlayerManager playerManager=PlayerManager.getInstance();
-        final GuildMusicManager musicManager=playerManager.getMusicManager(ctx.getChannel());
+        final GuildMusicManager musicManager=playerManager.getMusicManager((TextChannel) ctx.getChannel());
         BlockingQueue<AudioTrack> queue=musicManager.scheduler.queue;
 
         if (queue.isEmpty()){
@@ -43,7 +43,7 @@ public class QueueCommand implements ICommand {
             ));
         }
 
-        channel.sendMessage(builder.build()).queue();
+        channel.sendMessageEmbeds(builder.build()).queue();
     }
 
     @Override

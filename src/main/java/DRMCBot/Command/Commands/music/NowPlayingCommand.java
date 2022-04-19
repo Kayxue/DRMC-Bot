@@ -28,11 +28,11 @@ import java.util.concurrent.TimeUnit;
 public class NowPlayingCommand implements ICommand {
     @Override
     public void handle(CommandContext ctx) throws Exception{
-        final TextChannel channel=ctx.getChannel();
+        final TextChannel channel=(TextChannel) ctx.getChannel();
         final Member self = ctx.getSelfMember();
         final GuildVoiceState selfVoiceState = self.getVoiceState();
 
-        if (!selfVoiceState.inVoiceChannel()) {
+        if (!selfVoiceState.inAudioChannel()) {
             ctx.getChannel().sendMessage("我不在語音頻道內！").queue();
             return;
         }
@@ -40,7 +40,7 @@ public class NowPlayingCommand implements ICommand {
         final Member member = ctx.getMember();
         final GuildVoiceState memberVoiceState = member.getVoiceState();
 
-        if (!memberVoiceState.inVoiceChannel()){
+        if (!memberVoiceState.inAudioChannel()){
             channel.sendMessage("你必須加入一個語音頻道！").queue();
             return;
         }
@@ -51,7 +51,7 @@ public class NowPlayingCommand implements ICommand {
             return;
         }
 
-        final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager(ctx.getChannel());
+        final GuildMusicManager manager= PlayerManager.getInstance().getMusicManager((TextChannel) ctx.getChannel());
         final AudioPlayer player = manager.audioPlayer;
         final AudioTrack track = player.getPlayingTrack();
 
@@ -83,7 +83,7 @@ public class NowPlayingCommand implements ICommand {
 
         ImageIO.write(imageToEdit, "png", new File(loadingBarFile));
         File loadingbar = new File(loadingBarFile);
-        channel.sendMessage(
+        channel.sendMessageEmbeds(
                 EmbedUtils.getDefaultEmbed()
                         .setDescription(String.format("**正在播放：** [%s](%s)\n%s %s － %s", info.title, info.uri, player.isPaused() ? "\u23F8" : "▶", formatTime(player.getPlayingTrack().getPosition()), formatTime(player.getPlayingTrack().getDuration())))
                         .setImage("attachment://" + loadingBarFile)

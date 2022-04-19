@@ -3,9 +3,12 @@ package DRMCBot.Database;
 import DRMCBot.Config;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.JsonObject;
-import com.mongodb.MongoClient;
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import org.bson.Document;
 import org.json.JSONObject;
@@ -25,9 +28,12 @@ public class MongoDbDataSource implements DatabaseManager{
     MongoCollection<Document> prefixdata;
 
     public MongoDbDataSource() {
-        MongoClientURI uri = new MongoClientURI(
-                "mongodb+srv://Kay:Kay20030910@kaybotjava.ojh3g.gcp.mongodb.net/test?retryWrites=true&w=majority");
-        client = new MongoClient(uri);
+        ConnectionString connectionString = new ConnectionString("mongodb+srv://Kay:<password>@kaybotjava.ojh3g.gcp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+        MongoClientSettings settings = MongoClientSettings.builder()
+                .applyConnectionString(connectionString)
+                .build();
+        client = MongoClients.create(settings);
+
         serversettingdata = client.getDatabase("KayBotJava").getCollection("serversetting");
         suggestiondata = client.getDatabase("KayBotJava").getCollection("serversuggestion");
         prefixdata = client.getDatabase("KayBotJava").getCollection("prefix");

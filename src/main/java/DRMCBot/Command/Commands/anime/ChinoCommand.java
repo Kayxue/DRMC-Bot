@@ -86,7 +86,7 @@ public class ChinoCommand implements ICommand {
 
                 System.out.println(pictureurl);
 
-                ctx.getChannel().sendMessage(embedBuilder.build()).addFile(outputFile, "chino.png").queue();
+                ctx.getChannel().sendMessageEmbeds(embedBuilder.build()).addFile(outputFile, "chino.png").queue();
                 outputFile.deleteOnExit();
             }
         }

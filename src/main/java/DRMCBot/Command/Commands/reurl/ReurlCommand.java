@@ -52,7 +52,7 @@ public class ReurlCommand implements ICommand {
                         .addField("縮短後的連結：", jsonrequest.getString("short_url"), false)
                         .setFooter("感謝reurl.cc提供此原服務！","https://lh3.googleusercontent.com/MXk9tuquBOx_jIH7z7g6plnivJFne63xlhzOwhmzHP4_Cr74ByCPMNS3LqV4UqAAhAntpZoR=w128-h128-e365-rj-sc0x00ffffff");
 
-                ctx.getChannel().sendMessage(embed.build()).queue();
+                ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
             }
         } else {
             ctx.getChannel().sendMessage("請輸入有效連結！").queue();

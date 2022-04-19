@@ -16,7 +16,7 @@ public class NewMainQRCodeCommand implements ICommand {
             return;
         }
         EmbedBuilder embed = EmbedUtils.embedImage("https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + String.join("%20", ctx.getArgs()));
-        ctx.getChannel().sendMessage(embed.build()).queue();
+        ctx.getChannel().sendMessageEmbeds(embed.build()).queue();
     }
 
     @Override
